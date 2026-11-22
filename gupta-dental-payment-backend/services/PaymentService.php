@@ -21,37 +21,173 @@ class PaymentService
         $this->db = Database::connect();
     }
 
-    public function createOrder(): array
+    public function createOrder(int $patientEnquiryId): array
     {
-        $receipt = 'GDC-ORD-' . strtoupper(bin2hex(random_bytes(6)));
+        $this->db->beginTransaction();
 
-        $order = $this->razorpay->order->create([
-            'receipt' => $receipt,
-            'amount' => ENQUIRY_FEE_PAISE,
-            'currency' => PAYMENT_CURRENCY,
-            'notes' => ['purpose' => 'Dental clinic enquiry fee'],
-        ]);
+        try {
+            $enquiryStmt = $this->db->prepare(
+                'SELECT id, request_key_hash, enquiry_status
+                 FROM patient_enquiries
+                 WHERE id = ?
+                 LIMIT 1
+                 FOR UPDATE'
+            );
+            $enquiryStmt->execute([$patientEnquiryId]);
+            $enquiry = $enquiryStmt->fetch();
 
-        $orderId = (string) $order['id'];
+            if (!$enquiry) {
+                throw new RuntimeException('Patient enquiry not found.');
+            }
 
+            $record = $this->findPaymentRecordForEnquiry($patientEnquiryId, true);
+
+            if ($record) {
+                $this->db->commit();
+
+                if ($record['razorpay_order_id'] === null) {
+                    return $this->recoverUnlinkedOrder(
+                        $record,
+                        $this->receiptForEnquiry($enquiry)
+                    );
+                }
+
+                return $this->formatOrderResponse($record);
+            }
+
+            if ($enquiry['enquiry_status'] === 'payment_confirmed') {
+                throw new RuntimeException(
+                    'Confirmed enquiry has no linked payment record.'
+                );
+            }
+
+            $stmt = $this->db->prepare(
+                'INSERT INTO payment_records
+                    (patient_enquiry_id, amount_paise, currency, payment_status,
+                     order_creation_status)
+                 VALUES (?, ?, ?, ?, ?)'
+            );
+            $stmt->execute([
+                $patientEnquiryId,
+                ENQUIRY_FEE_PAISE,
+                PAYMENT_CURRENCY,
+                'created',
+                'creating',
+            ]);
+            $recordId = (int) $this->db->lastInsertId();
+            $this->db->commit();
+        } catch (Throwable $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            throw $e;
+        }
+
+        $receipt = $this->receiptForEnquiry($enquiry);
+
+        try {
+            $order = $this->razorpay->order->create([
+                'receipt' => $receipt,
+                'amount' => ENQUIRY_FEE_PAISE,
+                'currency' => PAYMENT_CURRENCY,
+                'notes' => ['purpose' => 'Dental clinic enquiry fee'],
+            ])->toArray();
+
+            return $this->saveCreatedOrder($recordId, $receipt, $order);
+        } catch (Throwable $creationError) {
+            $this->markOrderCreationUnknown($recordId);
+            $record = $this->findPaymentRecordForEnquiry($patientEnquiryId);
+
+            if (!$record) {
+                throw new RuntimeException(
+                    'The payment order could not be saved. Check its status before retrying.',
+                    0,
+                    $creationError
+                );
+            }
+
+            try {
+                $recovered = $this->recoverUnlinkedOrder($record, $receipt);
+            } catch (Throwable $lookupError) {
+                throw new RuntimeException(
+                    'Razorpay order creation could not be confirmed. Check its status before retrying.',
+                    0,
+                    $lookupError
+                );
+            }
+
+            if ($recovered['order_id'] !== null) {
+                return $recovered;
+            }
+
+            throw new RuntimeException(
+                'Razorpay order creation could not be confirmed. Check its status before retrying.',
+                0,
+                $creationError
+            );
+        }
+    }
+
+    public function getPaymentStateForEnquiry(int $patientEnquiryId): array
+    {
+        $this->createOrder($patientEnquiryId);
+        $record = $this->findPaymentRecordForEnquiry($patientEnquiryId);
+
+        if (!$record) {
+            throw new RuntimeException('Payment order is not available.');
+        }
+
+        if ($record['razorpay_order_id'] === null) {
+            return $this->formatOrderResponse($record);
+        }
+
+        if ($record['payment_status'] !== 'captured') {
+            $this->reconcileOrderPayments((string) $record['razorpay_order_id']);
+            $record = $this->findPaymentRecordForEnquiry($patientEnquiryId);
+        }
+
+        if (!$record) {
+            throw new RuntimeException('Payment order is not available.');
+        }
+
+        return $this->formatOrderResponse($record);
+    }
+
+    public function getCapturedConfirmationForOrder(string $orderId): ?array
+    {
         $stmt = $this->db->prepare(
-            'INSERT INTO payment_records
-                (razorpay_order_id, amount_paise, currency, payment_status)
-             VALUES (?, ?, ?, ?)'
+            'SELECT e.full_name, e.primary_phone, e.reason_for_visit,
+                    p.enquiry_reference, p.razorpay_payment_id,
+                    p.amount_paise, p.currency, p.verified_at
+             FROM payment_records p
+             INNER JOIN patient_enquiries e ON e.id = p.patient_enquiry_id
+             WHERE p.razorpay_order_id = ?
+               AND p.payment_status = ?
+               AND p.enquiry_reference IS NOT NULL
+               AND p.razorpay_payment_id IS NOT NULL
+               AND e.enquiry_status = ?
+             LIMIT 1'
         );
+        $stmt->execute([$orderId, 'captured', 'payment_confirmed']);
+        $confirmation = $stmt->fetch();
 
-        $stmt->execute([
-            $orderId,
-            ENQUIRY_FEE_PAISE,
-            PAYMENT_CURRENCY,
-            'created',
-        ]);
+        if (!$confirmation) {
+            return null;
+        }
 
         return [
-            'order_id' => $orderId,
-            'amount' => ENQUIRY_FEE_PAISE,
-            'currency' => PAYMENT_CURRENCY,
-            'key_id' => RAZORPAY_KEY_ID,
+            'full_name' => (string) $confirmation['full_name'],
+            'primary_phone' => (string) $confirmation['primary_phone'],
+            'reason_for_visit' => (string) $confirmation['reason_for_visit'],
+            'reference' => (string) $confirmation['enquiry_reference'],
+            'payment_id' => (string) $confirmation['razorpay_payment_id'],
+            'amount_paise' => (int) $confirmation['amount_paise'],
+            'currency' => (string) $confirmation['currency'],
+            'payment_status' => 'captured',
+            'verified_at' => $confirmation['verified_at'] === null
+                ? null
+                : (string) $confirmation['verified_at'],
         ];
     }
 
@@ -78,81 +214,14 @@ class PaymentService
             throw new RuntimeException('Payment is not in a verifiable state.');
         }
 
-        if ((string) ($payment['order_id'] ?? '') !== $orderId) {
+        if (
+            (string) ($payment['id'] ?? '') !== $paymentId ||
+            (string) ($payment['order_id'] ?? '') !== $orderId
+        ) {
             throw new RuntimeException('Payment does not belong to this order.');
         }
 
-        $this->db->beginTransaction();
-
-        try {
-            $record = $this->lockOrderRecord($orderId);
-            $this->validatePaymentAgainstOrder($payment, $record);
-            $this->savePaymentAttempt((int) $record['id'], $payment, true);
-
-            $reference = $record['enquiry_reference'];
-
-            if ($paymentStatus === 'captured') {
-                if ($reference === null) {
-                    $reference = $this->allocateEnquiryReference((int) $record['id']);
-
-                    $stmt = $this->db->prepare(
-                        'UPDATE payment_records
-                         SET enquiry_reference = ?,
-                             razorpay_payment_id = ?,
-                             payment_status = ?,
-                             signature_verified = TRUE,
-                             verified_at = CURRENT_TIMESTAMP
-                         WHERE id = ?'
-                    );
-
-                    $stmt->execute([
-                        $reference,
-                        $paymentId,
-                        'captured',
-                        $record['id'],
-                    ]);
-                } else {
-                    $stmt = $this->db->prepare(
-                        'UPDATE payment_records
-                         SET payment_status = ?,
-                             signature_verified = TRUE,
-                             verified_at = CURRENT_TIMESTAMP
-                         WHERE id = ?'
-                    );
-
-                    $stmt->execute(['captured', $record['id']]);
-                }
-            } elseif ($record['payment_status'] !== 'captured') {
-                // A failed attempt does not permanently fail the order.
-                $orderStatus = $paymentStatus === 'authorized' ? 'authorized' : 'created';
-
-                $stmt = $this->db->prepare(
-                    'UPDATE payment_records SET payment_status = ? WHERE id = ?'
-                );
-
-                $stmt->execute([$orderStatus, $record['id']]);
-            }
-
-            $this->db->commit();
-
-            return [
-                'reference' => $reference,
-                'payment_id' => $paymentId,
-                'payment_status' => $paymentStatus,
-                'order_status' => $paymentStatus === 'captured'
-                    ? 'captured'
-                    : ($record['payment_status'] === 'captured'
-                        ? 'captured'
-                        : ($paymentStatus === 'authorized' ? 'authorized' : 'created')),
-                'signature_verified' => true,
-            ];
-        } catch (Throwable $e) {
-            if ($this->db->inTransaction()) {
-                $this->db->rollBack();
-            }
-
-            throw $e;
-        }
+        return $this->recordPayment($orderId, $payment, true);
     }
 
     public function processWebhookEvent(
@@ -221,43 +290,7 @@ class PaymentService
                 throw $e;
             }
 
-            $this->savePaymentAttempt((int) $record['id'], $payment, false);
-            $reference = $record['enquiry_reference'];
-
-            if ($eventType === 'payment.captured') {
-                if ($reference === null) {
-                    $reference = $this->allocateEnquiryReference((int) $record['id']);
-
-                    $stmt = $this->db->prepare(
-                        'UPDATE payment_records
-                         SET enquiry_reference = ?,
-                             razorpay_payment_id = ?,
-                             payment_status = ?,
-                             verified_at = CURRENT_TIMESTAMP
-                         WHERE id = ?'
-                    );
-
-                    $stmt->execute([
-                        $reference,
-                        $paymentId,
-                        'captured',
-                        $record['id'],
-                    ]);
-                } else {
-                    $stmt = $this->db->prepare(
-                        'UPDATE payment_records SET payment_status = ? WHERE id = ?'
-                    );
-
-                    $stmt->execute(['captured', $record['id']]);
-                }
-            } elseif ($record['payment_status'] !== 'captured') {
-                // Keep the order retryable after an individual failed attempt.
-                $stmt = $this->db->prepare(
-                    'UPDATE payment_records SET payment_status = ? WHERE id = ?'
-                );
-
-                $stmt->execute(['created', $record['id']]);
-            }
+            $result = $this->applyPaymentInTransaction($orderId, $payment, false);
 
             $stmt = $this->db->prepare(
                 'UPDATE webhook_events
@@ -271,9 +304,10 @@ class PaymentService
 
             return [
                 'duplicate' => false,
-                'reference' => $reference,
+                'reference' => $result['reference'],
                 'payment_id' => $paymentId,
                 'payment_status' => $paymentStatus,
+                'order_status' => $result['order_status'],
                 'message' => $paymentStatus === 'captured'
                     ? 'Captured payment processed.'
                     : 'Failed payment attempt recorded; another attempt may be made.',
@@ -285,6 +319,307 @@ class PaymentService
 
             throw $e;
         }
+    }
+
+    private function recordPayment(
+        string $orderId,
+        array $payment,
+        bool $verifiedByCheckout
+    ): array {
+        $this->db->beginTransaction();
+
+        try {
+            $result = $this->applyPaymentInTransaction(
+                $orderId,
+                $payment,
+                $verifiedByCheckout
+            );
+            $this->db->commit();
+
+            return $result;
+        } catch (Throwable $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            throw $e;
+        }
+    }
+
+    private function applyPaymentInTransaction(
+        string $orderId,
+        array $payment,
+        bool $verifiedByCheckout
+    ): array {
+        $paymentId = (string) ($payment['id'] ?? '');
+        $paymentStatus = (string) ($payment['status'] ?? '');
+
+        if (
+            $paymentId === '' ||
+            !in_array($paymentStatus, ['authorized', 'captured', 'failed'], true)
+        ) {
+            throw new InvalidArgumentException('Payment attempt details are invalid.');
+        }
+
+        $record = $this->lockOrderRecord($orderId);
+        $this->validatePaymentAgainstOrder($payment, $record);
+        $this->savePaymentAttempt((int) $record['id'], $payment, $verifiedByCheckout);
+
+        $reference = $record['enquiry_reference'];
+
+        if ($paymentStatus === 'captured') {
+            if ($reference === null) {
+                $reference = $this->allocateEnquiryReference((int) $record['id']);
+                $stmt = $this->db->prepare(
+                    'UPDATE payment_records
+                     SET enquiry_reference = ?,
+                         razorpay_payment_id = ?,
+                         payment_status = ?,
+                         signature_verified = IF(?, TRUE, signature_verified),
+                         verified_at = CURRENT_TIMESTAMP
+                     WHERE id = ?'
+                );
+                $stmt->execute([
+                    $reference,
+                    $paymentId,
+                    'captured',
+                    $verifiedByCheckout ? 1 : 0,
+                    $record['id'],
+                ]);
+            } else {
+                $stmt = $this->db->prepare(
+                    'UPDATE payment_records
+                     SET payment_status = ?,
+                         signature_verified = IF(?, TRUE, signature_verified),
+                         verified_at = COALESCE(verified_at, CURRENT_TIMESTAMP)
+                     WHERE id = ?'
+                );
+                $stmt->execute([
+                    'captured',
+                    $verifiedByCheckout ? 1 : 0,
+                    $record['id'],
+                ]);
+            }
+
+            $this->markPatientEnquiryConfirmed($record);
+        } elseif ($record['payment_status'] !== 'captured') {
+            $orderStatus = $paymentStatus === 'authorized'
+                ? 'authorized'
+                : 'created';
+            $stmt = $this->db->prepare(
+                'UPDATE payment_records SET payment_status = ? WHERE id = ?'
+            );
+            $stmt->execute([$orderStatus, $record['id']]);
+        }
+
+        $orderStatus = $record['payment_status'] === 'captured'
+            ? 'captured'
+            : ($paymentStatus === 'captured'
+                ? 'captured'
+                : ($paymentStatus === 'authorized' ? 'authorized' : 'created'));
+
+        return [
+            'reference' => $reference,
+            'payment_id' => $paymentId,
+            'payment_status' => $paymentStatus,
+            'order_status' => $orderStatus,
+            'signature_verified' => $verifiedByCheckout,
+        ];
+    }
+
+    private function reconcileOrderPayments(string $orderId): void
+    {
+        $order = $this->razorpay->order->fetch($orderId);
+        $payments = $order->payments()->toArray();
+        $items = $payments['items'] ?? [];
+
+        if (!is_array($items)) {
+            throw new RuntimeException('Unexpected Razorpay payment list response.');
+        }
+
+        foreach ($items as $payment) {
+            if (
+                !is_array($payment) ||
+                (string) ($payment['order_id'] ?? '') !== $orderId ||
+                !in_array(
+                    (string) ($payment['status'] ?? ''),
+                    ['authorized', 'captured', 'failed'],
+                    true
+                )
+            ) {
+                continue;
+            }
+
+            $this->recordPayment($orderId, $payment, false);
+        }
+    }
+
+    private function findPaymentRecordForEnquiry(
+        int $patientEnquiryId,
+        bool $forUpdate = false
+    ): ?array {
+        $stmt = $this->db->prepare(
+            'SELECT *
+             FROM payment_records
+             WHERE patient_enquiry_id = ?
+             LIMIT 1' . ($forUpdate ? ' FOR UPDATE' : '')
+        );
+        $stmt->execute([$patientEnquiryId]);
+        $record = $stmt->fetch();
+
+        return $record ?: null;
+    }
+
+    private function receiptForEnquiry(array $enquiry): string
+    {
+        return 'GDC-E-' . strtoupper(
+            substr((string) $enquiry['request_key_hash'], 0, 24)
+        );
+    }
+
+    private function recoverUnlinkedOrder(array $record, string $receipt): array
+    {
+        if ($record['razorpay_order_id'] !== null) {
+            return $this->formatOrderResponse($record);
+        }
+
+        $order = $this->findOrderByReceipt($receipt);
+
+        if ($order !== null) {
+            return $this->saveCreatedOrder((int) $record['id'], $receipt, $order);
+        }
+
+        if ($record['order_creation_status'] === 'creating') {
+            $stmt = $this->db->prepare(
+                'UPDATE payment_records
+                 SET order_creation_status = ?
+                 WHERE id = ?
+                   AND razorpay_order_id IS NULL
+                   AND order_creation_status = ?
+                   AND created_at <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 2 MINUTE)'
+            );
+            $stmt->execute(['unknown', $record['id'], 'creating']);
+
+            if ($stmt->rowCount() > 0) {
+                $stmt = $this->db->prepare(
+                    'SELECT *
+                     FROM payment_records
+                     WHERE id = ?
+                     LIMIT 1'
+                );
+                $stmt->execute([$record['id']]);
+                $record = $stmt->fetch() ?: $record;
+            }
+        }
+
+        return $this->formatOrderResponse($record);
+    }
+
+    private function saveCreatedOrder(
+        int $recordId,
+        string $receipt,
+        array $order
+    ): array {
+        $orderId = (string) ($order['id'] ?? '');
+
+        if (
+            $orderId === '' ||
+            (string) ($order['receipt'] ?? '') !== $receipt ||
+            (int) ($order['amount'] ?? 0) !== ENQUIRY_FEE_PAISE ||
+            (string) ($order['currency'] ?? '') !== PAYMENT_CURRENCY
+        ) {
+            throw new RuntimeException('Razorpay returned an unexpected order.');
+        }
+
+        $stmt = $this->db->prepare(
+            'UPDATE payment_records
+             SET razorpay_order_id = ?, order_creation_status = ?
+             WHERE id = ? AND razorpay_order_id IS NULL'
+        );
+        $stmt->execute([$orderId, 'created', $recordId]);
+
+        $stmt = $this->db->prepare(
+            'SELECT *
+             FROM payment_records
+             WHERE id = ?
+             LIMIT 1'
+        );
+        $stmt->execute([$recordId]);
+        $record = $stmt->fetch();
+
+        if (!$record || (string) $record['razorpay_order_id'] !== $orderId) {
+            throw new RuntimeException('Payment order was not saved.');
+        }
+
+        return $this->formatOrderResponse($record);
+    }
+
+    private function markOrderCreationUnknown(int $recordId): void
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE payment_records
+             SET order_creation_status = ?
+             WHERE id = ? AND razorpay_order_id IS NULL'
+        );
+        $stmt->execute(['unknown', $recordId]);
+    }
+
+    private function findOrderByReceipt(string $receipt): ?array
+    {
+        $orders = $this->razorpay->order->all([
+            'receipt' => $receipt,
+            'count' => 2,
+        ])->toArray();
+        $items = $orders['items'] ?? [];
+
+        if (!is_array($items)) {
+            throw new RuntimeException('Unexpected Razorpay order lookup response.');
+        }
+
+        $matches = array_values(array_filter(
+            $items,
+            static fn ($order): bool =>
+                is_array($order) &&
+                (string) ($order['receipt'] ?? '') === $receipt
+        ));
+
+        if (count($matches) > 1) {
+            throw new RuntimeException('Razorpay returned duplicate order receipts.');
+        }
+
+        return $matches[0] ?? null;
+    }
+
+    private function formatOrderResponse(array $record): array
+    {
+        return [
+            'order_id' => $record['razorpay_order_id'] === null
+                ? null
+                : (string) $record['razorpay_order_id'],
+            'amount' => (int) $record['amount_paise'],
+            'currency' => (string) $record['currency'],
+            'key_id' => RAZORPAY_KEY_ID,
+            'payment_status' => (string) $record['payment_status'],
+            'order_creation_status' => (string) $record['order_creation_status'],
+            'reference' => $record['enquiry_reference'],
+        ];
+    }
+
+    private function markPatientEnquiryConfirmed(array $record): void
+    {
+        if ($record['patient_enquiry_id'] === null) {
+            return;
+        }
+
+        $stmt = $this->db->prepare(
+            'UPDATE patient_enquiries
+             SET enquiry_status = ?, updated_at = CURRENT_TIMESTAMP
+             WHERE id = ?'
+        );
+        $stmt->execute([
+            'payment_confirmed',
+            $record['patient_enquiry_id'],
+        ]);
     }
 
     private function lockOrderRecord(string $orderId): array
@@ -310,6 +645,7 @@ class PaymentService
     private function validatePaymentAgainstOrder(array $payment, array $record): void
     {
         if (
+            (string) ($payment['order_id'] ?? '') !== (string) $record['razorpay_order_id'] ||
             (int) ($payment['amount'] ?? 0) !== (int) $record['amount_paise'] ||
             (string) ($payment['currency'] ?? '') !== (string) $record['currency'] ||
             (int) $record['amount_paise'] !== ENQUIRY_FEE_PAISE ||
@@ -347,8 +683,14 @@ class PaymentService
         $method = isset($payment['method']) ? (string) $payment['method'] : null;
         $errorCode = isset($payment['error_code']) ? (string) $payment['error_code'] : null;
 
+        $method = $method === null
+            ? null
+            : mb_substr($method, 0, 30, 'UTF-8');
+        $errorCode = $errorCode === null
+            ? null
+            : mb_substr($errorCode, 0, 100, 'UTF-8');
         $errorDescription = isset($payment['error_description'])
-            ? substr((string) $payment['error_description'], 0, 255)
+            ? mb_substr((string) $payment['error_description'], 0, 255, 'UTF-8')
             : null;
 
         if ($existing) {

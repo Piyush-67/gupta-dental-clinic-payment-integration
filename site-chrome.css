@@ -56,8 +56,9 @@
 }
 
 .site-chrome-brand img {
-  width: 54px;
-  height: 54px;
+  width: auto;
+  max-width: 108px;
+  height: 56px;
   object-fit: contain;
 }
 
@@ -121,6 +122,43 @@
   transform: translateY(-1px);
 }
 
+.site-chrome-about {
+  position: relative;
+}
+
+.site-chrome-about > a {
+  min-height: 42px;
+  padding: 10px 15px;
+  border-radius: 999px;
+  color: #082b52;
+  font: 700 13px/1.2 'Plus Jakarta Sans', sans-serif;
+}
+
+.site-chrome-about-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 244px;
+  padding: 8px;
+  border: 1px solid rgba(8, 43, 82, .10);
+  border-radius: 16px;
+  background: rgba(248, 252, 255, .98);
+  box-shadow: 0 16px 38px rgba(8, 43, 82, .16);
+}
+
+.site-chrome-about:hover .site-chrome-about-menu,
+.site-chrome-about:focus-within .site-chrome-about-menu {
+  display: grid;
+}
+
+.site-chrome-about-menu a {
+  justify-content: flex-start;
+  min-height: 42px;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
 .site-chrome-nav a:focus-visible,
 .site-chrome-menu:focus-visible {
   outline: 3px solid rgba(8, 102, 245, .45);
@@ -172,10 +210,10 @@
 }
 
 .site-chrome-footer-brand img {
-  width: 58px;
-  height: 58px;
+  width: auto;
+  max-width: 132px;
+  height: 70px;
   object-fit: contain;
-  border-radius: 12px;
 }
 
 .site-chrome-footer-brand strong,
@@ -236,8 +274,8 @@
   }
 
   .site-chrome-brand img {
-    width: 48px;
-    height: 48px;
+    max-width: 100px;
+    height: 52px;
   }
 
   .site-chrome-menu {
@@ -316,8 +354,8 @@
   }
 
   .site-chrome-brand img {
-    width: 42px;
-    height: 42px;
+    max-width: 88px;
+    height: 46px;
   }
 
   .site-chrome-menu {

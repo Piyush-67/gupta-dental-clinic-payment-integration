@@ -7,7 +7,7 @@ Options -Indexes
     RewriteEngine On
 
     # Block direct access to internal directories
-    RewriteRule ^(config|database|services|utils|vendor)/ - [F,L,NC]
+    RewriteRule ^(config|database|scripts|services|tests|utils|vendor)/ - [F,L,NC]
 
     # Block sensitive project files
     RewriteRule ^(\.env|composer\.(json|lock)|\.gitignore)$ - [F,L,NC]
