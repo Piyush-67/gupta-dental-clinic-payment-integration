@@ -1,0 +1,3956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Gupta Dental Clinic — gentle, modern dental care. Confidence starts with a smile."
+    name="description" />
+  <meta content="#e5f4ff" name="theme-color" />
+  <link rel="icon" type="image/png" href="gupta-dental-clinic-logo.png" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <!-- AOS scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="site-chrome.css" />
+  <style>
+    /* ============================================================
+       TOKENS
+    ============================================================ */
+    :root {
+      --navy: #082B52;
+      --navy-2: #0b3763;
+      --blue: #0866F5;
+      --blue-soft: #3d8cf0;
+      --sky: #E5F4FF;
+      --sky-2: #f0f8ff;
+      --white: #ffffff;
+      --muted: #63788c;
+      --ink-muted: #506a83;
+      --line: rgba(8, 43, 82, .08);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-xl: 40px;
+      --shadow-sm: 0 6px 20px rgba(8, 43, 82, .08);
+      --shadow-md: 0 18px 40px rgba(8, 43, 82, .12);
+      --shadow-lg: 0 30px 80px rgba(8, 43, 82, .16);
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--navy);
+      background: #e9eef3;
+      line-height: 1.6;
+      overflow-x: hidden;
+      overflow-x: clip;
+      /* padding: 18px; */
+    }
+
+    body.menu-open {
+      overflow: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      background: none
+    }
+
+    img {
+      display: block;
+      max-width: 100%
+    }
+
+    ul {
+      list-style: none
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15
+    }
+
+    /* ============================================================
+       SITE CANVAS — centered rounded container
+    ============================================================ */
+    .site-frame {
+      max-width: 1529px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 36px;
+      overflow: hidden;
+
+      position: relative;
+    }
+
+    .container {
+      width: min(1550px, calc(100% - 80px));
+      margin-inline: auto;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .2px;
+      transition: transform .25s cubic-bezier(.2, .9, .4, 1), box-shadow .25s, background .25s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: 0 9px 22px rgba(8, 43, 82, .22)
+    }
+
+    .btn-primary:hover {
+      background: #061f3c;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(8, 43, 82, .3)
+    }
+
+    .btn-primary i {
+      font-size: 12px
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 9px 22px rgba(8, 102, 245, .25)
+    }
+
+    .btn-blue:hover {
+      background: #0356d6;
+      transform: translateY(-2px)
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid rgba(8, 43, 82, .18)
+    }
+
+    .btn-ghost:hover {
+      background: rgba(8, 43, 82, .04);
+      border-color: var(--navy)
+    }
+
+    /* ============================================================
+       HEADER — inside hero, no white bar
+    ============================================================ */
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 62% 38%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .2) 40%, transparent 68%),
+        linear-gradient(120deg, #dcefff 0%, #e5f4ff 50%, #eef8ff 100%);
+      padding: 26px 0 0;
+      min-height: 760px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: 600px;
+      height: 600px;
+      border: 1px solid rgba(8, 102, 245, .1);
+      border-radius: 50%;
+      right: 6%;
+      top: 20px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: 440px;
+      height: 440px;
+      border: 1px solid rgba(8, 102, 245, .08);
+      border-radius: 50%;
+      right: 12%;
+      top: 100px;
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 50
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 20px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--white);
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      font-size: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-text {
+      line-height: 1.15
+    }
+
+    .brand-text strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -.4px;
+      color: var(--navy)
+    }
+
+    .brand-text span {
+      display: block;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 11.5px;
+      color: var(--blue);
+      letter-spacing: -.1px
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #3f5a75;
+      transition: color .2s, background .2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--blue);
+      background: rgba(255, 255, 255, .7)
+    }
+
+    .nav-link i {
+      font-size: 10px;
+      transition: transform .2s
+    }
+
+    .nav-link[aria-expanded="true"] i {
+      transform: rotate(180deg)
+    }
+
+    .nav-dropdown {
+      position: relative
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 230px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 10px 8px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity .22s, transform .22s, visibility .22s;
+      z-index: 60;
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .dropdown-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0)
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--navy);
+      transition: background .15s;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background: var(--sky);
+      outline: none
+    }
+
+    .dropdown-item i {
+      color: var(--blue);
+      font-size: 14px;
+      width: 18px;
+      text-align: center
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--navy);
+      font-size: 17px;
+      place-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ============================================================
+       HERO CANVAS
+    ============================================================ */
+    .hero-inner {
+      position: relative;
+      min-height: 660px
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 10;
+      width: 46%;
+      padding-top: 56px
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(48px, 5.4vw, 82px);
+      font-weight: 800;
+      line-height: 1.03;
+      letter-spacing: -.045em;
+      color: var(--navy);
+    }
+
+    .hero-copy h1 .accent {
+      color: var(--blue)
+    }
+
+    .headline-arrow {
+      margin: 16px 0 0 8px;
+      width: 88px;
+      color: var(--blue);
+      opacity: .9
+    }
+
+    .hero-portrait {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(560px, 58%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .hero-portrait img {
+      width: 100%;
+      height: auto;
+      /* PLACEHOLDER PORTRAIT — replace with approved cutout PNG. */
+      mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    }
+
+    .support-card {
+      position: absolute;
+      z-index: 15;
+      right: 0;
+      top: 70px;
+      background: var(--white);
+      border-radius: 18px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      box-shadow: var(--shadow-md);
+      transform: rotate(5deg);
+      transition: transform .35s;
+    }
+
+    .support-card:hover {
+      transform: rotate(5deg) translateY(-4px)
+    }
+
+    .support-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: var(--sky);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .support-text strong {
+      display: block;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 14.5px;
+      line-height: 1.2
+    }
+
+    .support-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .hero-supporting {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      top: 190px;
+      width: 250px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #3f5a75;
+    }
+
+    .hero-supporting::after {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 12px;
+      margin-top: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 12'%3E%3Cpath d='M2 8 Q 30 2, 55 8 T 108 8' stroke='%230866F5' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain;
+    }
+
+
+    .hero-contact-links {
+      position: absolute;
+      z-index: 16;
+      right: 1%;
+      bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .hero-contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 190px;
+      padding: 10px 15px;
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .88);
+      color: var(--navy);
+      box-shadow: 0 10px 26px rgba(8, 43, 82, .12);
+      font-size: 11px;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-contact-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(8, 43, 82, .18);
+      background: #fff;
+    }
+
+    .hero-contact-link strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 13px;
+    }
+
+    .contact-link-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .justdial-icon {
+      background: #fff0e9;
+      color: #e65d28;
+      font-size: 12px;
+      letter-spacing: -1px;
+    }
+
+    .whatsapp-link>i {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #e5f8ed;
+      color: #159b55;
+      font-size: 21px;
+    }
+
+    .appointment-badge {
+      position: absolute;
+      z-index: 12;
+      left: 42%;
+      top: 47%;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 36px rgba(8, 43, 82, .18);
+      transition: transform .3s;
+      cursor: pointer;
+    }
+
+    .appointment-badge:hover {
+      transform: scale(1.06)
+    }
+
+    .appointment-badge svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      animation: spin 22s linear infinite
+    }
+
+    .appointment-badge .center-icon {
+      font-size: 32px;
+      color: var(--blue)
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .social-rail {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      bottom: 40px;
+      display: flex;
+      gap: 10px
+    }
+
+    .social-rail a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(8, 102, 245, .25);
+      background: rgba(255, 255, 255, .7);
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      transition: background .2s, color .2s, transform .2s;
+    }
+
+    .social-rail a:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+      transform: translateY(-3px)
+    }
+
+    .deco-marks {
+      position: absolute;
+      z-index: 8;
+      right: 240px;
+      top: 86px;
+      display: flex;
+      gap: 6px;
+      transform: rotate(-15deg)
+    }
+
+    .deco-marks span {
+      display: block;
+      width: 3px;
+      height: 18px;
+      border-radius: 3px;
+      background: var(--blue);
+    }
+
+    .deco-marks span:nth-child(2) {
+      height: 26px;
+      margin-top: -4px
+    }
+
+    .deco-marks span:nth-child(3) {
+      height: 14px;
+      margin-top: 2px
+    }
+
+    /* ============================================================
+       OVERLAPPING PANEL
+    ============================================================ */
+    .bottom-panel {
+      position: relative;
+      z-index: 20;
+      margin-top: -40px;
+      padding-bottom: 80px
+    }
+
+    .panel-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 -8px 40px rgba(8, 43, 82, .06), 0 22px 60px rgba(8, 43, 82, .08);
+      padding: 38px 44px;
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 44px;
+      align-items: stretch;
+    }
+
+    .panel-services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    .panel-service {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-right: 20px;
+      border-right: 1px solid var(--line)
+    }
+
+    .panel-service:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--sky);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+    }
+
+    .panel-service h3 {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -.02em
+    }
+
+    .panel-service p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+    .panel-testimonial {
+      background: #eef7ff;
+      border-radius: var(--radius-md);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--navy);
+      font-style: italic;
+    }
+
+    .testimonial-quote::before {
+      content: "“";
+      font-size: 34px;
+      color: #7ab2e8;
+      font-family: Georgia, serif;
+      line-height: 0;
+      vertical-align: -10px;
+      margin-right: 4px;
+    }
+
+    .testimonial-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #cfe5fb;
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .testimonial-meta strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2
+    }
+
+    .testimonial-meta span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    .section {
+      padding: 100px 0
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-size: clamp(32px, 3.8vw, 48px);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+      margin-bottom: 18px
+    }
+
+    .section-lead {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center
+    }
+
+    .about-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/4.4;
+      /* PLACEHOLDER — replace with dental treatment photograph */
+      background: linear-gradient(145deg, #dcefff, #f3f9ff);
+    }
+
+    .about-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .review-card {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .review-card .stars {
+      color: #f5b342;
+      font-size: 12px;
+      letter-spacing: 1px
+    }
+
+    .review-card strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: 2px
+    }
+
+    .review-card span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px
+    }
+
+    .stat-block {
+      padding: 22px 24px;
+      border-radius: var(--radius-md);
+      background: var(--sky-2);
+      border: 1px solid var(--line)
+    }
+
+    .stat-block h4 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 6px
+    }
+
+    .stat-block p {
+      font-size: 12.5px;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    /* ============================================================
+       TREATMENTS SECTION — carousel
+    ============================================================ */
+    .treatments-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+      margin-bottom: 44px
+    }
+
+    .treatments-head .section-lead {
+      max-width: 440px
+    }
+
+    .carousel-wrap {
+      position: relative
+    }
+
+    .carousel-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .carousel-counter {
+      font-family: var(--font-head);
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 1px
+    }
+
+    .carousel-counter strong {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 18px
+    }
+
+    .carousel-nav {
+      display: flex;
+      gap: 10px
+    }
+
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      display: grid;
+      place-items: center;
+      color: var(--navy);
+      font-size: 15px;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+
+    .carousel-btn:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy)
+    }
+
+    .carousel-btn:disabled {
+      opacity: .4;
+      pointer-events: none
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .carousel-slide {
+      flex: 0 0 calc((100% - 24px)/2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3.2;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s ease
+    }
+
+    .carousel-slide:hover img {
+      transform: scale(1.05)
+    }
+
+    .carousel-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(8, 43, 82, .85) 100%);
+    }
+
+    .slide-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 30px 32px;
+      color: var(--white);
+    }
+
+    .slide-caption h3 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
+      color: var(--white)
+    }
+
+    .slide-caption p {
+      font-size: 13px;
+      opacity: .85;
+      max-width: 340px
+    }
+
+    .service-enquire {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 16px;
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 9px;
+      color: #fff;
+      background: rgba(255, 255, 255, .13);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+      position: relative;
+      z-index: 3;
+    }
+
+    .service-enquire:hover {
+      color: var(--navy);
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .service-enquire i {
+      font-size: 17px;
+    }
+
+
+    /* ============================================================
+       TESTIMONIAL — editorial
+    ============================================================ */
+    .testimonial-editorial {
+      text-align: center;
+      padding: 110px 0;
+      background: var(--sky-2)
+    }
+
+    .testimonial-editorial .eyebrow {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .testimonial-editorial blockquote {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.35;
+      letter-spacing: -.02em;
+      color: var(--navy);
+      max-width: 900px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .testimonial-editorial blockquote::before {
+      content: "“";
+      font-family: Georgia, serif;
+      font-size: 120px;
+      line-height: 0;
+      color: var(--blue-soft);
+      opacity: .25;
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .testimonial-author {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .testimonial-author-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #cfe5fb;
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+    }
+
+    .testimonial-author div {
+      text-align: left
+    }
+
+    .testimonial-author strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 800
+    }
+
+    .testimonial-author span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* ============================================================
+       APPOINTMENT SECTION
+    ============================================================ */
+    .appointment {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      margin: 0 40px;
+      /* PLACEHOLDER — replace with dental clinic interior photograph */
+      background: linear-gradient(120deg, #082B52 0%, #0b3763 55%, #114578 100%);
+      min-height: 520px;
+    }
+
+    .appointment::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: .35;
+      background: url("https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80") center/cover;
+      mix-blend-mode: luminosity;
+    }
+
+    .appointment-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 70px 60px;
+    }
+
+    .appointment-copy {
+      color: var(--white);
+      max-width: 420px
+    }
+
+    .appointment-copy .section-heading {
+      color: var(--white);
+      margin-bottom: 16px
+    }
+
+    .appointment-copy p {
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.8
+    }
+
+    .appointment-form {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .appointment-form h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px
+    }
+
+    .appointment-form>p {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 22px
+    }
+
+    .appointment-form label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 14px 0 6px;
+      letter-spacing: .2px
+    }
+
+    .appointment-form input {
+      width: 100%;
+      border: 1px solid #dce6ee;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--navy);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .appointment-form input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(8, 102, 245, .12)
+    }
+
+    .appointment-form input.error {
+      border-color: #e05353;
+      box-shadow: 0 0 0 3px rgba(224, 83, 83, .12)
+    }
+
+    .appointment-form .field-error {
+      font-size: 11px;
+      color: #e05353;
+      margin-top: 5px;
+      display: none
+    }
+
+    .appointment-form .field-error.visible {
+      display: block
+    }
+
+    .appointment-form .btn {
+      width: 100%;
+      margin-top: 20px
+    }
+
+    .appointment-form .form-note {
+      font-size: 10.5px;
+      color: #94a6b8;
+      margin-top: 14px;
+      line-height: 1.5
+    }
+
+    /* ============================================================
+       FOOTER — dark navy
+    ============================================================ */
+    .footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 70px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 60px
+    }
+
+    .footer h4 {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: .9
+    }
+
+    .footer-apps h5 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 14px
+    }
+
+    .footer-apps p {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .6);
+      margin-bottom: 20px;
+      max-width: 260px
+    }
+
+    .store-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      font-size: 11px;
+      color: rgba(255, 255, 255, .9);
+      transition: background .2s;
+    }
+
+    .store-badge:hover {
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .store-badge i {
+      font-size: 18px
+    }
+
+    .store-badge span {
+      display: block;
+      font-size: 9px;
+      opacity: .7;
+      line-height: 1.1
+    }
+
+    .store-badge strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2
+    }
+
+    .footer-col ul li {
+      margin-bottom: 11px
+    }
+
+    .footer-col a {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .65);
+      transition: color .2s
+    }
+
+    .footer-col a:hover {
+      color: var(--white)
+    }
+
+    .footer-oversized {
+      text-align: center;
+      padding: 40px 20px 20px;
+      line-height: 1;
+      pointer-events: none;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(80px, 16vw, 220px);
+      letter-spacing: -.05em;
+      color: rgba(255, 255, 255, .05);
+      display: flex;
+      justify-content: center;
+      gap: .2em;
+    }
+
+    .footer-oversized span {
+      display: inline-block
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      padding: 26px 0;
+    }
+
+    .footer-bottom-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .footer-tagline {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .6)
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .15);
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, .7);
+      font-size: 13px;
+      transition: background .2s, color .2s;
+    }
+
+    .footer-social a:hover {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue)
+    }
+
+    .footer-copy {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, .45)
+    }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(8, 43, 82, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex
+    }
+
+    .modal {
+      width: min(480px, 100%);
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 36px;
+      position: relative
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f1f6fa;
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+    }
+
+    .modal h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      padding-right: 40px
+    }
+
+    .modal p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px
+    }
+
+    .modal label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 13px 0 6px
+    }
+
+    .modal input,
+    .modal textarea {
+      width: 100%;
+      border: 1px solid #dce6ee;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .modal input:focus,
+    .modal textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(8, 102, 245, .12)
+    }
+
+    .modal textarea {
+      min-height: 80px;
+      resize: vertical
+    }
+
+    .modal .btn {
+      width: 100%;
+      margin-top: 18px
+    }
+
+    .modal .form-note {
+      font-size: 10.5px;
+      color: #94a6b8;
+      margin-top: 14px;
+      line-height: 1.5
+    }
+
+    /* ============================================================
+       REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width:1100px) {
+      .container {
+        width: min(100% - 56px, 960px)
+      }
+
+      .hero-copy {
+        width: 48%
+      }
+
+      .hero-portrait {
+        width: min(480px, 58%)
+      }
+
+      .support-card {
+        top: 50px
+      }
+
+      .hero-supporting {
+        top: 170px;
+        width: 210px;
+        font-size: 12.5px
+      }
+
+      .appointment-badge {
+        width: 118px;
+        height: 118px;
+        left: 40%
+      }
+
+      .footer-inner {
+        grid-template-columns: 1.4fr 1fr 1fr
+      }
+
+      .footer-inner .footer-col:last-child {
+        display: none
+      }
+    }
+
+    @media (max-width:900px) {
+      body {
+        padding: 10px
+      }
+
+      .site-frame {
+        border-radius: 24px
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 20px 0 0
+      }
+
+      .nav-links {
+        position: fixed;
+        inset: 80px 20px auto;
+        background: var(--white);
+        border-radius: var(--radius-md);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 18px;
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-120%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform .35s, opacity .35s, visibility .35s;
+        z-index: 45;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible
+      }
+
+      .nav-link {
+        padding: 12px 16px;
+        font-size: 15px;
+        width: 100%;
+        justify-content: space-between
+      }
+
+      .nav-dropdown {
+        width: 100%
+      }
+
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        padding: 4px 0 4px 16px;
+        min-width: 0;
+        display: none
+      }
+
+      .dropdown-menu.open {
+        display: block
+      }
+
+      .nav-actions .btn-primary {
+        display: none
+      }
+
+      .menu-toggle {
+        display: grid
+      }
+
+      .hero-inner {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 8px
+      }
+
+      .hero-copy {
+        width: 100%;
+        padding: 16px 0 0;
+        order: 1
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(40px, 9vw, 58px)
+      }
+
+      .headline-arrow {
+        margin: 14px auto 0
+      }
+
+      .hero-portrait {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        width: min(100%, 420px);
+        order: 2;
+        margin-top: -10px
+      }
+
+      .support-card {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: rotate(3deg);
+        margin: 24px auto 0;
+        order: 3;
+        width: max-content
+      }
+
+      .hero-supporting {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 100%;
+        order: 4;
+        margin: 18px auto 0;
+        text-align: center;
+        max-width: 340px
+      }
+
+      .hero-supporting::after {
+        margin: 12px auto 0
+      }
+
+      .appointment-badge {
+        position: relative;
+        left: auto;
+        top: auto;
+        margin: 22px auto 0;
+        order: 5;
+        width: 108px;
+        height: 108px
+      }
+
+      .appointment-badge .center-icon {
+        font-size: 26px
+      }
+
+      .social-rail {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        order: 6;
+        justify-content: center;
+        margin: 22px 0 8px
+      }
+
+      .deco-marks {
+        display: none
+      }
+
+      .bottom-panel {
+        margin-top: -30px;
+        padding-bottom: 60px
+      }
+
+      .panel-card {
+        grid-template-columns: 1fr;
+        padding: 28px 24px;
+        gap: 26px
+      }
+
+      .panel-services {
+        grid-template-columns: 1fr;
+        gap: 22px
+      }
+
+      .panel-service {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 0 0 22px;
+        border-right: none;
+        border-bottom: 1px solid var(--line)
+      }
+
+      .panel-service:last-child {
+        padding-bottom: 0;
+        border-bottom: none
+      }
+
+      .panel-service h3 {
+        font-size: 15px
+      }
+
+      .panel-service p {
+        font-size: 12px
+      }
+
+      .section {
+        padding: 64px 0
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px
+      }
+
+      .about-visual {
+        aspect-ratio: 4/3.6
+      }
+
+      .about-stats {
+        margin-top: 28px
+      }
+
+      .treatments-head {
+        display: block;
+        margin-bottom: 30px
+      }
+
+      .treatments-head .section-lead {
+        margin-top: 12px
+      }
+
+      .carousel-slide {
+        flex: 0 0 100%
+      }
+
+      .testimonial-editorial {
+        padding: 72px 0
+      }
+
+      .appointment {
+        margin: 0 16px;
+        border-radius: 24px
+      }
+
+      .appointment-inner {
+        grid-template-columns: 1fr;
+        padding: 44px 28px;
+        gap: 32px
+      }
+
+      .appointment-copy {
+        max-width: none
+      }
+
+      .footer {
+        padding: 56px 0 0
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+
+      .footer-inner .footer-apps {
+        grid-column: 1/-1
+      }
+
+      .footer-inner .footer-col:last-child {
+        display: block
+      }
+
+      .footer-bottom-inner {
+        flex-direction: column;
+        text-align: center
+      }
+    }
+
+    @media (max-width:520px) {
+      .container {
+        width: calc(100% - 32px)
+      }
+
+      .hero-copy h1 {
+        font-size: 38px
+      }
+
+      .panel-service {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr
+      }
+
+      .footer-oversized {
+        font-size: 96px
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none
+      }
+
+      .appointment-badge svg {
+        animation: none
+      }
+    }
+
+    /* ============================================================
+       REFERENCE-LED REFINEMENT — Gupta Dental Clinic
+       Overrides preserve the existing interactions while correcting
+       the page composition to match the supplied visual reference.
+    ============================================================ */
+    body {
+      background: #dfe3e8;
+      /* padding: 18px */
+    }
+
+    .site-frame {
+      max-width: 1529px;
+      background: #e5f4ff;
+      border-radius: 30px;
+      box-shadow: none
+    }
+
+    .container {
+      width: min(1500px, calc(100% - 88px))
+    }
+
+    .hero {
+      min-height: 0;
+      padding: 18px 0 0;
+      background:
+        radial-gradient(ellipse at 53% 55%, rgba(255, 255, 255, .96) 0%, rgba(255, 255, 255, .42) 27%, transparent 57%),
+        linear-gradient(180deg, #78aaf4 0%, #9fc5fa 46%, #d8edff 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      display: none
+    }
+
+    .nav {
+      height: 48px
+    }
+
+    .brand {
+      gap: 7px
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      box-shadow: none;
+      font-size: 15px
+    }
+
+    .brand-text strong,
+    .brand-text span {
+      color: #fff
+    }
+
+    .brand-text strong {
+      font-size: 13px
+    }
+
+    .brand-text span {
+      font-size: 9px
+    }
+
+    .nav-links {
+      gap: 2px
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, .94);
+      font-size: 12px;
+      padding: 7px 12px
+    }
+
+    .nav-link {
+      border: 1px solid rgba(255, 255, 255, .34);
+      background: rgba(255, 255, 255, .08);
+      border-radius: 999px;
+      margin-inline: 2px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--navy);
+      background: rgba(255, 255, 255, .92);
+      border-color: rgba(255, 255, 255, .95);
+      box-shadow: 0 5px 16px rgba(8, 43, 82, .10);
+    }
+
+    .nav-actions .btn-primary {
+      border: 1px solid rgba(255, 255, 255, .55);
+      background: #082b52;
+    }
+
+    .nav-actions .btn-primary {
+      background: #082b52;
+      box-shadow: none;
+      padding: 10px 18px;
+      font-size: 11px
+    }
+
+    .hero-inner {
+      min-height: 570px
+    }
+
+    .hero-copy {
+      width: 43%;
+      padding-top: 104px
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(48px, 5vw, 72px);
+      line-height: 1.04;
+      letter-spacing: -.05em
+    }
+
+    .hero-copy h1 .accent {
+      color: #082b52
+    }
+
+    .headline-arrow {
+      width: 68px;
+      margin: 12px 0 0 86px;
+      color: #d5c7a3
+    }
+
+    .hero-portrait {
+      left: 50%;
+      width: min(540px, 51%);
+      bottom: 0;
+      z-index: 3
+    }
+
+    .hero-portrait img {
+      mask-image: linear-gradient(to bottom, #000 91%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 91%, transparent 100%)
+    }
+
+    .support-card {
+      right: 1%;
+      top: 108px;
+      padding: 11px 15px;
+      border-radius: 13px;
+      box-shadow: 0 8px 24px rgba(8, 43, 82, .10)
+    }
+
+    .support-icon {
+      width: 34px;
+      height: 34px
+    }
+
+    .hero-supporting {
+      right: 1%;
+      top: 190px;
+      width: 235px;
+      font-size: 12px;
+      color: #294b70
+    }
+
+    .appointment-badge {
+      left: 34%;
+      top: 48%;
+      width: 112px;
+      height: 112px;
+      box-shadow: 0 8px 22px rgba(8, 43, 82, .10)
+    }
+
+    .appointment-badge .center-icon {
+      font-size: 27px
+    }
+
+    .social-rail {
+      right: 1%;
+      bottom: 28px;
+      gap: 8px
+    }
+
+    .social-rail a {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, .25);
+      border-color: rgba(8, 43, 82, .38)
+    }
+
+    .deco-marks {
+      right: 30%;
+      top: 112px
+    }
+
+    .deco-marks span {
+      background: #d5c7a3
+    }
+
+    .bottom-panel {
+      margin-top: -2px;
+      padding-bottom: 0;
+      background: #e5f4ff
+    }
+
+    .panel-card {
+      padding: 14px 18px;
+      border-radius: 17px;
+      gap: 18px;
+      grid-template-columns: 1.55fr 1fr;
+      box-shadow: 0 7px 22px rgba(8, 43, 82, .08);
+    }
+
+    .panel-services {
+      gap: 12px
+    }
+
+    .panel-service {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      column-gap: 10px;
+      row-gap: 2px;
+      padding-right: 12px
+    }
+
+    .service-icon {
+      width: 38px;
+      height: 38px;
+      font-size: 15px;
+      grid-row: 1 / span 2
+    }
+
+    .panel-service h3 {
+      font-size: 12px
+    }
+
+    .panel-service p {
+      font-size: 10px;
+      line-height: 1.35
+    }
+
+    .panel-testimonial {
+      padding: 12px 16px;
+      border-radius: 12px;
+      gap: 7px
+    }
+
+    .testimonial-quote {
+      font-size: 12px;
+      line-height: 1.4;
+      font-style: normal
+    }
+
+    .testimonial-meta {
+      gap: 7px
+    }
+
+    .testimonial-avatar {
+      width: 25px;
+      height: 25px;
+      font-size: 11px
+    }
+
+    .testimonial-meta strong {
+      font-size: 10px
+    }
+
+    .testimonial-meta span {
+      font-size: 8px
+    }
+
+    .section {
+      padding: 76px 0;
+      background: #e5f4ff
+    }
+
+    .section-kicker {
+      display: none
+    }
+
+    .section-heading {
+      font-size: clamp(30px, 3.2vw, 43px);
+      font-weight: 600;
+      letter-spacing: -.035em
+    }
+
+    .section-lead {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #60758a
+    }
+
+    .about-grid {
+      grid-template-columns: 1.05fr .95fr;
+      gap: 58px
+    }
+
+    .about-visual {
+      aspect-ratio: 1.12;
+      border-radius: 14px
+    }
+
+    .review-card {
+      left: auto;
+      right: -1px;
+      bottom: 12px;
+      padding: 10px 12px;
+      gap: 8px;
+      border-radius: 10px
+    }
+
+    .review-card .stars {
+      font-size: 9px
+    }
+
+    .review-card strong {
+      font-size: 10px
+    }
+
+    .review-card span {
+      font-size: 8px
+    }
+
+    .about-copy .section-heading {
+      margin-bottom: 14px
+    }
+
+    .about-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-top: 52px
+    }
+
+    .stat-block {
+      background: none;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      min-width: 0
+    }
+
+    .stat-block:nth-child(2) {
+      margin-top: 48px
+    }
+
+    .stat-block h4 {
+      font-size: clamp(34px, 4vw, 54px);
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0
+    }
+
+    .stat-block p {
+      font-size: 11px;
+      color: #60758a
+    }
+
+    .stat-block small {
+      font-size: 8px;
+      color: #8092a3
+    }
+
+    #treatments.section {
+      padding-top: 22px
+    }
+
+    .treatments-head {
+      align-items: flex-start;
+      margin-bottom: 30px
+    }
+
+    .treatments-head .section-lead {
+      max-width: 340px;
+      padding-top: 12px
+    }
+
+    .carousel-wrap {
+      display: grid;
+      grid-template-columns: .72fr 2fr;
+      gap: 28px;
+      align-items: end
+    }
+
+    .treatment-index {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      min-height: 210px;
+      padding-bottom: 0
+    }
+
+    .carousel-counter {
+      font-size: 18px;
+      letter-spacing: 0;
+      color: #8092a3
+    }
+
+    .carousel-counter strong {
+      font-size: 56px;
+      font-weight: 500;
+      letter-spacing: -.06em;
+      color: var(--navy)
+    }
+
+    .carousel-nav {
+      margin-top: auto
+    }
+
+    .carousel-btn {
+      width: 38px;
+      height: 38px;
+      border-color: rgba(8, 43, 82, .18);
+      font-size: 12px
+    }
+
+    .carousel-btn:last-child {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue)
+    }
+
+    .carousel-track {
+      gap: 14px
+    }
+
+    .carousel-slide {
+      flex: 0 0 calc((100% - 14px)/2);
+      aspect-ratio: .82;
+      border-radius: 13px
+    }
+
+    .slide-caption {
+      padding: 18px
+    }
+
+    .slide-caption h3 {
+      font-size: 16px;
+      line-height: 1.2
+    }
+
+    .slide-caption p {
+      font-size: 10px;
+      line-height: 1.4
+    }
+
+    .testimonial-editorial {
+      background: #e5f4ff;
+      padding: 72px 0 90px
+    }
+
+    .testimonial-editorial .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--navy);
+      margin-bottom: 36px
+    }
+
+    .testimonial-editorial blockquote {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 600;
+      max-width: 900px;
+      margin-bottom: 28px
+    }
+
+    .testimonial-editorial blockquote::before {
+      font-size: 90px;
+      top: -2px;
+      left: auto;
+      right: 0;
+      transform: none;
+      color: var(--blue);
+      opacity: 1
+    }
+
+    .testimonial-author-avatar {
+      width: 38px;
+      height: 38px;
+      font-size: 15px
+    }
+
+    .testimonial-author strong {
+      font-size: 12px
+    }
+
+    .testimonial-author span {
+      font-size: 9px
+    }
+
+    #contact.section {
+      padding: 20px 0 0;
+      background: #e5f4ff
+    }
+
+    .appointment {
+      margin: 0;
+      border-radius: 0;
+      min-height: 440px;
+      background: url("https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88") center/cover no-repeat;
+    }
+
+    .appointment::before {
+      display: none
+    }
+
+    .appointment-inner {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 440px;
+      padding: 42px 6%;
+      gap: 0
+    }
+
+    .appointment-photo-caption {
+      display: none
+    }
+
+    .appointment-form {
+      width: min(440px, 49%);
+      padding: 28px 30px;
+      border-radius: 18px;
+      box-shadow: 0 18px 48px rgba(8, 43, 82, .18)
+    }
+
+    .appointment-form h3 {
+      font-size: 22px;
+      font-weight: 600
+    }
+
+    .appointment-form>p {
+      margin-bottom: 14px
+    }
+
+    .appointment-form label {
+      font-size: 10px;
+      margin: 10px 0 5px
+    }
+
+    .appointment-form input {
+      background: #f0f1f3;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 12px;
+      font-size: 11px
+    }
+
+    .appointment-form .btn {
+      margin-top: 14px;
+      padding: 11px 18px
+    }
+
+    .appointment-form .form-note {
+      font-size: 9px
+    }
+
+    .footer {
+      background: #062b52;
+      padding: 36px 0 0
+    }
+
+    .footer-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, .18)
+    }
+
+    .footer-topline h5 {
+      font-family: var(--font-head);
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 500;
+      margin: 0
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: 34px;
+      padding: 28px 0 12px
+    }
+
+    .footer-inner .footer-col:first-child {
+      grid-column: 2
+    }
+
+    .footer-inner .footer-col:last-child {
+      display: block
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      margin-bottom: 12px
+    }
+
+    .footer-col ul li {
+      margin-bottom: 7px
+    }
+
+    .footer-col a {
+      font-size: 10px
+    }
+
+    .store-badge {
+      padding: 6px 9px;
+      border-radius: 6px;
+      background: #fff;
+      color: #111
+    }
+
+    .store-badge i {
+      font-size: 15px
+    }
+
+    .store-badge span {
+      font-size: 7px
+    }
+
+    .store-badge strong {
+      font-size: 10px
+    }
+
+    .footer-brand-lockup {
+      position: relative;
+      height: 150px;
+      margin-top: -4px;
+      pointer-events: none;
+      font-family: var(--font-head);
+      font-weight: 500;
+      line-height: .8;
+      color: rgba(255, 255, 255, .46)
+    }
+
+    .footer-brand-lockup .bright-word {
+      position: absolute;
+      left: 3%;
+      top: 0;
+      font-size: clamp(56px, 8vw, 104px)
+    }
+
+    .footer-brand-lockup .smile-word {
+      position: absolute;
+      left: 39%;
+      top: 55px;
+      font-size: clamp(56px, 8vw, 104px)
+    }
+
+    .footer-bottom {
+      border-top: 0;
+      padding: 14px 0 22px
+    }
+
+    .footer-bottom-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end
+    }
+
+    .footer-tagline {
+      font-size: 9px;
+      max-width: 180px
+    }
+
+    .footer-social a {
+      width: 28px;
+      height: 28px;
+      font-size: 10px
+    }
+
+    .footer-copy {
+      font-size: 9px;
+      text-align: right
+    }
+
+    .footer-oversized {
+      display: none
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none
+    }
+
+    @media (max-width:1100px) {
+      .hero-inner {
+        min-height: 530px
+      }
+
+      .hero-copy {
+        width: 42%
+      }
+
+      .hero-portrait {
+        width: min(480px, 53%)
+      }
+
+      .appointment-badge {
+        left: 32%
+      }
+
+      .about-grid {
+        gap: 36px
+      }
+
+      .footer-inner {
+        grid-template-columns: 1.1fr 1fr 1fr 1fr
+      }
+
+      .footer-inner .footer-col:last-child {
+        display: block
+      }
+    }
+
+    @media (max-width:900px) {
+      body {
+        padding: 8px
+      }
+
+      .site-frame {
+        border-radius: 20px
+      }
+
+      .container {
+        width: calc(100% - 36px)
+      }
+
+      .hero {
+        padding-top: 12px
+      }
+
+      .nav {
+        height: 44px
+      }
+
+      .brand-mark {
+        background: transparent;
+        box-shadow: none
+      }
+
+      .nav-links {
+        background: #fff
+      }
+
+      .nav-link {
+        color: var(--navy)
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--blue);
+        background: var(--sky)
+      }
+
+      .menu-toggle {
+        background: rgba(255, 255, 255, .9)
+      }
+
+      .hero-inner {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        text-align: left;
+        padding: 18px 0 0
+      }
+
+      .hero-copy {
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        padding: 42px 0 0;
+        z-index: 5
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(36px, 6vw, 54px)
+      }
+
+      .headline-arrow {
+        margin: 10px 0 0 45px
+      }
+
+      .hero-portrait {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 58%;
+        transform: translateX(-50%);
+        margin: 0;
+        z-index: 2
+      }
+
+      .support-card {
+        position: absolute;
+        right: 0;
+        top: 34px;
+        margin: 0;
+        z-index: 6
+      }
+
+      .hero-supporting {
+        position: absolute;
+        right: 0;
+        top: 118px;
+        width: 32%;
+        margin: 0;
+        text-align: left;
+        z-index: 6
+      }
+
+      .hero-supporting::after {
+        margin: 8px 0
+      }
+
+      .appointment-badge {
+        position: absolute;
+        left: 31%;
+        top: 56%;
+        margin: 0;
+        width: 88px;
+        height: 88px;
+        z-index: 7
+      }
+
+      .hero-contact-links {
+        right: 0;
+        bottom: 16px;
+        gap: 6px;
+      }
+
+      .hero-contact-link {
+        min-width: 160px;
+        padding: 7px 10px;
+        font-size: 9px;
+      }
+
+      .hero-contact-link strong {
+        font-size: 11px;
+      }
+
+      .contact-link-icon,
+      .whatsapp-link>i {
+        width: 29px;
+        height: 29px;
+      }
+
+      .bottom-panel {
+        margin-top: 0;
+        padding: 0 0 42px
+      }
+
+      .panel-card {
+        grid-template-columns: 1.4fr 1fr;
+        padding: 12px;
+        gap: 10px
+      }
+
+      .panel-services {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px
+      }
+
+      .panel-service {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 8px 0 0;
+        border-right: 1px solid var(--line);
+        border-bottom: 0
+      }
+
+      .panel-service:last-child {
+        border-right: 0
+      }
+
+      .panel-service p {
+        display: none
+      }
+
+      .panel-testimonial {
+        padding: 10px
+      }
+
+      .section {
+        padding: 58px 0
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px
+      }
+
+      .about-stats {
+        margin-top: 30px
+      }
+
+      .stat-block:nth-child(2) {
+        margin-top: 28px
+      }
+
+      .carousel-wrap {
+        grid-template-columns: .55fr 2fr;
+        gap: 14px
+      }
+
+      .carousel-slide {
+        aspect-ratio: .78
+      }
+
+      .appointment {
+        min-height: 380px
+      }
+
+      .appointment-inner {
+        min-height: 380px;
+        padding: 28px
+      }
+
+      .appointment-form {
+        width: 52%;
+        padding: 22px
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px
+      }
+
+      .footer-inner .footer-col:first-child {
+        grid-column: auto
+      }
+
+      .footer-topline {
+        padding-bottom: 18px
+      }
+    }
+
+    @media (max-width:600px) {
+      body {
+        padding: 0
+      }
+
+      .site-frame {
+        border-radius: 0
+      }
+
+      .container {
+        width: calc(100% - 32px)
+      }
+
+      .hero-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+        padding-top: 8px
+      }
+
+      .hero-copy {
+        order: 1;
+        padding: 24px 0 0;
+        width: 70%
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(38px, 11vw, 54px)
+      }
+
+      .hero-portrait {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        order: 2;
+        align-self: center;
+        width: min(92%, 390px);
+        margin-top: -4px
+      }
+
+      .support-card {
+        top: 28px;
+        right: 0;
+        padding: 8px 10px;
+        gap: 7px
+      }
+
+      .support-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 13px
+      }
+
+      .support-text strong {
+        font-size: 11px
+      }
+
+      .support-text span {
+        font-size: 8px
+      }
+
+      .hero-supporting {
+        position: relative;
+        right: auto;
+        top: auto;
+        order: 3;
+        width: 100%;
+        max-width: 280px;
+        margin: 12px 0 0 auto;
+        font-size: 10px
+      }
+
+      .appointment-badge {
+        left: 4%;
+        top: auto;
+        bottom: 100px;
+        width: 76px;
+        height: 76px
+      }
+
+      .appointment-badge .center-icon {
+        font-size: 20px
+      }
+
+      .hero-contact-links {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        order: 4;
+        align-items: stretch;
+        width: 100%;
+        margin: 16px 0 24px;
+      }
+
+      .hero-contact-link {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .deco-marks {
+        display: none
+      }
+
+      .bottom-panel {
+        padding-bottom: 34px
+      }
+
+      .panel-card {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px
+      }
+
+      .panel-services {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .panel-service {
+        align-items: center;
+        text-align: center;
+        padding: 0 4px;
+        border-right: 1px solid var(--line)
+      }
+
+      .service-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 13px
+      }
+
+      .panel-service h3 {
+        font-size: 9px
+      }
+
+      .panel-testimonial {
+        display: none
+      }
+
+      .section {
+        padding: 48px 0
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+
+      .about-visual {
+        aspect-ratio: 1.18
+      }
+
+      .about-copy .section-heading {
+        font-size: 32px
+      }
+
+      .about-stats {
+        margin-top: 26px
+      }
+
+      .stat-block h4 {
+        font-size: 38px
+      }
+
+      .stat-block small {
+        display: none
+      }
+
+      #treatments.section {
+        padding-top: 8px
+      }
+
+      .treatments-head {
+        display: block;
+        margin-bottom: 22px
+      }
+
+      .treatments-head .section-lead {
+        margin-top: 8px
+      }
+
+      .carousel-wrap {
+        grid-template-columns: 1fr;
+        gap: 14px
+      }
+
+      .treatment-index {
+        min-height: 0;
+        flex-direction: row;
+        align-items: center
+      }
+
+      .carousel-counter strong {
+        font-size: 38px
+      }
+
+      .carousel-slide {
+        flex: 0 0 78%;
+        aspect-ratio: .88
+      }
+
+      .testimonial-editorial {
+        padding: 54px 0 62px
+      }
+
+      .testimonial-editorial .eyebrow {
+        margin-bottom: 24px
+      }
+
+      .testimonial-editorial blockquote {
+        font-size: 24px
+      }
+
+      .testimonial-editorial blockquote::before {
+        font-size: 60px;
+        right: 0
+      }
+
+      #contact.section {
+        padding: 0
+      }
+
+      .appointment {
+        min-height: 0;
+        background-position: 38% center
+      }
+
+      .appointment-inner {
+        min-height: 0;
+        padding: 220px 16px 18px;
+        justify-content: center
+      }
+
+      .appointment-form {
+        width: 100%;
+        padding: 22px
+      }
+
+      .footer {
+        padding-top: 28px
+      }
+
+      .footer-topline {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 24px 0 6px
+      }
+
+      .footer-brand-lockup {
+        height: 105px
+      }
+
+      .footer-brand-lockup .bright-word {
+        font-size: 58px;
+        left: 2%
+      }
+
+      .footer-brand-lockup .smile-word {
+        font-size: 58px;
+        left: 34%;
+        top: 40px
+      }
+
+      .footer-bottom-inner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 12px
+      }
+
+      .footer-copy {
+        text-align: center
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .appointment-badge svg {
+        animation: none
+      }
+    }
+  </style>
+  <style>
+    .services-page-hero {
+      padding: 150px 0 62px;
+      background: linear-gradient(135deg, #eaf6ff 0%, #f8fbff 58%, #fff 100%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .services-page-hero .container,
+    .directory-section .container {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 24px
+    }
+
+    .services-page-hero .eyebrow {
+      color: #2874a8;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-size: 12px
+    }
+
+    .services-page-hero h1 {
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.08;
+      color: #123b68;
+      margin: 14px 0 18px;
+      max-width: 760px
+    }
+
+    .services-page-hero p {
+      max-width: 680px;
+      color: #526b87;
+      font-size: 17px;
+      line-height: 1.8
+    }
+
+    .directory-section {
+      padding: 70px 0
+    }
+
+    .directory-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 30px
+    }
+
+    .directory-heading h2 {
+      color: #123b68;
+      font-size: clamp(28px, 3.5vw, 40px);
+      margin: 8px 0 0
+    }
+
+    .directory-heading p {
+      color: #647b92;
+      max-width: 430px;
+      line-height: 1.7;
+      margin: 0
+    }
+
+    .directory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px
+    }
+
+    .directory-card {
+      background: #fff;
+      border: 1px solid #dce5ec;
+      border-radius: 18px;
+      padding: 27px;
+      box-shadow: 0 10px 30px rgba(8, 43, 82, .055);
+      display: flex;
+      flex-direction: column;
+      min-height: 255px;
+      transition: transform .25s ease, box-shadow .25s ease
+    }
+
+    .directory-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 38px rgba(8, 43, 82, .11)
+    }
+
+    .directory-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px
+    }
+
+    .directory-type {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #4982a9
+    }
+
+    .directory-number {
+      font-size: 12px;
+      font-weight: 800;
+      color: #a1b4c4
+    }
+
+    .directory-card h3 {
+      font-size: 21px;
+      color: #123b68;
+      margin: 0 0 12px
+    }
+
+    .directory-card p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #5b7085;
+      margin: 0 0 24px
+    }
+
+    .directory-card .service-enquire {
+      margin-top: auto;
+      align-self: flex-start
+    }
+
+    .directory-card .service-enquire i {
+      margin-right: 7px
+    }
+
+    .directory-products {
+      background: #f4f9fc
+    }
+
+    .directory-note {
+      font-size: 13px;
+      color: #708398;
+      line-height: 1.7;
+      margin-top: 22px
+    }
+
+    .directory-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px
+    }
+
+    .directory-actions .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    @media(max-width:900px) {
+      .directory-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+
+      .directory-heading {
+        display: block
+      }
+
+      .directory-heading p {
+        margin-top: 14px
+      }
+    }
+
+    @media(max-width:600px) {
+      .services-page-hero {
+        padding: 125px 0 48px
+      }
+
+      .directory-section {
+        padding: 52px 0
+      }
+
+      .directory-grid {
+        grid-template-columns: 1fr
+      }
+
+      .directory-card {
+        min-height: 0;
+        padding: 23px
+      }
+
+      .directory-section .container,
+      .services-page-hero .container {
+        padding: 0 18px
+      }
+    }
+  </style>
+  <style id="services-visual-refresh">
+    .directory-card {
+      overflow: hidden;
+      transition: transform .28s ease, box-shadow .28s ease
+    }
+
+    .directory-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 48px rgba(8, 43, 82, .14)
+    }
+
+    .service-visual {
+      height: 178px;
+      margin: -1px -1px 20px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #dceeff, #f7fbff)
+    }
+
+    .service-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .55s ease
+    }
+
+    .directory-card:hover .service-visual img {
+      transform: scale(1.055)
+    }
+
+    .product-card .service-visual {
+      background: #fff;
+      border: 1px solid rgba(8, 43, 82, .08)
+    }
+
+    .product-card .service-visual img {
+      object-fit: contain;
+      padding: 12px
+    }
+
+    .directory-card h3 {
+      letter-spacing: -.035em
+    }
+
+    .directory-card .service-enquire {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px
+    }
+  </style>
+
+  <style id="services-theme-cohesion">
+    body {
+      background: #e9eef3
+    }
+
+    .services-page-hero {
+      --services-hero-overlay: .82;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 68px 0 62px;
+      background: #082b52 url("services-hero.jpg") center 42%/cover no-repeat
+    }
+
+    .services-page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 86% 18%, rgba(61, 140, 240, .34), transparent 38%), linear-gradient(120deg, rgba(8, 43, 82, var(--services-hero-overlay)) 0%, rgba(11, 79, 141, .78) 58%, rgba(8, 102, 245, .64) 100%)
+    }
+
+    .services-page-hero>.container {
+      position: relative;
+      z-index: 1
+    }
+
+    .services-page-hero .eyebrow {
+      color: #bfe0ff
+    }
+
+    .services-page-hero h1 {
+      color: #fff
+    }
+
+    .services-page-hero p {
+      color: #e5f4ff
+    }
+
+    .directory-actions .btn-primary {
+      background: #fff;
+      color: #082b52;
+      box-shadow: 0 9px 22px rgba(0, 0, 0, .18)
+    }
+
+    .directory-actions .btn-primary:hover {
+      background: #e5f4ff;
+      color: #082b52
+    }
+
+    .directory-actions .btn-outline {
+      border: 1px solid rgba(255, 255, 255, .7);
+      background: rgba(255, 255, 255, .12);
+      color: #fff
+    }
+
+    .directory-actions .btn-outline:hover {
+      background: #fff;
+      color: #082b52
+    }
+
+    .directory-section {
+      background: #fff
+    }
+
+    .directory-products {
+      background: #eaf4ff
+    }
+
+    .directory-heading h2 {
+      color: #082b52
+    }
+
+    .directory-heading p {
+      color: #506a83
+    }
+
+    .directory-card {
+      background: #fff;
+      border: 1px solid rgba(8, 43, 82, .14);
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(8, 43, 82, .09)
+    }
+
+    .directory-card .directory-card-top {
+      color: #1762a5
+    }
+
+    .directory-card .service-enquire {
+      background: #082b52;
+      color: #fff
+    }
+
+    .directory-card .service-enquire:hover {
+      background: #0866f5;
+      color: #fff
+    }
+
+    .directory-note {
+      color: #506a83
+    }
+
+    .service-filter {
+      margin: 0 auto 34px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid rgba(8, 43, 82, .12);
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(8, 43, 82, .08)
+    }
+
+    .service-filter-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .service-search {
+      position: relative;
+      flex: 1 1 260px
+    }
+
+    .service-search i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #63788c
+    }
+
+    .service-search input {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 14px 11px 42px;
+      border: 1px solid #cbd9e8;
+      border-radius: 12px;
+      background: #fbfdff;
+      color: #082b52;
+      font: 500 14px Inter, sans-serif
+    }
+
+    .service-search input:focus {
+      outline: 3px solid rgba(8, 102, 245, .16);
+      border-color: #0866f5
+    }
+
+    .service-filter-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .service-filter-button {
+      min-height: 42px;
+      padding: 9px 16px;
+      border: 1px solid #cbd9e8;
+      border-radius: 999px;
+      background: #fff;
+      color: #082b52;
+      font: 700 13px Inter, sans-serif;
+      cursor: pointer
+    }
+
+    .service-filter-button:hover,
+    .service-filter-button[aria-pressed="true"] {
+      border-color: #082b52;
+      background: #082b52;
+      color: #fff
+    }
+
+    .service-filter-status {
+      margin: 13px 0 0;
+      color: #506a83;
+      font-size: 13px
+    }
+
+    .directory-card[hidden],
+    .directory-section[hidden],
+    .filter-empty[hidden] {
+      display: none !important
+    }
+
+    .filter-empty {
+      margin: 8px auto 36px;
+      padding: 22px;
+      text-align: center;
+      color: #506a83
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+
+    @media(max-width:600px) {
+      .services-page-hero {
+        --services-hero-overlay: .88;
+        padding: 125px 0 48px;
+        background-position: 70% center
+      }
+
+      .service-filter {
+        padding: 15px
+      }
+
+      .service-filter-controls {
+        align-items: stretch
+      }
+
+      .service-filter-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+      }
+
+      .service-filter-button {
+        padding: 9px 8px;
+        font-size: 12px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-chrome-header">
+      <div class="site-chrome-inner">
+        <a class="site-chrome-brand" href="index.html" aria-label="Gupta Dental Clinic home">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span>Gupta Dental Clinic</span>
+        </a>
+        <button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation"
+          aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars"
+            aria-hidden="true"></i><span>Menu</span></button>
+        <nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation">
+          <a href="index.html" data-page="index.html">Home</a>
+          <a href="about.html" data-page="about.html">About</a>
+          <a href="services.html" data-page="services.html">Services &amp; Products</a>
+          <a href="contact-us.html" data-page="contact-us.html">Contact</a>
+          <a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a>
+        </nav>
+      </div>
+  </header>
+  <div class="site-frame">
+    <main>
+      <section class="services-page-hero">
+        <div class="container" data-aos="fade-up">
+          <span class="eyebrow">Gupta Dental Clinic · Care &amp; essentials</span>
+          <h1>Our Services &amp;<br>Dental Care Products.</h1>
+          <p>Explore dental services and implant systems listed by Gupta Dental Clinic. Contact our team to discuss
+            treatment options and clinical suitability.</p>
+          <div class="directory-actions"><a class="btn btn-primary" href="contact-us.html">Book a Visit <i
+                class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="btn btn-outline"
+              href="https://wa.me/917739957487" target="_blank" rel="noopener noreferrer"><i
+                class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Us</a></div>
+        </div>
+      </section>
+      <section class="directory-section" id="service-filters" aria-label="Filter services and products">
+        <div class="container">
+          <div class="service-filter">
+            <div class="service-filter-controls">
+              <label class="service-search">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <span class="visually-hidden">Search services and products</span>
+                <input id="serviceSearch" type="search" placeholder="Search services and products..."
+                  autocomplete="off">
+              </label>
+              <div class="service-filter-buttons" role="group" aria-label="Filter by category">
+                <button type="button" class="service-filter-button" data-service-filter="all" aria-pressed="true">All
+                  <span id="allServiceCount">16</span></button>
+                <button type="button" class="service-filter-button" data-service-filter="services"
+                  aria-pressed="false">Services <span>8</span></button>
+                <button type="button" class="service-filter-button" data-service-filter="products"
+                  aria-pressed="false">Products <span>8</span></button>
+              </div>
+            </div>
+            <p class="service-filter-status" id="serviceFilterStatus" role="status" aria-live="polite">Showing all
+              services and products.</p>
+          </div>
+          <p class="filter-empty" id="serviceFilterEmpty" role="status" hidden>No matching services or products. Try
+            another search.</p>
+        </div>
+      </section>
+      <section class="directory-section" id="all-services">
+        <div class="container">
+          <div class="directory-heading" data-aos="fade-up">
+            <div><span class="section-kicker">Dental care</span>
+              <h2>Our Services</h2>
+            </div>
+            <p>From preventive visits to restorative and smile-enhancing care, explore the services featured by Gupta
+              Dental Clinic.</p>
+          </div>
+          <div class="directory-grid">
+            <article class="directory-card" id="general-care" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=82"
+                  alt="general care dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">01</span></div>
+              <h3>General & Preventive Care</h3>
+              <p>Routine dental examinations, professional cleaning and preventive guidance to support healthy teeth and
+                gums.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20General%20%26%20Preventive%20Care.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="teeth-whitening" data-aos="fade-up">
+              <div class="service-visual"><img src="https://realtooth.in/images-one/teeth-whit.jpg"
+                  alt="teeth whitening dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">02</span></div>
+              <h3>Teeth Whitening</h3>
+              <p>Professional assessment and whitening options for people who want to reduce visible tooth stains.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Teeth%20Whitening.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="dental-bonding" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://supremedentalct.com/wp-content/uploads/2023/06/What-is-Dental-Bonding.jpg"
+                  alt="dental bonding dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">03</span></div>
+              <h3>Dental Bonding</h3>
+              <p>Tooth-coloured composite bonding may help improve the appearance of small chips, gaps and uneven edges.
+              </p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Dental%20Bonding.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="cosmetic-dentistry" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://s16736.pcdn.co/wp-content/uploads/sites/205/2016/07/Cosmetic-Dentistry.jpg.optimal.jpg"
+                  alt="cosmetic dentistry dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">04</span></div>
+              <h3>Cosmetic Dentistry</h3>
+              <p>Discuss smile-enhancing options such as veneers, crowns and other suitable cosmetic treatments.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Cosmetic%20Dentistry.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="dental-implants" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqKc2GyEaIQyd7wYvBbDCVDQAJbWLjnD0AtphRYJwedqZqdQFfUNKLlxZc&s=10
+                  alt="dental implants dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">05</span></div>
+              <h3>Dental Implants</h3>
+              <p>Consultation and assessment for implant-supported tooth replacement options.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Dental%20Implants.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="dentures-bridges" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGQ2KlsaaJ7s7Q279Rglu4xKJmZKOQxRGbfopfOAnGw6JFoEfrYPdXnps&s=10"
+                  alt="dentures bridges dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">06</span></div>
+              <h3>Dentures & Bridges</h3>
+              <p>Explore replacement options for missing teeth, including removable dentures and fixed dental bridges.
+              </p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Dentures%20%26%20Bridges.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="orthodontic-treatment" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpKnD0o_ANEr6OFhjYK7zqYBQG0xX4MelzL7Y6SJK2HZNgb8D7PtGCItDW&s=10"
+                  alt="orthodontic treatment dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">07</span></div>
+              <h3>Orthodontic Treatment</h3>
+              <p>Assessment of tooth alignment and bite, with suitable orthodontic treatment options.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Orthodontic%20Treatment.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+            <article class="directory-card" id="pediatric-dental-care" data-aos="fade-up">
+              <div class="service-visual"><img
+                  src="https://symphonydentalcare.in/wp-content/uploads/2026/01/Pediatric-Dentistry-in-khar-west.jpg"
+                  alt="pediatric dental care dental care" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental service</span><span
+                  class="directory-number">08</span></div>
+              <h3>Pediatric Dental Care</h3>
+              <p>Gentle, age-appropriate dental visits and preventive care for children.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20Pediatric%20Dental%20Care.%20Please%20share%20details%20and%20availability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire on WhatsApp</a>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="directory-section directory-products" id="products">
+        <div class="container">
+          <div class="directory-heading" data-aos="fade-up">
+            <div><span class="section-kicker">Dental implant systems</span>
+              <h2>Implant Systems</h2>
+            </div>
+            <p>The clinic's product listing features these implant systems for tooth-replacement consultations. A
+              dentist can discuss treatment options and suitability after an examination.</p>
+          </div>
+          <div class="directory-grid">
+            <article class="directory-card product-card" id="megagen-anyridge" data-aos="fade-up">
+              <div class="service-visual"><img src="MegaGen%20AnyRidge%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="MegaGen AnyRidge dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P01</span></div>
+              <h3>MegaGen AnyRidge Dental Implants</h3>
+              <p>MegaGen AnyRidge is listed by the clinic as an implant option for replacing missing teeth. Ask the
+                dentist about the system and whether it fits your treatment plan.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20MegaGen%20AnyRidge%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="mis-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="MIS%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="MIS dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P02</span></div>
+              <h3>MIS Dental Implants</h3>
+              <p>MIS dental implants are listed by the clinic for tooth-replacement enquiries. The dentist can explain
+                the available options and assess suitability for your needs.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20MIS%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="straumann-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="Straumann%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="Straumann dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P03</span></div>
+              <h3>Straumann Dental Implants</h3>
+              <p>Straumann dental implants are featured in the clinic's listing. Contact the clinic to discuss the
+                system, your treatment choices and clinical suitability.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20Straumann%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="nobel-biocare-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="Nobel%20Biocare%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="Nobel Biocare dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P04</span></div>
+              <h3>Nobel Biocare Dental Implants</h3>
+              <p>Nobel Biocare dental implants are listed as an option to discuss for tooth replacement. A dentist can
+                recommend an approach after reviewing your oral health.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20Nobel%20Biocare%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="adin-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="Adin%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="Adin dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P05</span></div>
+              <h3>Adin Dental Implants</h3>
+              <p>Adin dental implants appear in the clinic's product listing. Ask the dentist about the implant options
+                and whether one may be appropriate for your case.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20Adin%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="dio-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="DIO%20Dental%20Implants%20in%20Giridih.png"
+                  alt="DIO dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P06</span></div>
+              <h3>DIO Dental Implants</h3>
+              <p>DIO dental implants are included in the clinic's listing. Contact the clinic to ask about the system
+                and discuss your treatment options with a dentist.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20DIO%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="dentium-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="Dentium%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="Dentium dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P07</span></div>
+              <h3>Dentium Dental Implants</h3>
+              <p>Dentium dental implants are featured in the clinic's listing for enquiries. The dentist can explain
+                whether this system is suitable after an examination.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20Dentium%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+            <article class="directory-card product-card" id="osstem-implants" data-aos="fade-up">
+              <div class="service-visual"><img src="Osstem%20Dental%20Implants%20in%20Giridih.jpg"
+                  alt="Osstem dental implant system" loading="lazy"></div>
+              <div class="directory-card-top"><span class="directory-type">Dental implant system</span><span
+                  class="directory-number">P08</span></div>
+              <h3>Osstem Dental Implants</h3>
+              <p>Osstem dental implants are listed by the clinic for tooth-replacement consultations. Ask the dentist to
+                review your needs and explain suitable options.</p>
+              <a class="service-enquire"
+                href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20ask%20about%20Osstem%20Dental%20Implants.%20Please%20share%20details%20and%20suitability."
+                target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Enquire about this system</a>
+            </article>
+          </div>
+          <p class="directory-note">These are the implant systems named in the clinic's listing. Please confirm current
+            availability, product details and clinical suitability directly with the clinic.</p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-chrome-footer">
+      <div class="site-chrome-footer-inner">
+        <a class="site-chrome-footer-brand" href="index.html">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span>
+        </a>
+        <nav class="site-chrome-footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services &amp;
+            Products</a><a href="contact-us.html">Contact</a>
+        </nav>
+        <div class="site-chrome-footer-contact">
+          <a href="tel:+917739957487">+91 77399 57487</a>
+          <a href="https://wa.me/917739957487" target="_blank" rel="noopener noreferrer">WhatsApp the clinic</a>
+        </div>
+      </div>
+      <div class="site-chrome-footer-bottom">
+        <span>© <span data-current-year></span> Gupta Dental Clinic. All rights reserved.</span>
+        <span>NH114A, Professor Colony, Giridih, Jharkhand</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    if (window.AOS) AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 70 });
+    const filterButtons = document.querySelectorAll('[data-service-filter]');
+    const searchInput = document.getElementById('serviceSearch');
+    const serviceCards = Array.from(document.querySelectorAll('.directory-card'));
+    const serviceSection = document.getElementById('all-services');
+    const productSection = document.getElementById('products');
+    const filterStatus = document.getElementById('serviceFilterStatus');
+    const filterEmpty = document.getElementById('serviceFilterEmpty');
+    let activeServiceFilter = 'all';
+    function updateServiceFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+      let servicesVisible = 0;
+      let productsVisible = 0;
+      serviceCards.forEach(card => {
+        const category = card.classList.contains('product-card') ? 'products' : 'services';
+        const matchesCategory = activeServiceFilter === 'all' || activeServiceFilter === category;
+        const matchesQuery = !query || card.textContent.toLowerCase().includes(query);
+        const visible = matchesCategory && matchesQuery;
+        card.hidden = !visible;
+        if (visible) {
+          visibleCount += 1;
+          if (category === 'products') productsVisible += 1;
+          else servicesVisible += 1;
+        }
+      });
+      serviceSection.hidden = servicesVisible === 0;
+      productSection.hidden = productsVisible === 0;
+      filterEmpty.hidden = visibleCount > 0;
+      filterStatus.textContent = `Showing ${visibleCount} ${visibleCount === 1 ? 'result' : 'results'}.`;
+    }
+    filterButtons.forEach(button => button.addEventListener('click', () => {
+      activeServiceFilter = button.dataset.serviceFilter;
+      filterButtons.forEach(filterButton => filterButton.setAttribute('aria-pressed', String(filterButton === button)));
+      updateServiceFilters();
+    }));
+    searchInput.addEventListener('input', updateServiceFilters);
+    updateServiceFilters();
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="site-chrome.js"></script>
+  <script src="clinic-config.js"></script>
+  <script src="clinic.js"></script>
+</body>
+
+</html>

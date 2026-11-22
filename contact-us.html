@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Contact Gupta Dental Clinic in Giridih to request an appointment or ask a dental care question."
+    name="description" />
+  <meta content="#e5f4ff" name="theme-color" />
+  <title>Contact Us | Gupta Dental Clinic</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #082B52;
+      --blue: #0866F5;
+      --sky: #E5F4FF;
+      --muted: #63788c;
+      --line: rgba(8, 43, 82, .12);
+      --head: 'Plus Jakarta Sans', sans-serif;
+      --body: 'Inter', sans-serif;
+      --shadow: 0 18px 45px rgba(8, 43, 82, .11)
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: var(--body);
+      color: var(--navy);
+      background: #e9eef3;
+      line-height: 1.6
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit
+    }
+
+    .site-frame {
+      max-width: 1529px;
+      margin: auto;
+      background: #fff;
+      border-radius: 36px;
+      overflow: hidden;
+      min-height: 100vh
+    }
+
+    .container {
+      width: min(1240px, calc(100% - 64px));
+      margin: auto
+    }
+
+    .top-hero {
+      background: radial-gradient(ellipse at 72% 30%, rgba(255, 255, 255, .95), transparent 48%), linear-gradient(120deg, #78aaf4, #d8edff);
+      padding: 24px 0 76px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden
+    }
+
+    .top-hero::before {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: -10%;
+      bottom: -140px;
+      width: 120%;
+      height: 260px;
+      border-radius: 55% 45% 0 0 / 80% 75% 0 0;
+      transform: rotate(-5deg);
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .52), rgba(129, 199, 248, .29) 55%, rgba(8, 102, 245, .12));
+      box-shadow: 0 -16px 0 rgba(255, 255, 255, .3), 0 -32px 0 rgba(114, 184, 241, .2)
+    }
+
+    .top-hero:after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      width: 500px;
+      height: 500px;
+      border: 1px solid rgba(8, 43, 82, .1);
+      border-radius: 50%;
+      right: -100px;
+      top: 40px;
+      pointer-events: none
+    }
+
+    .top-hero .container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+      align-items: center;
+      gap: 30px
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 2
+    }
+
+    .nav {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font: 800 19px var(--head);
+      box-shadow: 0 6px 20px rgba(8, 43, 82, .1)
+    }
+
+    .brand-text strong,
+    .brand-text span {
+      display: block;
+      font-family: var(--head);
+      line-height: 1.15
+    }
+
+    .brand-text strong {
+      font-size: 15px;
+      font-weight: 800
+    }
+
+    .brand-text span {
+      font-size: 10px;
+      color: #174d87;
+      font-weight: 700
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      list-style: none
+    }
+
+    .nav-link {
+      display: block;
+      padding: 9px 16px;
+      border: 1px solid rgba(255, 255, 255, .55);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .18);
+      font: 600 12px var(--head);
+      transition: .2s
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: #fff;
+      border-color: #fff;
+      box-shadow: 0 6px 18px rgba(8, 43, 82, .1)
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: #fff;
+      font: 700 12px var(--head);
+      border: 1px solid rgba(255, 255, 255, .7);
+      transition: .2s
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(8, 43, 82, .2)
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 255, 255, .7);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--navy)
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 1;
+      padding: 72px 0 0;
+      max-width: 760px
+    }
+
+    .eyebrow {
+      font: 800 11px var(--head);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #174d87
+    }
+
+    .hero-title h1 {
+      font: 800 clamp(42px, 6vw, 76px)/1.04 var(--head);
+      letter-spacing: -.05em;
+      margin: 15px 0
+    }
+
+    .hero-title h1 span {
+      color: #fff
+    }
+
+    .hero-title p {
+      max-width: 520px;
+      color: #244e78;
+      font-size: 15px
+    }
+
+    .contact-hero-visual {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+    }
+
+    .contact-hero-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      margin-top: -42px;
+      position: relative;
+      z-index: 3;
+      padding-bottom: 90px
+    }
+
+    .contact-card {
+      background: #fff;
+      border: 1px solid rgba(8, 43, 82, .08);
+      border-radius: 26px;
+      padding: 34px;
+      box-shadow: var(--shadow)
+    }
+
+    .contact-card h2 {
+      font: 800 25px var(--head);
+      letter-spacing: -.04em;
+      margin-bottom: 8px
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 25px
+    }
+
+    .field {
+      margin-bottom: 17px
+    }
+
+    .field label {
+      display: block;
+      font: 700 11px var(--head);
+      margin-bottom: 7px
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(8, 43, 82, .16);
+      border-radius: 12px;
+      padding: 13px 14px;
+      color: var(--navy);
+      background: #f8fbff;
+      outline: none;
+      font-size: 13px;
+      transition: .2s
+    }
+
+    .field textarea {
+      min-height: 115px;
+      resize: vertical
+    }
+
+    .hidden {
+      display: none !important
+    }
+
+    .consent-field {
+      padding: 14px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-radius: 14px
+    }
+
+    .consent-label {
+      display: flex !important;
+      align-items: flex-start;
+      gap: 9px;
+      font-weight: 500 !important;
+      line-height: 1.55
+    }
+
+    .consent-label input {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 17px;
+      margin-top: 2px;
+      accent-color: var(--blue)
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(8, 102, 245, .1);
+      background: #fff
+    }
+
+    .form-submit {
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      margin-top: 5px
+    }
+
+    .small-note {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 12px
+    }
+
+    .info-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px
+    }
+
+    .info-item {
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #f9fcff
+    }
+
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: var(--sky);
+      color: var(--blue);
+      font-size: 17px
+    }
+
+    .info-item strong {
+      display: block;
+      font: 800 13px var(--head);
+      margin: 1px 0 3px
+    }
+
+    .info-item p,
+    .info-item a {
+      font-size: 12px;
+      color: var(--muted);
+      overflow-wrap: anywhere
+    }
+
+    .info-item a:hover {
+      color: var(--blue)
+    }
+
+    .external-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px
+    }
+
+    .external-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 14px;
+      font: 700 11px var(--head);
+      background: #fff
+    }
+
+    .external-links a:hover {
+      background: var(--sky)
+    }
+
+    .footer {
+      background: var(--navy);
+      color: #fff;
+      padding: 28px 0
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .72)
+    }
+
+    .footer a {
+      color: #fff
+    }
+
+    @media(max-width:760px) {
+      .site-frame {
+        border-radius: 0
+      }
+
+      .container {
+        width: calc(100% - 34px)
+      }
+
+      .nav {
+        height: auto;
+        min-height: 52px;
+        flex-wrap: wrap
+      }
+
+      .menu-toggle {
+        display: block
+      }
+
+      .nav-actions {
+        margin-left: auto
+      }
+
+      .nav-links {
+        display: none;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+        background: rgba(255, 255, 255, .45);
+        border: 1px solid rgba(255, 255, 255, .6);
+        border-radius: 16px
+      }
+
+      .nav-links.open {
+        display: flex
+      }
+
+      .nav-link {
+        text-align: center;
+        background: rgba(255, 255, 255, .55)
+      }
+
+      .hero-title {
+        padding: 55px 0 15px
+      }
+
+      .top-hero .container {
+        grid-template-columns: 1fr;
+        gap: 20px
+      }
+
+      .contact-hero-visual {
+        width: min(100%, 460px);
+        margin: 0 auto
+      }
+
+      .top-hero::before {
+        left: -18%;
+        bottom: -112px;
+        width: 140%;
+        height: 190px
+      }
+
+      .hero-title p {
+        font-size: 13px
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+        margin-top: -28px;
+        gap: 16px;
+        padding-bottom: 55px
+      }
+
+      .contact-card {
+        padding: 24px;
+        border-radius: 20px
+      }
+
+      .contact-card h2 {
+        font-size: 22px
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center
+      }
+
+      .top-hero {
+        padding-bottom: 55px
+      }
+    }
+  </style>
+  <link rel="icon" type="image/png" href="gupta-dental-clinic-logo.png" />
+
+  <style id="contact-navigation-and-icon-fix">
+    .nav-dropdown {
+      position: relative;
+      list-style: none
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 9px);
+      left: 0;
+      min-width: 245px;
+      max-height: 70vh;
+      overflow: auto;
+      padding: 9px;
+      background: #fff;
+      border: 1px solid rgba(8, 43, 82, .12);
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(8, 43, 82, .16);
+      z-index: 50;
+      list-style: none
+    }
+
+    .dropdown-menu.open {
+      display: block
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 9px 12px;
+      border-radius: 9px;
+      font: 600 12px var(--head);
+      color: var(--navy)
+    }
+
+    .dropdown-item:hover {
+      background: #e5f4ff;
+      color: #0866f5
+    }
+
+    .info-icon i,
+    .external-links i {
+      font-size: 18px
+    }
+
+    @media(max-width:760px) {
+      .dropdown-menu {
+        position: static;
+        max-height: 260px;
+        box-shadow: none;
+        margin-top: 6px;
+        width: 100%
+      }
+
+      .nav-dropdown {
+        width: 100%
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-chrome.css" />
+
+</head>
+
+<body>
+  <header class="site-chrome-header">
+      <div class="site-chrome-inner">
+        <a class="site-chrome-brand" href="index.html" aria-label="Gupta Dental Clinic home">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span>Gupta Dental Clinic</span>
+        </a>
+        <button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation"
+          aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button>
+        <nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation">
+          <a href="index.html" data-page="index.html">Home</a>
+          <a href="about.html" data-page="about.html">About</a>
+          <a href="services.html" data-page="services.html">Services &amp; Products</a>
+          <a href="contact-us.html" data-page="contact-us.html">Contact</a>
+          <a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a>
+        </nav>
+      </div>
+  </header>
+  <div class="site-frame">
+    <section class="top-hero">
+      <div class="container">
+        <div class="hero-title" data-aos="fade-up">
+          <div class="eyebrow">We’re here to help</div>
+          <h1>Let’s talk about<br /><span>your smile.</span></h1>
+          <p>Have a question or ready to plan your visit? Reach Gupta Dental Clinic using the details below or send us
+            an appointment request.</p>
+        </div>
+        <div class="contact-hero-visual">
+          <img src="contact-dental-3d.png"
+            alt="3D dental illustration with appointment calendar and contact details" width="1536" height="1024"
+            fetchpriority="high" />
+        </div>
+      </div>
+    </section>
+    <main class="container">
+      <div class="contact-layout">
+        <section class="contact-card" data-aos="fade-up" id="contact-form">
+          <h2>Request an appointment</h2>
+          <p class="intro">Complete the form, then continue to WhatsApp to contact the clinic. Your details are not sent automatically.</p>
+          <form id="contactForm">
+            <div class="field"><label for="name">Full name <span aria-hidden="true">*</span></label><input
+                autocomplete="name" id="name" name="name" placeholder="Enter patient's full name" required
+                maxlength="120" /></div>
+            <div class="field"><label for="phone">Phone number <span aria-hidden="true">*</span></label><input
+                autocomplete="tel" id="phone" name="phone" placeholder="Enter primary phone number" required type="tel"
+                inputmode="tel" maxlength="20" /></div>
+            <div class="field"><label for="alternate_phone">Alternate phone number (optional)</label><input
+                autocomplete="tel-national" id="alternate_phone" name="alternate_phone"
+                placeholder="Enter alternate phone number" type="tel" inputmode="tel" maxlength="20" /></div>
+            <div class="field"><label for="address">Complete address <span aria-hidden="true">*</span></label><textarea
+                autocomplete="street-address" id="address" name="address"
+                placeholder="House / street, area, city, state and PIN code" required maxlength="500"></textarea></div>
+            <div class="field"><label for="age">Age <span aria-hidden="true">*</span></label><input id="age" name="age"
+                type="number" min="1" max="120" step="1" placeholder="Enter age in years" required /></div>
+            <div class="field"><label for="email">Email address (optional)</label><input autocomplete="email" id="email"
+                name="email" type="email" placeholder="Enter email address" maxlength="254" /></div>
+            <div class="field"><label for="reason">Reason for visit <span aria-hidden="true">*</span></label><select
+                id="reason" name="reason" required>
+                <option value="" selected disabled>Select a reason</option>
+                <option>Toothache</option>
+                <option>Tooth decay / cavity</option>
+                <option>Bleeding gums</option>
+                <option>Swollen gums</option>
+                <option>Missing teeth</option>
+                <option>Teeth alignment</option>
+                <option>Teeth whitening</option>
+                <option>Dental implants</option>
+                <option>Routine checkup</option>
+                <option>Other</option>
+              </select></div>
+            <div class="field consent-field"><label class="consent-label"><input id="consent" name="consent"
+                  type="checkbox" required /> I understand this website does not send my form details. I can share them
+                with the clinic separately via WhatsApp if I choose. <span aria-hidden="true">*</span></label>
+              <p class="small-note">Please provide only information needed for this enquiry. This form does not submit
+                an appointment request or provide a diagnosis. A dentist will assess any dental concern during
+                consultation.</p>
+            </div>
+            <button class="btn form-submit" id="submitEnquiry" type="submit">Submit Enquiry <i aria-hidden="true"
+                class="fa-solid fa-arrow-right"></i></button>
+            <p class="small-note" id="formStatus" role="status" aria-live="polite">This form does not save or send
+              your details. Continue to WhatsApp to contact the clinic; your form details will not be transferred
+              automatically.</p>
+          </form>
+        </section>
+        <aside class="contact-card" data-aos="fade-up" data-aos-delay="120">
+          <h2>Get in touch</h2>
+          <p class="intro">Choose the contact method that works best for you.</p>
+          <div class="info-list">
+            <div class="info-item"><span class="info-icon"><i class="fa-brands fa-whatsapp"></i></span>
+              <div><strong>WhatsApp</strong><a href="https://wa.me/917739957487" rel="noopener noreferrer"
+                  target="_blank">+91 77399 57487</a>
+                <p>Message us for appointments and enquiries.</p>
+              </div>
+            </div>
+            <div class="info-item"><span class="info-icon"><i class="fa-solid fa-star"></i></span>
+              <div><strong>Justdial</strong><a
+                  href="https://www.justdial.com/Giridih/Gupta-Dental-Clinic-Aesthetic-Smile-Implant-Centre-New-Barganda-Professor-Colony/9999P6532-6532-191231233009-V3Y2_BZDET"
+                  rel="noopener noreferrer" target="_blank">View Gupta Dental Clinic on Justdial</a>
+                <p>See our clinic listing and details.</p>
+              </div>
+            </div>
+            <div class="info-item"><span class="info-icon"><i class="fa-solid fa-location-dot"></i></span>
+              <div><strong>Clinic location</strong>
+                <p>NH114A, Professor Colony, New Barganda, Giridih, Jharkhand 815302</p>
+              </div>
+            </div>
+          </div>
+          <div class="external-links"><a href="https://wa.me/917739957487" rel="noopener noreferrer" target="_blank"><i
+                class="fa-brands fa-whatsapp"></i> WhatsApp us</a><a
+              href="https://www.justdial.com/Giridih/Gupta-Dental-Clinic-Aesthetic-Smile-Implant-Centre-New-Barganda-Professor-Colony/9999P6532-6532-191231233009-V3Y2_BZDET"
+              rel="noopener noreferrer" target="_blank">Justdial listing <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+        </aside>
+      </div>
+    </main>
+    <footer class="site-chrome-footer">
+      <div class="site-chrome-footer-inner">
+        <a class="site-chrome-footer-brand" href="index.html">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span>
+        </a>
+        <nav class="site-chrome-footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services &amp; Products</a><a href="contact-us.html">Contact</a>
+        </nav>
+        <div class="site-chrome-footer-contact">
+          <a href="tel:+917739957487">+91 77399 57487</a>
+          <a href="https://wa.me/917739957487" target="_blank" rel="noopener noreferrer">WhatsApp the clinic</a>
+        </div>
+      </div>
+      <div class="site-chrome-footer-bottom">
+        <span>© <span data-current-year></span> Gupta Dental Clinic. All rights reserved.</span>
+        <span>NH114A, Professor Colony, Giridih, Jharkhand</span>
+      </div>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 70 });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="site-chrome.js"></script>
+  <script src="clinic-config.js"></script>
+  <script src="clinic.js"></script>
+</body>
+
+</html>

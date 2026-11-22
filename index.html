@@ -1,0 +1,3727 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Gupta Dental Clinic — gentle, modern dental care. Confidence starts with a smile."
+    name="description" />
+  <meta content="#e5f4ff" name="theme-color" />
+  <link rel="icon" type="image/png" href="gupta-dental-clinic-logo.png" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <!-- AOS scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="site-chrome.css" />
+  <style>
+    /* ============================================================
+       TOKENS
+    ============================================================ */
+    :root {
+      --navy: #082B52;
+      --navy-2: #0b3763;
+      --blue: #0866F5;
+      --blue-soft: #3d8cf0;
+      --sky: #E5F4FF;
+      --sky-2: #f0f8ff;
+      --white: #ffffff;
+      --muted: #63788c;
+      --ink-muted: #506a83;
+      --line: rgba(8, 43, 82, .08);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-xl: 40px;
+      --shadow-sm: 0 6px 20px rgba(8, 43, 82, .08);
+      --shadow-md: 0 18px 40px rgba(8, 43, 82, .12);
+      --shadow-lg: 0 30px 80px rgba(8, 43, 82, .16);
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--navy);
+      background: #e9eef3;
+      line-height: 1.6;
+      overflow-x: hidden;
+      overflow-x: clip;
+      /* padding: 18px; */
+    }
+
+    body.menu-open {
+      overflow: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      background: none
+    }
+
+    img {
+      display: block;
+      max-width: 100%
+    }
+
+    ul {
+      list-style: none
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15
+    }
+
+    /* ============================================================
+       SITE CANVAS — centered rounded container
+    ============================================================ */
+    .site-frame {
+      max-width: 1529px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 36px;
+      overflow: hidden;
+
+      position: relative;
+    }
+
+    .container {
+      width: min(1550px, calc(100% - 80px));
+      margin-inline: auto;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .2px;
+      transition: transform .25s cubic-bezier(.2, .9, .4, 1), box-shadow .25s, background .25s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: 0 9px 22px rgba(8, 43, 82, .22)
+    }
+
+    .btn-primary:hover {
+      background: #061f3c;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(8, 43, 82, .3)
+    }
+
+    .btn-primary i {
+      font-size: 12px
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 9px 22px rgba(8, 102, 245, .25)
+    }
+
+    .btn-blue:hover {
+      background: #0356d6;
+      transform: translateY(-2px)
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid rgba(8, 43, 82, .18)
+    }
+
+    .btn-ghost:hover {
+      background: rgba(8, 43, 82, .04);
+      border-color: var(--navy)
+    }
+
+    /* ============================================================
+       HEADER — inside hero, no white bar
+    ============================================================ */
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 62% 38%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .2) 40%, transparent 68%),
+        linear-gradient(120deg, #dcefff 0%, #e5f4ff 50%, #eef8ff 100%);
+      padding: 26px 0 0;
+      min-height: 760px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: 600px;
+      height: 600px;
+      border: 1px solid rgba(8, 102, 245, .1);
+      border-radius: 50%;
+      right: 6%;
+      top: 20px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: 440px;
+      height: 440px;
+      border: 1px solid rgba(8, 102, 245, .08);
+      border-radius: 50%;
+      right: 12%;
+      top: 100px;
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 50
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 20px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--white);
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      font-size: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-text {
+      line-height: 1.15
+    }
+
+    .brand-text strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -.4px;
+      color: var(--navy)
+    }
+
+    .brand-text span {
+      display: block;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 11.5px;
+      color: var(--blue);
+      letter-spacing: -.1px
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #3f5a75;
+      transition: color .2s, background .2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--blue);
+      background: rgba(255, 255, 255, .7)
+    }
+
+    .nav-link i {
+      font-size: 10px;
+      transition: transform .2s
+    }
+
+    .nav-link[aria-expanded="true"] i {
+      transform: rotate(180deg)
+    }
+
+    .nav-dropdown {
+      position: relative
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 230px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 10px 8px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity .22s, transform .22s, visibility .22s;
+      z-index: 60;
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .dropdown-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0)
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--navy);
+      transition: background .15s;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background: var(--sky);
+      outline: none
+    }
+
+    .dropdown-item i {
+      color: var(--blue);
+      font-size: 14px;
+      width: 18px;
+      text-align: center
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--navy);
+      font-size: 17px;
+      place-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ============================================================
+       HERO CANVAS
+    ============================================================ */
+    .hero-inner {
+      position: relative;
+      min-height: 660px
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 10;
+      width: 46%;
+      padding-top: 56px
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(48px, 5.4vw, 82px);
+      font-weight: 800;
+      line-height: 1.03;
+      letter-spacing: -.045em;
+      color: var(--navy);
+    }
+
+    .hero-copy h1 .accent {
+      color: var(--blue)
+    }
+
+    .headline-arrow {
+      margin: 16px 0 0 8px;
+      width: 88px;
+      color: var(--blue);
+      opacity: .9
+    }
+
+    .hero-portrait {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(560px, 58%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .hero-portrait img {
+      width: 100%;
+      height: auto;
+      /* PLACEHOLDER PORTRAIT — replace with approved cutout PNG. */
+      mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    }
+
+    .support-card {
+      position: absolute;
+      z-index: 15;
+      right: 0;
+      top: 70px;
+      background: var(--white);
+      border-radius: 18px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      box-shadow: var(--shadow-md);
+      transform: rotate(5deg);
+      transition: transform .35s;
+    }
+
+    .support-card:hover {
+      transform: rotate(5deg) translateY(-4px)
+    }
+
+    .support-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: var(--sky);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .support-text strong {
+      display: block;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 14.5px;
+      line-height: 1.2
+    }
+
+    .support-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .hero-supporting {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      top: 190px;
+      width: 250px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #3f5a75;
+    }
+
+    .hero-supporting::after {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 12px;
+      margin-top: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 12'%3E%3Cpath d='M2 8 Q 30 2, 55 8 T 108 8' stroke='%230866F5' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain;
+    }
+
+
+    .hero-contact-links {
+      position: absolute;
+      z-index: 16;
+      right: 1%;
+      bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .hero-contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 190px;
+      padding: 10px 15px;
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .88);
+      color: var(--navy);
+      box-shadow: 0 10px 26px rgba(8, 43, 82, .12);
+      font-size: 11px;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-contact-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(8, 43, 82, .18);
+      background: #fff;
+    }
+
+    .hero-contact-link strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 13px;
+    }
+
+    .contact-link-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .justdial-icon {
+      background: #fff0e9;
+      color: #e65d28;
+      font-size: 12px;
+      letter-spacing: -1px;
+    }
+
+    .whatsapp-link>i {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #e5f8ed;
+      color: #159b55;
+      font-size: 21px;
+    }
+
+    .appointment-badge {
+      position: absolute;
+      z-index: 12;
+      left: 42%;
+      top: 47%;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 36px rgba(8, 43, 82, .18);
+      transition: transform .3s;
+      cursor: pointer;
+    }
+
+    .appointment-badge:hover {
+      transform: scale(1.06)
+    }
+
+    .appointment-badge svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      animation: spin 22s linear infinite
+    }
+
+    .appointment-badge .center-icon {
+      font-size: 32px;
+      color: var(--blue)
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .social-rail {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      bottom: 40px;
+      display: flex;
+      gap: 10px
+    }
+
+    .social-rail a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(8, 102, 245, .25);
+      background: rgba(255, 255, 255, .7);
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      transition: background .2s, color .2s, transform .2s;
+    }
+
+    .social-rail a:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+      transform: translateY(-3px)
+    }
+
+    .deco-marks {
+      position: absolute;
+      z-index: 8;
+      right: 240px;
+      top: 86px;
+      display: flex;
+      gap: 6px;
+      transform: rotate(-15deg)
+    }
+
+    .deco-marks span {
+      display: block;
+      width: 3px;
+      height: 18px;
+      border-radius: 3px;
+      background: var(--blue);
+    }
+
+    .deco-marks span:nth-child(2) {
+      height: 26px;
+      margin-top: -4px
+    }
+
+    .deco-marks span:nth-child(3) {
+      height: 14px;
+      margin-top: 2px
+    }
+
+    /* ============================================================
+       OVERLAPPING PANEL
+    ============================================================ */
+    .bottom-panel {
+      position: relative;
+      z-index: 20;
+      margin-top: -40px;
+      padding-bottom: 80px
+    }
+
+    .panel-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 -8px 40px rgba(8, 43, 82, .06), 0 22px 60px rgba(8, 43, 82, .08);
+      padding: 38px 44px;
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 44px;
+      align-items: stretch;
+    }
+
+    .panel-services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    .panel-service {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-right: 20px;
+      border-right: 1px solid var(--line)
+    }
+
+    .panel-service:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--sky);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+    }
+
+    .panel-service h3 {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -.02em
+    }
+
+    .panel-service p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+    .panel-testimonial {
+      background: #eef7ff;
+      border-radius: var(--radius-md);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--navy);
+      font-style: italic;
+    }
+
+    .testimonial-quote::before {
+      content: "“";
+      font-size: 34px;
+      color: #7ab2e8;
+      font-family: Georgia, serif;
+      line-height: 0;
+      vertical-align: -10px;
+      margin-right: 4px;
+    }
+
+    .testimonial-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #cfe5fb;
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .testimonial-meta strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2
+    }
+
+    .testimonial-meta span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    .section {
+      padding: 100px 0
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-size: clamp(32px, 3.8vw, 48px);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+      margin-bottom: 18px
+    }
+
+    .section-lead {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center
+    }
+
+    .about-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/4.4;
+      /* PLACEHOLDER — replace with dental treatment photograph */
+      background: linear-gradient(145deg, #dcefff, #f3f9ff);
+    }
+
+    .about-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .review-card {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .review-card .stars {
+      color: #f5b342;
+      font-size: 12px;
+      letter-spacing: 1px
+    }
+
+    .review-card strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: 2px
+    }
+
+    .review-card span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px
+    }
+
+    .stat-block {
+      padding: 22px 24px;
+      border-radius: var(--radius-md);
+      background: var(--sky-2);
+      border: 1px solid var(--line)
+    }
+
+    .stat-block h4 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 6px
+    }
+
+    .stat-block p {
+      font-size: 12.5px;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    /* ============================================================
+       TREATMENTS SECTION — carousel
+    ============================================================ */
+    .treatments-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+      margin-bottom: 44px
+    }
+
+    .treatments-head .section-lead {
+      max-width: 440px
+    }
+
+    .carousel-wrap {
+      position: relative
+    }
+
+    .carousel-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .carousel-counter {
+      font-family: var(--font-head);
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 1px
+    }
+
+    .carousel-counter strong {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 18px
+    }
+
+    .carousel-nav {
+      display: flex;
+      gap: 10px
+    }
+
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      display: grid;
+      place-items: center;
+      color: var(--navy);
+      font-size: 15px;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+
+    .carousel-btn:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy)
+    }
+
+    .carousel-btn:disabled {
+      opacity: .4;
+      pointer-events: none
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .carousel-slide {
+      flex: 0 0 calc((100% - 24px)/2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3.2;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s ease
+    }
+
+    .carousel-slide:hover img {
+      transform: scale(1.05)
+    }
+
+    .carousel-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(8, 43, 82, .85) 100%);
+    }
+
+    .slide-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 30px 32px;
+      color: var(--white);
+    }
+
+    .slide-caption h3 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
+      color: var(--white)
+    }
+
+    .slide-caption p {
+      font-size: 13px;
+      opacity: .85;
+      max-width: 340px
+    }
+
+    .service-enquire {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 16px;
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 9px;
+      color: #fff;
+      background: rgba(255, 255, 255, .13);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+      position: relative;
+      z-index: 3;
+    }
+
+    .service-enquire:hover {
+      color: var(--navy);
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .service-enquire i {
+      font-size: 17px;
+    }
+
+
+    /* ============================================================
+       TESTIMONIAL — editorial
+    ============================================================ */
+    .testimonial-editorial {
+      text-align: center;
+      padding: 110px 0;
+      background: var(--sky-2)
+    }
+
+    .testimonial-editorial .eyebrow {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .testimonial-editorial blockquote {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.35;
+      letter-spacing: -.02em;
+      color: var(--navy);
+      max-width: 900px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .testimonial-editorial blockquote::before {
+      content: "“";
+      font-family: Georgia, serif;
+      font-size: 120px;
+      line-height: 0;
+      color: var(--blue-soft);
+      opacity: .25;
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .testimonial-author {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .testimonial-author-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #cfe5fb;
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+    }
+
+    .testimonial-author div {
+      text-align: left
+    }
+
+    .testimonial-author strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 800
+    }
+
+    .testimonial-author span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .google-review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 18px;
+      text-align: left
+    }
+
+    .google-review-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      min-width: 0;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      box-shadow: var(--shadow-sm)
+    }
+
+    .google-review-card .stars {
+      color: #f5b342;
+      letter-spacing: 2px
+    }
+
+    .testimonial-editorial .google-review-card blockquote {
+      max-width: none;
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: 0;
+      text-align: left
+    }
+
+    .google-review-card blockquote::before {
+      content: none
+    }
+
+    .google-review-author {
+      margin-top: auto;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .google-review-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 28px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700
+    }
+
+    .google-review-link:hover {
+      background: #061f3c
+    }
+
+    /* ============================================================
+       APPOINTMENT SECTION
+    ============================================================ */
+    .appointment {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      margin: 0 40px;
+      /* PLACEHOLDER — replace with dental clinic interior photograph */
+      background: linear-gradient(120deg, #082B52 0%, #0b3763 55%, #114578 100%);
+      min-height: 520px;
+    }
+
+    .appointment::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: .35;
+      background: url("https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80") center/cover;
+      mix-blend-mode: luminosity;
+    }
+
+    .appointment-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 70px 60px;
+    }
+
+    .appointment-copy {
+      color: var(--white);
+      max-width: 420px
+    }
+
+    .appointment-copy .section-heading {
+      color: var(--white);
+      margin-bottom: 16px
+    }
+
+    .appointment-copy p {
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.8
+    }
+
+    .appointment-form {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .appointment-form h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px
+    }
+
+    .appointment-form>p {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 22px
+    }
+
+    .appointment-form label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 14px 0 6px;
+      letter-spacing: .2px
+    }
+
+    .appointment-form input {
+      width: 100%;
+      border: 1px solid #dce6ee;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--navy);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .appointment-form input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(8, 102, 245, .12)
+    }
+
+    .appointment-form input.error {
+      border-color: #e05353;
+      box-shadow: 0 0 0 3px rgba(224, 83, 83, .12)
+    }
+
+    .appointment-form .field-error {
+      font-size: 11px;
+      color: #e05353;
+      margin-top: 5px;
+      display: none
+    }
+
+    .appointment-form .field-error.visible {
+      display: block
+    }
+
+    .appointment-form .btn {
+      width: 100%;
+      margin-top: 20px
+    }
+
+    .appointment-form .form-note {
+      font-size: 10.5px;
+      color: #94a6b8;
+      margin-top: 14px;
+      line-height: 1.5
+    }
+
+    /* ============================================================
+       FOOTER — dark navy
+    ============================================================ */
+    .footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 70px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 60px
+    }
+
+    .footer h4 {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: .9
+    }
+
+    .footer-apps h5 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 14px
+    }
+
+    .footer-apps p {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .6);
+      margin-bottom: 20px;
+      max-width: 260px
+    }
+
+    .store-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      font-size: 11px;
+      color: rgba(255, 255, 255, .9);
+      transition: background .2s;
+    }
+
+    .store-badge:hover {
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .store-badge i {
+      font-size: 18px
+    }
+
+    .store-badge span {
+      display: block;
+      font-size: 9px;
+      opacity: .7;
+      line-height: 1.1
+    }
+
+    .store-badge strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2
+    }
+
+    .footer-col ul li {
+      margin-bottom: 11px
+    }
+
+    .footer-col a {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .65);
+      transition: color .2s
+    }
+
+    .footer-col a:hover {
+      color: var(--white)
+    }
+
+    .footer-oversized {
+      text-align: center;
+      padding: 40px 20px 20px;
+      line-height: 1;
+      pointer-events: none;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(80px, 16vw, 220px);
+      letter-spacing: -.05em;
+      color: rgba(255, 255, 255, .05);
+      display: flex;
+      justify-content: center;
+      gap: .2em;
+    }
+
+    .footer-oversized span {
+      display: inline-block
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      padding: 26px 0;
+    }
+
+    .footer-bottom-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .footer-tagline {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .6)
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .15);
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, .7);
+      font-size: 13px;
+      transition: background .2s, color .2s;
+    }
+
+    .footer-social a:hover {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue)
+    }
+
+    .footer-copy {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, .45)
+    }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(8, 43, 82, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex
+    }
+
+    .modal {
+      width: min(480px, 100%);
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 36px;
+      position: relative
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f1f6fa;
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+    }
+
+    .modal h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      padding-right: 40px
+    }
+
+    .modal p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px
+    }
+
+    .modal label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 13px 0 6px
+    }
+
+    .modal input,
+    .modal textarea {
+      width: 100%;
+      border: 1px solid #dce6ee;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .modal input:focus,
+    .modal textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(8, 102, 245, .12)
+    }
+
+    .modal textarea {
+      min-height: 80px;
+      resize: vertical
+    }
+
+    .modal .btn {
+      width: 100%;
+      margin-top: 18px
+    }
+
+    .modal .form-note {
+      font-size: 10.5px;
+      color: #94a6b8;
+      margin-top: 14px;
+      line-height: 1.5
+    }
+
+    /* ============================================================
+       REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width:1100px) {
+      .container {
+        width: min(100% - 56px, 960px)
+      }
+
+      .hero-copy {
+        width: 48%
+      }
+
+      .hero-portrait {
+        width: min(480px, 58%)
+      }
+
+      .support-card {
+        top: 50px
+      }
+
+      .hero-supporting {
+        top: 170px;
+        width: 210px;
+        font-size: 12.5px
+      }
+
+      .appointment-badge {
+        width: 118px;
+        height: 118px;
+        left: 40%
+      }
+
+      .footer-inner {
+        grid-template-columns: 1.4fr 1fr 1fr
+      }
+
+      .footer-inner .footer-col:last-child {
+        display: none
+      }
+    }
+
+    @media (max-width:900px) {
+      body {
+        padding: 10px
+      }
+
+      .site-frame {
+        border-radius: 24px
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 20px 0 0
+      }
+
+      .nav-links {
+        position: fixed;
+        inset: 80px 20px auto;
+        background: var(--white);
+        border-radius: var(--radius-md);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 18px;
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-120%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform .35s, opacity .35s, visibility .35s;
+        z-index: 45;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible
+      }
+
+      .nav-link {
+        padding: 12px 16px;
+        font-size: 15px;
+        width: 100%;
+        justify-content: space-between
+      }
+
+      .nav-dropdown {
+        width: 100%
+      }
+
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        padding: 4px 0 4px 16px;
+        min-width: 0;
+        display: none
+      }
+
+      .dropdown-menu.open {
+        display: block
+      }
+
+      .nav-actions .btn-primary {
+        display: none
+      }
+
+      .menu-toggle {
+        display: grid
+      }
+
+      .hero-inner {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 8px
+      }
+
+      .hero-copy {
+        width: 100%;
+        padding: 16px 0 0;
+        order: 1
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(40px, 9vw, 58px)
+      }
+
+      .headline-arrow {
+        margin: 14px auto 0
+      }
+
+      .hero-portrait {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        width: min(100%, 420px);
+        order: 2;
+        margin-top: -10px
+      }
+
+      .support-card {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: rotate(3deg);
+        margin: 24px auto 0;
+        order: 3;
+        width: max-content
+      }
+
+      .hero-supporting {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 100%;
+        order: 4;
+        margin: 18px auto 0;
+        text-align: center;
+        max-width: 340px
+      }
+
+      .hero-supporting::after {
+        margin: 12px auto 0
+      }
+
+      .appointment-badge {
+        position: relative;
+        left: auto;
+        top: auto;
+        margin: 22px auto 0;
+        order: 5;
+        width: 108px;
+        height: 108px
+      }
+
+      .appointment-badge .center-icon {
+        font-size: 26px
+      }
+
+      .social-rail {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        order: 6;
+        justify-content: center;
+        margin: 22px 0 8px
+      }
+
+      .deco-marks {
+        display: none
+      }
+
+      .bottom-panel {
+        margin-top: -30px;
+        padding-bottom: 60px
+      }
+
+      .panel-card {
+        grid-template-columns: 1fr;
+        padding: 28px 24px;
+        gap: 26px
+      }
+
+      .panel-services {
+        grid-template-columns: 1fr;
+        gap: 22px
+      }
+
+      .panel-service {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 0 0 22px;
+        border-right: none;
+        border-bottom: 1px solid var(--line)
+      }
+
+      .panel-service:last-child {
+        padding-bottom: 0;
+        border-bottom: none
+      }
+
+      .panel-service h3 {
+        font-size: 15px
+      }
+
+      .panel-service p {
+        font-size: 12px
+      }
+
+      .section {
+        padding: 64px 0
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px
+      }
+
+      .about-visual {
+        aspect-ratio: 4/3.6
+      }
+
+      .about-stats {
+        margin-top: 28px
+      }
+
+      .treatments-head {
+        display: block;
+        margin-bottom: 30px
+      }
+
+      .treatments-head .section-lead {
+        margin-top: 12px
+      }
+
+      .carousel-slide {
+        flex: 0 0 100%
+      }
+
+      .testimonial-editorial {
+        padding: 72px 0
+      }
+
+      .appointment {
+        margin: 0 16px;
+        border-radius: 24px
+      }
+
+      .appointment-inner {
+        grid-template-columns: 1fr;
+        padding: 44px 28px;
+        gap: 32px
+      }
+
+      .appointment-copy {
+        max-width: none
+      }
+
+      .footer {
+        padding: 56px 0 0
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+
+      .footer-inner .footer-apps {
+        grid-column: 1/-1
+      }
+
+      .footer-inner .footer-col:last-child {
+        display: block
+      }
+
+      .footer-bottom-inner {
+        flex-direction: column;
+        text-align: center
+      }
+    }
+
+    @media (max-width:520px) {
+      .container {
+        width: calc(100% - 32px)
+      }
+
+      .hero-copy h1 {
+        font-size: 38px
+      }
+
+      .panel-service {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr
+      }
+
+      .footer-oversized {
+        font-size: 96px
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none
+      }
+
+      .appointment-badge svg {
+        animation: none
+      }
+    }
+
+    /* ============================================================
+       REFERENCE-LED REFINEMENT — Gupta Dental Clinic
+       Overrides preserve the existing interactions while correcting
+       the page composition to match the supplied visual reference.
+    ============================================================ */
+    body {
+      background: #dfe3e8;
+      /* padding: 18px */
+    }
+
+    .site-frame {
+      max-width: 1529px;
+      background: #e5f4ff;
+      border-radius: 30px;
+      box-shadow: none
+    }
+
+    .container {
+      width: min(1500px, calc(100% - 88px))
+    }
+
+    .hero {
+      min-height: 0;
+      padding: 18px 0 0;
+      background:
+        radial-gradient(ellipse at 53% 55%, rgba(255, 255, 255, .96) 0%, rgba(255, 255, 255, .42) 27%, transparent 57%),
+        linear-gradient(180deg, #78aaf4 0%, #9fc5fa 46%, #d8edff 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      display: none
+    }
+
+    .nav {
+      height: 48px
+    }
+
+    .brand {
+      gap: 7px
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      box-shadow: none;
+      font-size: 15px
+    }
+
+    .brand-text strong,
+    .brand-text span {
+      color: #fff
+    }
+
+    .brand-text strong {
+      font-size: 13px
+    }
+
+    .brand-text span {
+      font-size: 9px
+    }
+
+    .nav-links {
+      gap: 2px
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, .94);
+      font-size: 12px;
+      padding: 7px 12px
+    }
+
+    .nav-link {
+      border: 1px solid rgba(255, 255, 255, .34);
+      background: rgba(255, 255, 255, .08);
+      border-radius: 999px;
+      margin-inline: 2px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--navy);
+      background: rgba(255, 255, 255, .92);
+      border-color: rgba(255, 255, 255, .95);
+      box-shadow: 0 5px 16px rgba(8, 43, 82, .10);
+    }
+
+    .nav-actions .btn-primary {
+      border: 1px solid rgba(255, 255, 255, .55);
+      background: #082b52;
+    }
+
+    .nav-actions .btn-primary {
+      background: #082b52;
+      box-shadow: none;
+      padding: 10px 18px;
+      font-size: 11px
+    }
+
+    .hero-inner {
+      min-height: 570px
+    }
+
+    .hero-copy {
+      width: 43%;
+      padding-top: 104px
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(48px, 5vw, 72px);
+      line-height: 1.04;
+      letter-spacing: -.05em
+    }
+
+    .hero-copy h1 .accent {
+      color: #082b52
+    }
+
+    .headline-arrow {
+      width: 68px;
+      margin: 12px 0 0 86px;
+      color: #d5c7a3
+    }
+
+    .hero-portrait {
+      left: 50%;
+      width: min(540px, 51%);
+      bottom: 0;
+      z-index: 3
+    }
+
+    .hero-portrait img {
+      mask-image: linear-gradient(to bottom, #000 91%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 91%, transparent 100%)
+    }
+
+    .support-card {
+      right: 1%;
+      top: 108px;
+      padding: 11px 15px;
+      border-radius: 13px;
+      box-shadow: 0 8px 24px rgba(8, 43, 82, .10)
+    }
+
+    .support-icon {
+      width: 34px;
+      height: 34px
+    }
+
+    .hero-supporting {
+      right: 1%;
+      top: 190px;
+      width: 235px;
+      font-size: 12px;
+      color: #294b70
+    }
+
+    .appointment-badge {
+      left: 34%;
+      top: 48%;
+      width: 112px;
+      height: 112px;
+      box-shadow: 0 8px 22px rgba(8, 43, 82, .10)
+    }
+
+    .appointment-badge .center-icon {
+      font-size: 27px
+    }
+
+    .social-rail {
+      right: 1%;
+      bottom: 28px;
+      gap: 8px
+    }
+
+    .social-rail a {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, .25);
+      border-color: rgba(8, 43, 82, .38)
+    }
+
+    .deco-marks {
+      right: 30%;
+      top: 112px
+    }
+
+    .deco-marks span {
+      background: #d5c7a3
+    }
+
+    .bottom-panel {
+      margin-top: -2px;
+      padding-bottom: 0;
+      background: #e5f4ff
+    }
+
+    .panel-card {
+      padding: 14px 18px;
+      border-radius: 17px;
+      gap: 18px;
+      grid-template-columns: 1.55fr 1fr;
+      box-shadow: 0 7px 22px rgba(8, 43, 82, .08);
+    }
+
+    .panel-services {
+      gap: 12px
+    }
+
+    .panel-service {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      column-gap: 10px;
+      row-gap: 2px;
+      padding-right: 12px
+    }
+
+    .service-icon {
+      width: 38px;
+      height: 38px;
+      font-size: 15px;
+      grid-row: 1 / span 2
+    }
+
+    .panel-service h3 {
+      font-size: 12px
+    }
+
+    .panel-service p {
+      font-size: 10px;
+      line-height: 1.35
+    }
+
+    .panel-testimonial {
+      padding: 12px 16px;
+      border-radius: 12px;
+      gap: 7px
+    }
+
+    .testimonial-quote {
+      font-size: 12px;
+      line-height: 1.4;
+      font-style: normal
+    }
+
+    .testimonial-meta {
+      gap: 7px
+    }
+
+    .testimonial-avatar {
+      width: 25px;
+      height: 25px;
+      font-size: 11px
+    }
+
+    .testimonial-meta strong {
+      font-size: 10px
+    }
+
+    .testimonial-meta span {
+      font-size: 8px
+    }
+
+    .section {
+      padding: 76px 0;
+      background: #e5f4ff
+    }
+
+    .section-kicker {
+      display: none
+    }
+
+    .section-heading {
+      font-size: clamp(30px, 3.2vw, 43px);
+      font-weight: 600;
+      letter-spacing: -.035em
+    }
+
+    .section-lead {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #60758a
+    }
+
+    .about-grid {
+      grid-template-columns: 1.05fr .95fr;
+      gap: 58px
+    }
+
+    .about-visual {
+      aspect-ratio: 1.12;
+      border-radius: 14px
+    }
+
+    .review-card {
+      left: auto;
+      right: -1px;
+      bottom: 12px;
+      padding: 10px 12px;
+      gap: 8px;
+      border-radius: 10px
+    }
+
+    .review-card .stars {
+      font-size: 9px
+    }
+
+    .review-card strong {
+      font-size: 10px
+    }
+
+    .review-card span {
+      font-size: 8px
+    }
+
+    .about-copy .section-heading {
+      margin-bottom: 14px
+    }
+
+    .about-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-top: 52px
+    }
+
+    .stat-block {
+      background: none;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      min-width: 0
+    }
+
+    .stat-block:nth-child(2) {
+      margin-top: 48px
+    }
+
+    .stat-block h4 {
+      font-size: clamp(34px, 4vw, 54px);
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0
+    }
+
+    .stat-block p {
+      font-size: 11px;
+      color: #60758a
+    }
+
+    .stat-block small {
+      font-size: 8px;
+      color: #8092a3
+    }
+
+    #treatments.section {
+      padding-top: 22px
+    }
+
+    .treatments-head {
+      align-items: flex-start;
+      margin-bottom: 30px
+    }
+
+    .treatments-head .section-lead {
+      max-width: 340px;
+      padding-top: 12px
+    }
+
+    .carousel-wrap {
+      display: grid;
+      grid-template-columns: .72fr 2fr;
+      gap: 28px;
+      align-items: end
+    }
+
+    .treatment-index {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      min-height: 210px;
+      padding-bottom: 0
+    }
+
+    .carousel-counter {
+      font-size: 18px;
+      letter-spacing: 0;
+      color: #8092a3
+    }
+
+    .carousel-counter strong {
+      font-size: 56px;
+      font-weight: 500;
+      letter-spacing: -.06em;
+      color: var(--navy)
+    }
+
+    .carousel-nav {
+      margin-top: auto
+    }
+
+    .carousel-btn {
+      width: 38px;
+      height: 38px;
+      border-color: rgba(8, 43, 82, .18);
+      font-size: 12px
+    }
+
+    .carousel-btn:last-child {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue)
+    }
+
+    .carousel-track {
+      gap: 14px
+    }
+
+    .carousel-slide {
+      flex: 0 0 calc((100% - 14px)/2);
+      aspect-ratio: .82;
+      border-radius: 13px
+    }
+
+    .slide-caption {
+      padding: 18px
+    }
+
+    .slide-caption h3 {
+      font-size: 16px;
+      line-height: 1.2
+    }
+
+    .slide-caption p {
+      font-size: 10px;
+      line-height: 1.4
+    }
+
+    .testimonial-editorial {
+      background: #e5f4ff;
+      padding: 72px 0 90px
+    }
+
+    .testimonial-editorial .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--navy);
+      margin-bottom: 36px
+    }
+
+    .testimonial-editorial blockquote {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 600;
+      max-width: 900px;
+      margin-bottom: 28px
+    }
+
+    .testimonial-editorial blockquote::before {
+      font-size: 90px;
+      top: -2px;
+      left: auto;
+      right: 0;
+      transform: none;
+      color: var(--blue);
+      opacity: 1
+    }
+
+    .testimonial-author-avatar {
+      width: 38px;
+      height: 38px;
+      font-size: 15px
+    }
+
+    .testimonial-author strong {
+      font-size: 12px
+    }
+
+    .testimonial-author span {
+      font-size: 9px
+    }
+
+    #contact.section {
+      padding: 20px 0 0;
+      background: #e5f4ff
+    }
+
+    .appointment {
+      margin: 0;
+      border-radius: 0;
+      min-height: 440px;
+      background: url("https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88") center/cover no-repeat;
+    }
+
+    .appointment::before {
+      display: none
+    }
+
+    .appointment-inner {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 440px;
+      padding: 42px 6%;
+      gap: 0
+    }
+
+    .appointment-photo-caption {
+      display: none
+    }
+
+    .appointment-form {
+      width: min(440px, 49%);
+      padding: 28px 30px;
+      border-radius: 18px;
+      box-shadow: 0 18px 48px rgba(8, 43, 82, .18)
+    }
+
+    .appointment-form h3 {
+      font-size: 22px;
+      font-weight: 600
+    }
+
+    .appointment-form>p {
+      margin-bottom: 14px
+    }
+
+    .appointment-form label {
+      font-size: 10px;
+      margin: 10px 0 5px
+    }
+
+    .appointment-form input {
+      background: #f0f1f3;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 12px;
+      font-size: 11px
+    }
+
+    .appointment-form .btn {
+      margin-top: 14px;
+      padding: 11px 18px
+    }
+
+    .appointment-form .form-note {
+      font-size: 9px
+    }
+
+    .footer {
+      background: #062b52;
+      padding: 36px 0 0
+    }
+
+    .footer-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, .18)
+    }
+
+    .footer-topline h5 {
+      font-family: var(--font-head);
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 500;
+      margin: 0
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: 34px;
+      padding: 28px 0 12px
+    }
+
+    .footer-inner .footer-col:first-child {
+      grid-column: 2
+    }
+
+    .footer-inner .footer-col:last-child {
+      display: block
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      margin-bottom: 12px
+    }
+
+    .footer-col ul li {
+      margin-bottom: 7px
+    }
+
+    .footer-col a {
+      font-size: 10px
+    }
+
+    .store-badge {
+      padding: 6px 9px;
+      border-radius: 6px;
+      background: #fff;
+      color: #111
+    }
+
+    .store-badge i {
+      font-size: 15px
+    }
+
+    .store-badge span {
+      font-size: 7px
+    }
+
+    .store-badge strong {
+      font-size: 10px
+    }
+
+    .footer-brand-lockup {
+      position: relative;
+      height: 150px;
+      margin-top: -4px;
+      pointer-events: none;
+      font-family: var(--font-head);
+      font-weight: 500;
+      line-height: .8;
+      color: rgba(255, 255, 255, .46)
+    }
+
+    .footer-brand-lockup .bright-word {
+      position: absolute;
+      left: 3%;
+      top: 0;
+      font-size: clamp(56px, 8vw, 104px)
+    }
+
+    .footer-brand-lockup .smile-word {
+      position: absolute;
+      left: 39%;
+      top: 55px;
+      font-size: clamp(56px, 8vw, 104px)
+    }
+
+    .footer-bottom {
+      border-top: 0;
+      padding: 14px 0 22px
+    }
+
+    .footer-bottom-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end
+    }
+
+    .footer-tagline {
+      font-size: 9px;
+      max-width: 180px
+    }
+
+    .footer-social a {
+      width: 28px;
+      height: 28px;
+      font-size: 10px
+    }
+
+    .footer-copy {
+      font-size: 9px;
+      text-align: right
+    }
+
+    .footer-oversized {
+      display: none
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none
+    }
+
+    @media (max-width:1100px) {
+      .hero-inner {
+        min-height: 530px
+      }
+
+      .hero-copy {
+        width: 42%
+      }
+
+      .hero-portrait {
+        width: min(480px, 53%)
+      }
+
+      .appointment-badge {
+        left: 32%
+      }
+
+      .about-grid {
+        gap: 36px
+      }
+
+      .footer-inner {
+        grid-template-columns: 1.1fr 1fr 1fr 1fr
+      }
+
+      .footer-inner .footer-col:last-child {
+        display: block
+      }
+    }
+
+    @media (max-width:900px) {
+      body {
+        padding: 8px
+      }
+
+      .site-frame {
+        border-radius: 20px
+      }
+
+      .container {
+        width: calc(100% - 36px)
+      }
+
+      .hero {
+        padding-top: 12px
+      }
+
+      .nav {
+        height: 44px
+      }
+
+      .brand-mark {
+        background: transparent;
+        box-shadow: none
+      }
+
+      .nav-links {
+        background: #fff
+      }
+
+      .nav-link {
+        color: var(--navy)
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--blue);
+        background: var(--sky)
+      }
+
+      .menu-toggle {
+        background: rgba(255, 255, 255, .9)
+      }
+
+      .hero-inner {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        text-align: left;
+        padding: 18px 0 0
+      }
+
+      .hero-copy {
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        padding: 42px 0 0;
+        z-index: 5
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(36px, 6vw, 54px)
+      }
+
+      .headline-arrow {
+        margin: 10px 0 0 45px
+      }
+
+      .hero-portrait {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 58%;
+        transform: translateX(-50%);
+        margin: 0;
+        z-index: 2
+      }
+
+      .support-card {
+        position: absolute;
+        right: 0;
+        top: 34px;
+        margin: 0;
+        z-index: 6
+      }
+
+      .hero-supporting {
+        position: absolute;
+        right: 0;
+        top: 118px;
+        width: 32%;
+        margin: 0;
+        text-align: left;
+        z-index: 6
+      }
+
+      .hero-supporting::after {
+        margin: 8px 0
+      }
+
+      .appointment-badge {
+        position: absolute;
+        left: 31%;
+        top: 56%;
+        margin: 0;
+        width: 88px;
+        height: 88px;
+        z-index: 7
+      }
+
+      .hero-contact-links {
+        right: 0;
+        bottom: 16px;
+        gap: 6px;
+      }
+
+      .hero-contact-link {
+        min-width: 160px;
+        padding: 7px 10px;
+        font-size: 9px;
+      }
+
+      .hero-contact-link strong {
+        font-size: 11px;
+      }
+
+      .contact-link-icon,
+      .whatsapp-link>i {
+        width: 29px;
+        height: 29px;
+      }
+
+      .bottom-panel {
+        margin-top: 0;
+        padding: 0 0 42px
+      }
+
+      .panel-card {
+        grid-template-columns: 1.4fr 1fr;
+        padding: 12px;
+        gap: 10px
+      }
+
+      .panel-services {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px
+      }
+
+      .panel-service {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 8px 0 0;
+        border-right: 1px solid var(--line);
+        border-bottom: 0
+      }
+
+      .panel-service:last-child {
+        border-right: 0
+      }
+
+      .panel-service p {
+        display: none
+      }
+
+      .panel-testimonial {
+        padding: 10px
+      }
+
+      .section {
+        padding: 58px 0
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px
+      }
+
+      .about-stats {
+        margin-top: 30px
+      }
+
+      .stat-block:nth-child(2) {
+        margin-top: 28px
+      }
+
+      .carousel-wrap {
+        grid-template-columns: .55fr 2fr;
+        gap: 14px
+      }
+
+      .carousel-slide {
+        aspect-ratio: .78
+      }
+
+      .appointment {
+        min-height: 380px
+      }
+
+      .appointment-inner {
+        min-height: 380px;
+        padding: 28px
+      }
+
+      .appointment-form {
+        width: 52%;
+        padding: 22px
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px
+      }
+
+      .footer-inner .footer-col:first-child {
+        grid-column: auto
+      }
+
+      .footer-topline {
+        padding-bottom: 18px
+      }
+    }
+
+    @media (max-width:600px) {
+      body {
+        padding: 0
+      }
+
+      .site-frame {
+        border-radius: 0
+      }
+
+      .container {
+        width: calc(100% - 32px)
+      }
+
+      .hero-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+        padding-top: 8px
+      }
+
+      .hero-copy {
+        order: 1;
+        padding: 24px 0 0;
+        width: 70%
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(38px, 11vw, 54px)
+      }
+
+      .hero-portrait {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        order: 2;
+        align-self: center;
+        width: min(92%, 390px);
+        margin-top: -4px
+      }
+
+      .support-card {
+        top: 28px;
+        right: 0;
+        padding: 8px 10px;
+        gap: 7px
+      }
+
+      .support-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 13px
+      }
+
+      .support-text strong {
+        font-size: 11px
+      }
+
+      .support-text span {
+        font-size: 8px
+      }
+
+      .hero-supporting {
+        position: relative;
+        right: auto;
+        top: auto;
+        order: 3;
+        width: 100%;
+        max-width: 280px;
+        margin: 12px 0 0 auto;
+        font-size: 10px
+      }
+
+      .appointment-badge {
+        left: 4%;
+        top: auto;
+        bottom: 100px;
+        width: 76px;
+        height: 76px
+      }
+
+      .appointment-badge .center-icon {
+        font-size: 20px
+      }
+
+      .hero-contact-links {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        order: 4;
+        align-items: stretch;
+        width: 100%;
+        margin: 16px 0 24px;
+      }
+
+      .hero-contact-link {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .deco-marks {
+        display: none
+      }
+
+      .bottom-panel {
+        padding-bottom: 34px
+      }
+
+      .panel-card {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px
+      }
+
+      .panel-services {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .panel-service {
+        align-items: center;
+        text-align: center;
+        padding: 0 4px;
+        border-right: 1px solid var(--line)
+      }
+
+      .service-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 13px
+      }
+
+      .panel-service h3 {
+        font-size: 9px
+      }
+
+      .panel-testimonial {
+        display: none
+      }
+
+      .section {
+        padding: 48px 0
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+
+      .about-visual {
+        aspect-ratio: 1.18
+      }
+
+      .about-copy .section-heading {
+        font-size: 32px
+      }
+
+      .about-stats {
+        margin-top: 26px
+      }
+
+      .stat-block h4 {
+        font-size: 38px
+      }
+
+      .stat-block small {
+        display: none
+      }
+
+      #treatments.section {
+        padding-top: 8px
+      }
+
+      .treatments-head {
+        display: block;
+        margin-bottom: 22px
+      }
+
+      .treatments-head .section-lead {
+        margin-top: 8px
+      }
+
+      .carousel-wrap {
+        grid-template-columns: 1fr;
+        gap: 14px
+      }
+
+      .treatment-index {
+        min-height: 0;
+        flex-direction: row;
+        align-items: center
+      }
+
+      .carousel-counter strong {
+        font-size: 38px
+      }
+
+      .carousel-slide {
+        flex: 0 0 78%;
+        aspect-ratio: .88
+      }
+
+      .testimonial-editorial {
+        padding: 54px 0 62px
+      }
+
+      .testimonial-editorial .eyebrow {
+        margin-bottom: 24px
+      }
+
+      .testimonial-editorial blockquote {
+        font-size: 24px
+      }
+
+      .testimonial-editorial blockquote::before {
+        font-size: 60px;
+        right: 0
+      }
+
+      #contact.section {
+        padding: 0
+      }
+
+      .appointment {
+        min-height: 0;
+        background-position: 38% center
+      }
+
+      .appointment-inner {
+        min-height: 0;
+        padding: 220px 16px 18px;
+        justify-content: center
+      }
+
+      .appointment-form {
+        width: 100%;
+        padding: 22px
+      }
+
+      .footer {
+        padding-top: 28px
+      }
+
+      .footer-topline {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 24px 0 6px
+      }
+
+      .footer-brand-lockup {
+        height: 105px
+      }
+
+      .footer-brand-lockup .bright-word {
+        font-size: 58px;
+        left: 2%
+      }
+
+      .footer-brand-lockup .smile-word {
+        font-size: 58px;
+        left: 34%;
+        top: 40px
+      }
+
+      .footer-bottom-inner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 12px
+      }
+
+      .footer-copy {
+        text-align: center
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .appointment-badge svg {
+        animation: none
+      }
+    }
+  </style>
+  <style id="all-services-cta-responsive-fix">
+    /* Centered full-directory CTA — independent of carousel alignment */
+    #treatments .all-services-cta {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 34px auto 0;
+      padding: 0 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    #treatments .all-services-cta .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: fit-content;
+      max-width: 100%;
+      min-height: 54px;
+      margin: 0 auto;
+      padding: 15px 28px;
+      border-radius: 999px;
+      text-align: center;
+      white-space: normal;
+      line-height: 1.35;
+      box-sizing: border-box;
+    }
+
+    #treatments .all-services-cta .btn i {
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 767px) {
+      #treatments .all-services-cta {
+        margin-top: 26px;
+        padding-inline: 18px;
+      }
+
+      #treatments .all-services-cta .btn {
+        width: min(100%, 360px);
+        min-height: 52px;
+        padding: 14px 20px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      #treatments .all-services-cta .btn {
+        width: 100%;
+        gap: 9px;
+        padding-inline: 14px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-chrome-header">
+      <div class="site-chrome-inner">
+        <a class="site-chrome-brand" href="index.html" aria-label="Gupta Dental Clinic home">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span>Gupta Dental Clinic</span>
+        </a>
+        <button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation"
+          aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button>
+        <nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation">
+          <a href="index.html" data-page="index.html">Home</a>
+          <a href="about.html" data-page="about.html">About</a>
+          <a href="services.html" data-page="services.html">Services &amp; Products</a>
+          <a href="contact-us.html" data-page="contact-us.html">Contact</a>
+          <a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a>
+        </nav>
+      </div>
+  </header>
+  <div class="site-frame">
+    <!-- =========================================================
+       HERO
+  ========================================================== -->
+    <section class="hero" id="home">
+      <div class="container">
+        <!-- Hero canvas -->
+        <div class="hero-inner">
+          <div class="hero-copy reveal" data-aos="fade-up">
+            <h1>Confidence<br />starts with<br /><span class="accent">a smile</span></h1>
+          </div>
+          <div aria-label="Clinic support" class="support-card reveal" data-aos="fade-left" role="complementary">
+            <div class="support-text">
+              <strong>24/7 Support</strong>
+              <span>We're here for you</span>
+            </div>
+          </div>
+          <div aria-hidden="true" class="deco-marks"><span></span><span></span><span></span></div>
+          <p class="hero-supporting reveal" data-aos="fade-up" style="font-size: 15px;">Gentle, modern dental care built
+            around your comfort, your schedule, and
+            your smile.</p>
+          <div class="hero-portrait">
+            <!-- PLACEHOLDER: replace src with approved cutout PNG (transparent background). -->
+            <img alt="Dentist portrait (placeholder)" fetchpriority="high" height="1200" src="guptadentalcaretooth.png"
+              width="1000" />
+          </div>
+          <div aria-label="Clinic contact links" class="hero-contact-links" data-aos="fade-left" data-aos-delay="250">
+            <a aria-label="Find Gupta Dental Clinic on Justdial" class="hero-contact-link justdial-link"
+              href="https://www.justdial.com/Giridih/Gupta-Dental-Clinic-Aesthetic-Smile-Implant-Centre-New-Barganda-Professor-Colony/9999P6532-6532-191231233009-V3Y2_BZDET"
+              rel="noopener noreferrer" target="_blank">
+              <span aria-hidden="true" class="contact-link-icon justdial-icon">JD</span><span>Find us on
+                <strong>Justdial</strong></span>
+            </a>
+            <a aria-label="Chat with Gupta Dental Clinic on WhatsApp" class="hero-contact-link whatsapp-link"
+              href="https://wa.me/917739957487" rel="noopener noreferrer" target="_blank">
+              <i aria-hidden="true" class="fa-brands fa-whatsapp"></i><span>Chat on <strong>WhatsApp</strong></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- =========================================================
+       OVERLAPPING PANEL
+  ========================================================== -->
+    <div class="bottom-panel">
+      <div class="container">
+        <div class="panel-card reveal" data-aos="fade-up">
+          <div class="panel-services">
+            <div class="panel-service">
+              <div class="service-icon"><i aria-hidden="true" class="fa-solid fa-tooth"></i></div>
+              <h3>General Care</h3>
+              <p>Complete dental care for a healthy smile.</p>
+            </div>
+            <div class="panel-service">
+              <div class="service-icon"><i aria-hidden="true" class="fa-solid fa-teeth"></i></div>
+              <h3>Dental Implants</h3>
+              <p>Durable and natural-looking tooth replacement.</p>
+            </div>
+            <div class="panel-service">
+              <div class="service-icon"><i aria-hidden="true" class="fa-regular fa-face-smile"></i></div>
+              <h3>Teeth Whitening</h3>
+              <p>Safe and effective treatments for a brighter smile.</p>
+            </div>
+          </div>
+          <div class="panel-testimonial">
+            <p class="testimonial-quote">Rated 4.9 out of 5 on Google.</p>
+            <div class="testimonial-meta">
+              <div class="testimonial-avatar"><i aria-hidden="true" class="fa-brands fa-google"></i></div>
+              <div>
+                <strong>594 Google reviews</strong>
+                <span>Read public Google reviews</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- =========================================================
+       ABOUT SECTION
+  ========================================================== -->
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <!-- PLACEHOLDER: replace with dental treatment photograph. -->
+          <img alt="Child receiving dental treatment (placeholder)" loading="lazy"
+            src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" />
+          <div class="review-card">
+            <div>
+              <div aria-label="4.9 out of 5 stars" class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <strong>4.9/5 on Google</strong>
+              <span>Based on 594 Google reviews</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-copy reveal">
+          <span class="section-kicker">About the clinic</span>
+          <h2 class="section-heading">Dentistry Built<br />Around You.</h2>
+          <p class="section-lead">
+            We believe dental care should feel personal, clear and reassuring. Every visit is guided by your comfort and
+            your long‑term oral health.
+          </p>
+          <div class="about-stats">
+            <div class="stat-block">
+              <h4>—</h4>
+              <p>Years Experience</p>
+              <small>Clinic information to be confirmed</small>
+            </div>
+            <div class="stat-block">
+              <h4>—</h4>
+              <p>Happy Patients</p>
+              <small>Clinic information to be confirmed</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- =========================================================
+       TREATMENTS CAROUSEL
+  ========================================================== -->
+    <section class="section" id="treatments" style="padding-top:0">
+      <div class="container">
+        <div class="treatments-head reveal">
+          <div>
+            <span class="section-kicker">Our treatments</span>
+            <h2 class="section-heading">Care Designed<br />Around Every Smile.</h2>
+          </div>
+          <p class="section-lead">
+            From preventive checkups to smile transformations, explore the dental care options available at Gupta Dental
+            Clinic.
+          </p>
+        </div>
+        <div class="carousel-wrap reveal">
+          <div class="treatment-index">
+            <div class="carousel-counter"><strong id="carousel-current">01</strong><span> /08</span></div>
+            <div class="carousel-nav">
+              <button aria-label="Previous treatments" class="carousel-btn" id="carousel-prev"><i aria-hidden="true"
+                  class="fa-solid fa-arrow-left"></i></button>
+              <button aria-label="Next treatments" class="carousel-btn" id="carousel-next"><i aria-hidden="true"
+                  class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+          <div class="carousel-track" id="carousel-track">
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Dentist examining a patient during a routine dental checkup" decoding="async" loading="lazy"
+                src="https://images.squarespace-cdn.com/content/v1/5808f454440243dc75eca857/cc283b41-19d5-4fb4-aee8-16acf4e4402f/shutterstock_2271935341.jpg" />
+              <div class="slide-caption">
+                <h3>General &amp; Preventive Care</h3>
+                <p>Routine dental checkups, professional cleaning and early detection to help keep your teeth and gums
+                  healthy.</p>
+                <a aria-label="Enquire about General &amp; Preventive Care on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20a%20general%20dental%20checkup."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Close-up clinical photograph showing professionally whitened teeth" decoding="async"
+                loading="lazy" src="https://files.cdn-files-a.com/uploads/8877709/2000_66570760838ce.jpg" />
+              <div class="slide-caption">
+                <h3>Teeth Whitening</h3>
+                <p>Professional whitening options to reduce stains and help you achieve a brighter-looking smile.</p>
+                <a aria-label="Enquire about Teeth Whitening on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20teeth%20whitening."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Close-up of teeth after cosmetic composite bonding" decoding="async" loading="lazy"
+                src="https://images.squarespace-cdn.com/content/v1/65bfe504bde0e14f76a5b398/1762371840951-2CAKXYF35J85R6QT590J/image-asset.jpeg" />
+              <div class="slide-caption">
+                <h3>Dental Bonding</h3>
+                <p>Tooth-coloured composite bonding can help improve the appearance of small chips, gaps and uneven
+                  edges.</p>
+                <a aria-label="Enquire about Dental Bonding on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20dental%20bonding."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Close-up smile design and veneer dental treatment result" decoding="async" loading="lazy"
+                src="https://www.aihealthmc.ae/landing-assets/cases/saif/2.jpg" />
+              <div class="slide-caption">
+                <h3>Cosmetic Dentistry</h3>
+                <p>Explore smile-enhancing options such as veneers, crowns and other restorative cosmetic treatments.
+                </p>
+                <a aria-label="Enquire about Cosmetic Dentistry on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20cosmetic%20dentistry."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Dental implant crown result shown in a clinical close-up" decoding="async" loading="lazy"
+                src="https://www.drjinnysdental.com/images/afterim.jpg" />
+              <div class="slide-caption">
+                <h3>Dental Implants</h3>
+                <p>Discuss tooth-replacement options designed to restore function and create a natural-looking smile.
+                </p>
+                <a aria-label="Enquire about Dental Implants on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20dental%20implants."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Dental restorative treatment and modern clinic equipment" decoding="async" loading="lazy"
+                src="https://hs-legacy-assets.s3.us-east-1.amazonaws.com/f/1019139/f7e71be421/smilecraft_20190614_102044_0968.jpg" />
+              <div class="slide-caption">
+                <h3>Dentures &amp; Bridges</h3>
+                <p>Replacement options for missing teeth that can help restore your bite, speech and confidence.</p>
+                <a aria-label="Enquire about Dentures &amp; Bridges on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20dentures%20and%20bridges."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Modern orthodontic dental clinic setting" decoding="async" loading="lazy"
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&amp;fit=crop&amp;w=1400&amp;q=90" />
+              <div class="slide-caption">
+                <h3>Orthodontic Treatment</h3>
+                <p>Assessment and treatment options to help improve tooth alignment and your bite.</p>
+                <a aria-label="Enquire about Orthodontic Treatment on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20orthodontic%20treatment."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+            <div class="carousel-slide" data-aos="fade-up">
+              <img alt="Child-friendly dental care environment" decoding="async" loading="lazy"
+                src="drgupta.png" />
+              <div class="slide-caption">
+                <h3>Pediatric Dental Care</h3>
+                <p>Gentle, age-appropriate dental visits focused on building healthy habits for growing smiles.</p>
+                <a aria-label="Enquire about Pediatric Dental Care on WhatsApp" class="service-enquire"
+                  href="https://wa.me/917739957487?text=Hello%20Gupta%20Dental%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20pediatric%20dental%20care."
+                  rel="noopener noreferrer" target="_blank">
+                  <i aria-hidden="true" class="fa-brands fa-whatsapp"></i> Enquire
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="all-services-cta" data-aos="fade-up"><a class="btn btn-primary" href="services.html">View All Our
+            Services &amp; Products <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+      </div>
+    </section>
+    <section class="testimonial-editorial" data-aos="fade-up" aria-labelledby="patient-reviews-title">
+      <div class="container">
+        <h2 class="eyebrow reveal" id="patient-reviews-title">Patient Reviews</h2>
+        <div class="google-review-grid">
+          <article class="google-review-card reveal">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“Exceptional Care and Precision at Gupta Dental Clinic with Dr. Pratikshit Anand!”</blockquote>
+            <p class="google-review-author">ROFIK SK · Google review</p>
+          </article>
+          <article class="google-review-card reveal">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“I cannot express enough how impressed I am with Dr. Pratikshit Anand at Gupta Dental Clinic.”</blockquote>
+            <p class="google-review-author">Sohel Alsad · Google review</p>
+          </article>
+          <article class="google-review-card reveal">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“I recently visited Gupta Dental Clinic in Giridih, and I must say, it is the best dental clinic in Giridih for all kinds of dental treatments.”</blockquote>
+            <p class="google-review-author">Gulam Ansari · Google review</p>
+          </article>
+        </div>
+        <a class="google-review-link" href="https://www.google.com/maps/place/Gupta+Dental+Clinic+%E2%80%93+Aesthetic+Smile+%26+Implant+Centre/@24.1941656,86.3075841,17z/data=!3m1!4b1!4m6!3m5!1s0x39f1554dfae81bef:0xeabb836cfd778d59!8m2!3d24.1941656!4d86.3075841!16s%2Fg%2F11fpp6j0vm?entry=ttu#lrd=0x39f1554dfae81bef:0xeabb836cfd778d59,1"
+          target="_blank" rel="noopener noreferrer">
+          Read all 594 reviews on Google <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+    <!-- =========================================================
+       APPOINTMENT
+  ========================================================== -->
+    <section class="section" data-aos="fade-up" id="contact" style="padding:60px 0 80px">
+      <div class="container">
+        <div class="appointment reveal">
+          <div class="appointment-inner">
+            <div class="appointment-photo-caption">
+              <span>GUpta Dental Clinic</span>
+            </div>
+            <div class="appointment-form">
+              <h3>Request an appointment</h3>
+              <p>We'll respond during clinic hours.</p>
+              <form id="appointment-form" novalidate="">
+                <label for="af-name">Full Name</label>
+                <input autocomplete="name" id="af-name" name="name" required="" type="text" />
+                <div class="field-error" data-for="af-name">Please enter your name.</div>
+                <label for="af-phone">Phone Number</label>
+                <input autocomplete="tel" id="af-phone" name="phone" required="" type="tel" />
+                <div class="field-error" data-for="af-phone">Please enter your phone number.</div>
+                <label for="af-email">Email Address</label>
+                <input autocomplete="email" id="af-email" name="email" type="email" />
+                <div class="field-error" data-for="af-email">Please enter a valid email address.</div>
+                <button class="btn btn-blue" type="submit">Book Appointment <i aria-hidden="true"
+                    class="fa-solid fa-arrow-right"></i></button>
+                <p class="form-note">
+                  Continue to the secure patient enquiry form to provide the required details.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="site-chrome-footer">
+      <div class="site-chrome-footer-inner">
+        <a class="site-chrome-footer-brand" href="index.html">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span>
+        </a>
+        <nav class="site-chrome-footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services &amp; Products</a><a href="contact-us.html">Contact</a>
+        </nav>
+        <div class="site-chrome-footer-contact">
+          <a href="tel:+917739957487">+91 77399 57487</a>
+          <a href="https://wa.me/917739957487" target="_blank" rel="noopener noreferrer">WhatsApp the clinic</a>
+        </div>
+      </div>
+      <div class="site-chrome-footer-bottom">
+        <span>© <span data-current-year></span> Gupta Dental Clinic. All rights reserved.</span>
+        <span>NH114A, Professor Colony, Giridih, Jharkhand</span>
+      </div>
+    </footer>
+  </div>
+  <!-- =========================================================
+     MODAL
+========================================================== -->
+  <div aria-labelledby="booking-title" aria-modal="true" class="modal-backdrop" id="booking-modal" role="dialog">
+    <div class="modal">
+      <button aria-label="Close booking form" class="modal-close" type="button"><i aria-hidden="true"
+          class="fa-solid fa-xmark"></i></button>
+      <h2 id="booking-title">Appointment enquiry</h2>
+      <p>Share your details and the clinic can get back to you.</p>
+      <form id="modal-form">
+        <label for="patient-name">Your name</label>
+        <input autocomplete="name" id="patient-name" name="name" required="" />
+        <label for="patient-phone">Phone number</label>
+        <input autocomplete="tel" id="patient-phone" name="phone" required="" type="tel" />
+        <label for="patient-message">What would you like help with?</label>
+        <textarea id="patient-message" name="message" placeholder="Tell us briefly about your enquiry"></textarea>
+        <button class="btn btn-blue" type="submit">Prepare enquiry <i aria-hidden="true"
+            class="fa-solid fa-arrow-right"></i></button>
+        <p class="form-note">Continue to the secure patient enquiry form to provide the required details.</p>
+      </form>
+    </div>
+  </div>
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="site-chrome.js"></script>
+  <script>
+    AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 70 });
+
+    function closeMenu() {
+      window.closeSiteMenu?.();
+    }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    const modal = document.getElementById('booking-modal');
+    let lastFocused = null;
+    function openBooking() { lastFocused = document.activeElement; modal.classList.add('open'); document.body.classList.add('modal-open'); setTimeout(() => document.getElementById('patient-name').focus(), 80); }
+    function closeBooking() { modal.classList.remove('open'); document.body.classList.remove('modal-open'); lastFocused?.focus(); }
+    document.querySelectorAll('.js-book').forEach(el => el.addEventListener('click', e => { e.preventDefault(); closeMenu(); openBooking(); }));
+    document.querySelector('.modal-close').addEventListener('click', closeBooking);
+    modal.addEventListener('click', e => { if (e.target === modal) closeBooking(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeBooking(); closeMenu(); } });
+    modal.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const f = modal.querySelectorAll('button, [href], input, textarea, select');
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    /* ============================================================
+       CENTRALIZED PATIENT ENQUIRY FORM
+       All homepage booking entry points use the full secure form.
+    ============================================================ */
+
+
+
+
+    /* ============================================================
+       CAROUSEL
+    ============================================================ */
+    const track = document.getElementById('carousel-track');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const counter = document.getElementById('carousel-current');
+    let index = 0;
+
+    function slideWidth() {
+      if (!slides.length) return 0;
+      const style = getComputedStyle(slides[0]);
+      return slides[0].getBoundingClientRect().width + parseFloat(style.marginRight || 0) + 24;
+    }
+    function maxIndex() {
+      const per = window.innerWidth >= 900 ? 2 : 1;
+      return Math.max(0, slides.length - per);
+    }
+    function updateCarousel() {
+      const per = window.innerWidth >= 900 ? 2 : 1;
+      const w = slides[0].getBoundingClientRect().width + 24;
+      track.scrollTo({ left: index * w, behavior: 'smooth' });
+      counter.textContent = String(index + 1).padStart(2, '0');
+      prevBtn.disabled = index <= 0;
+      nextBtn.disabled = index >= maxIndex();
+    }
+    prevBtn.addEventListener('click', () => { index = Math.max(0, index - 1); updateCarousel(); });
+    nextBtn.addEventListener('click', () => { index = Math.min(maxIndex(), index + 1); updateCarousel(); });
+    window.addEventListener('resize', () => { index = Math.min(index, maxIndex()); updateCarousel(); });
+    updateCarousel();
+
+    /* ============================================================
+       SCROLL REVEAL (IntersectionObserver fallback — also GSAP below)
+    ============================================================ */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ============================================================
+       GSAP — subtle enhanced motion
+    ============================================================ */
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce) {
+        /* Hero intro */
+        gsap.from('.hero-copy h1', { y: 30, opacity: 0, duration: .9, ease: 'power3.out' });
+        gsap.from('.hero-copy .headline-arrow', { opacity: 0, y: 12, duration: .8, delay: .3, ease: 'power2.out' });
+        gsap.from('.hero-portrait img', { y: 40, opacity: 0, duration: 1.1, delay: .15, ease: 'power3.out' });
+        gsap.from('.support-card', { y: 20, duration: .8, delay: .35, ease: 'power2.out' });
+        gsap.from('.hero-supporting', { y: 16, duration: .7, delay: .5, ease: 'power2.out' });
+        gsap.from('.appointment-badge', { scale: .7, opacity: 0, duration: .8, delay: .55, ease: 'back.out(1.6)' });
+
+        /* Floating support card */
+        gsap.to('.support-card', { y: -6, duration: 3, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+
+        /* Rotating badge text (CSS already spins; reinforce GSAP fallback) */
+        gsap.to('.appointment-badge svg', { rotation: 360, duration: 22, repeat: -1, ease: 'none' });
+      }
+    }
+
+  </script>
+  <script src="clinic-config.js"></script>
+  <script src="clinic.js"></script>
+</body>
+
+</html>

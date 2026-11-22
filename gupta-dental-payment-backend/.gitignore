@@ -1,0 +1,17 @@
+
+# Environment secrets
+.env
+
+# Dependencies
+/vendor/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Local development files
+.DS_Store
+Thumbs.db

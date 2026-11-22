@@ -1,0 +1,19 @@
+
+# Disable directory listing
+Options -Indexes
+
+# Enable URL rewriting
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct access to internal directories
+    RewriteRule ^(config|database|services|utils|vendor)/ - [F,L,NC]
+
+    # Block sensitive project files
+    RewriteRule ^(\.env|composer\.(json|lock)|\.gitignore)$ - [F,L,NC]
+</IfModule>
+
+# Block sensitive file extensions
+<FilesMatch "^(\.env|composer\.(json|lock)|\.gitignore|.*\.(sql|log))$">
+    Require all denied
+</FilesMatch>

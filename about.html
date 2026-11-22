@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Recognized by GDCH for excellence in clinical dentistry, Gupta Dental Clinic in Giridih offers orthodontics, smile designing and advanced implantology with Dr. Pratikshit Anand.">
+  <meta name="theme-color" content="#e5f4ff">
+  <title>About Us | Gupta Dental Clinic</title>
+  <link rel="icon" type="image/png" href="gupta-dental-clinic-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="site-chrome.css">
+  <style>
+    :root {
+      --navy: #082b52;
+      --blue: #0866f5;
+      --sky: #e5f4ff;
+      --muted: #63788c;
+      --line: rgba(8, 43, 82, .12);
+      --head: 'Plus Jakarta Sans', sans-serif;
+      --body: 'Inter', sans-serif
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: #e9eef3;
+      color: var(--navy);
+      font-family: var(--body);
+      line-height: 1.65
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .frame {
+      max-width: 1530px;
+      margin: auto;
+      background: #fff;
+      min-height: 100vh;
+      border-radius: 32px;
+      overflow: hidden
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 44px));
+      margin: auto
+    }
+
+    .hero {
+      background: radial-gradient(circle at 80% 20%, #fff 0, transparent 34%), linear-gradient(120deg, #78aaf4, #e5f4ff);
+      padding: 25px 0 100px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: -10%;
+      bottom: -140px;
+      width: 120%;
+      height: 260px;
+      border-radius: 55% 45% 0 0 / 80% 75% 0 0;
+      transform: rotate(-5deg);
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .52), rgba(129, 199, 248, .29) 55%, rgba(8, 102, 245, .12));
+      box-shadow: 0 -16px 0 rgba(255, 255, 255, .3), 0 -32px 0 rgba(114, 184, 241, .2)
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+      align-items: center;
+      gap: 28px
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 13px;
+      font: 800 20px var(--head)
+    }
+
+    .brand strong,
+    .brand small {
+      display: block;
+      line-height: 1.2
+    }
+
+    .brand small {
+      font-size: 11px
+    }
+
+    .links {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .links a,
+    .cta {
+      padding: 10px 16px;
+      border-radius: 999px;
+      font: 700 12px var(--head);
+      background: rgba(255, 255, 255, .45)
+    }
+
+    .links a:hover,
+    .links .active {
+      background: #fff
+    }
+
+    .cta {
+      background: var(--navy) !important;
+      color: white !important
+    }
+
+    .hero-copy {
+      padding-top: 80px;
+      max-width: 800px
+    }
+
+    .about-hero-visual {
+      display: grid;
+      place-items: center;
+      min-height: 340px;
+      margin-top: 48px
+    }
+
+    .about-hero-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 430px;
+      object-fit: contain
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #174d87
+    }
+
+    .hero h1 {
+      font: 800 clamp(42px, 6vw, 76px)/1.05 var(--head);
+      letter-spacing: -.055em;
+      margin: 14px 0
+    }
+
+    .hero h1 span {
+      color: white
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #244e78
+    }
+
+    .content {
+      padding: 0 0 80px
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 26px;
+      margin-top: -55px;
+      position: relative
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(8, 43, 82, .1)
+    }
+
+    h2 {
+      font: 800 28px var(--head);
+      letter-spacing: -.04em;
+      margin: 0 0 12px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 22px
+    }
+
+    .feature {
+      padding: 17px;
+      border-radius: 16px;
+      background: #f4f9ff;
+      border: 1px solid var(--line)
+    }
+
+    .feature i {
+      color: var(--blue);
+      font-size: 20px;
+      margin-bottom: 9px
+    }
+
+    .feature strong {
+      display: block;
+      font: 700 13px var(--head)
+    }
+
+    .feature span {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .facts {
+      display: grid;
+      gap: 14px
+    }
+
+    .fact {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-radius: 16px
+    }
+
+    .fact i {
+      color: var(--blue);
+      font-size: 20px;
+      width: 28px;
+      padding-top: 3px
+    }
+
+    .fact strong {
+      display: block;
+      font: 800 13px var(--head)
+    }
+
+    .fact p {
+      margin: 3px 0 0;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      text-align: center
+    }
+
+    .section-heading h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin: 8px 0
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .doctor-section,
+    .gallery-section {
+      padding-top: 78px
+    }
+
+    .doctor-card {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      align-items: center;
+      gap: 42px;
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(140deg, #f1f8ff, #fff 60%);
+      box-shadow: 0 18px 45px rgba(8, 43, 82, .08)
+    }
+
+    .doctor-visual {
+      min-height: 370px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      perspective: 900px;
+      isolation: isolate
+    }
+
+    .doctor-portrait {
+      /* width: min(100%, 350px); */
+      height: 370px;
+      object-fit: cover;
+      object-position: center 27%;
+      border-radius: 30px 30px 30px 30px;
+      box-shadow: 0 22px 48px rgba(8, 43, 82, .18)
+    }
+
+    .model-orbit {
+      position: absolute;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(8, 102, 245, .14);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .9);
+      color: var(--blue);
+      box-shadow: 0 16px 30px rgba(8, 43, 82, .17), inset -7px -8px 15px rgba(8, 102, 245, .12);
+      transform-style: preserve-3d
+    }
+
+    .model-orbit i {
+      text-shadow: 2px 3px 0 #b6d6ff, 4px 6px 9px rgba(8, 43, 82, .24);
+      transform: translateZ(16px) rotateY(-16deg)
+    }
+
+    .tooth-model {
+      width: 82px;
+      height: 82px;
+      top: 28px;
+      left: 3px;
+      transform: rotateY(-25deg) rotateX(12deg)
+    }
+
+    .tooth-model i {
+      font-size: 39px
+    }
+
+    .implant-model {
+      width: 73px;
+      height: 63px;
+      right: 0;
+      bottom: 25px;
+      transform: rotateY(24deg) rotateX(-10deg)
+    }
+
+    .implant-model i {
+      font-size: 31px
+    }
+
+    .doctor-copy .eyebrow {
+      display: inline-block;
+      margin-bottom: 9px
+    }
+
+    .doctor-copy h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 4px
+    }
+
+    .doctor-role {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      font: 700 14px var(--head)
+    }
+
+    .doctor-copy p {
+      color: var(--muted);
+      margin: 0 0 14px
+    }
+
+    .recognition {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+      padding: 15px 17px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      font: 700 13px/1.5 var(--head)
+    }
+
+    .recognition i {
+      color: #e8a526;
+      font-size: 21px
+    }
+
+    .clinical-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px
+    }
+
+    .clinical-gallery-card {
+      margin: 0;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(8, 43, 82, .07)
+    }
+
+    .clinical-gallery-trigger {
+      display: block;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      padding: 0;
+      overflow: hidden;
+      background: #e8f2fb;
+      cursor: zoom-in
+    }
+
+    .clinical-gallery-trigger img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s ease
+    }
+
+    .clinical-gallery-image--diagnostic {
+      object-fit: contain !important;
+      padding: 8px;
+      background: #f2f7fc
+    }
+
+    .clinical-gallery-trigger:hover img {
+      transform: scale(1.06)
+    }
+
+    .clinical-gallery-caption {
+      min-height: 84px;
+      padding: 13px 15px 15px
+    }
+
+    .clinical-gallery-caption strong {
+      display: block;
+      margin-bottom: 4px;
+      font: 700 13px/1.4 var(--head)
+    }
+
+    .clinical-gallery-caption span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45
+    }
+
+    .clinical-gallery-caption a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-underline-offset: 2px
+    }
+
+    .clinical-lightbox {
+      width: min(1080px, calc(100vw - 32px));
+      max-width: none;
+      max-height: calc(100vh - 32px);
+      margin: auto;
+      padding: 0;
+      overflow: visible;
+      border: 0;
+      border-radius: 20px;
+      background: #061f3c;
+      color: #fff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .45)
+    }
+
+    .clinical-lightbox::backdrop {
+      background: rgba(3, 14, 28, .9)
+    }
+
+    .clinical-lightbox[open] {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr) 58px;
+      align-items: center;
+      gap: 8px
+    }
+
+    .clinical-lightbox button {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, .26);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      font-size: 18px
+    }
+
+    .clinical-lightbox button:hover {
+      background: rgba(255, 255, 255, .22)
+    }
+
+    .clinical-lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 1
+    }
+
+    .clinical-lightbox figure {
+      min-width: 0;
+      margin: 0;
+      padding: 20px 0 16px;
+      text-align: center
+    }
+
+    .clinical-lightbox-image {
+      display: block;
+      width: 100%;
+      height: min(68vh, 700px);
+      object-fit: contain
+    }
+
+    .clinical-lightbox-caption {
+      padding: 14px 12px 0;
+      color: #e5f4ff;
+      font-size: 13px
+    }
+
+    .callout {
+      margin-top: 28px;
+      padding: 30px;
+      border-radius: 24px;
+      background: linear-gradient(120deg, #082b52, #14538c);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px
+    }
+
+    .callout p {
+      margin: 5px 0 0;
+      color: #d6eaff
+    }
+
+    .callout a {
+      white-space: nowrap;
+      background: white;
+      color: var(--navy);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px
+    }
+
+    .footer {
+      background: var(--navy);
+      color: #fff;
+      padding: 25px 0;
+      font-size: 12px
+    }
+
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px
+    }
+
+    @media(max-width:760px) {
+      .frame {
+        border-radius: 0
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .links {
+        gap: 6px
+      }
+
+      .links a {
+        padding: 8px 11px
+      }
+
+      .hero-copy {
+        padding-top: 52px
+      }
+
+      .hero .container {
+        grid-template-columns: 1fr;
+        gap: 12px
+      }
+
+      .hero::before {
+        left: -18%;
+        bottom: -112px;
+        width: 140%;
+        height: 190px
+      }
+
+      .about-hero-visual {
+        width: min(100%, 440px);
+        min-height: 220px;
+        height: 240px;
+        margin: 0 auto -8px
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+        margin-top: -45px
+      }
+
+      .doctor-section,
+      .gallery-section {
+        padding-top: 58px
+      }
+
+      .doctor-card {
+        grid-template-columns: 1fr;
+        gap: 26px;
+        padding: 22px
+      }
+
+      .doctor-visual {
+        min-height: 300px
+      }
+
+      .doctor-portrait {
+        height: 300px;
+        width: min(100%, 300px)
+      }
+
+      .tooth-model {
+        left: max(0px, calc((100% - 300px) / 2 - 20px))
+      }
+
+      .implant-model {
+        right: max(0px, calc((100% - 300px) / 2 - 20px))
+      }
+
+      .clinical-gallery-grid {
+        gap: 10px
+      }
+
+      .clinical-gallery-card {
+        border-radius: 12px
+      }
+
+      .clinical-gallery-caption {
+        min-height: 98px;
+        padding: 11px
+      }
+
+      .clinical-gallery-caption strong {
+        font-size: 12px
+      }
+
+      .clinical-gallery-caption span {
+        font-size: 10px
+      }
+
+      .clinical-lightbox {
+        width: calc(100vw - 16px);
+        border-radius: 14px
+      }
+
+      .clinical-lightbox[open] {
+        grid-template-columns: 42px minmax(0, 1fr) 42px;
+        gap: 0
+      }
+
+      .clinical-lightbox button {
+        width: 38px;
+        height: 38px
+      }
+
+      .clinical-lightbox-close {
+        top: 7px;
+        right: 7px
+      }
+
+      .clinical-lightbox-image {
+        height: min(64vh, 560px)
+      }
+
+      .panel {
+        padding: 23px
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .callout {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .footer .container {
+        flex-direction: column;
+        text-align: center
+      }
+    }
+
+    @media(min-width:700px) {
+      .clinical-gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+      }
+    }
+
+    @media(min-width:1000px) {
+      .clinical-gallery-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr))
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      .clinical-gallery-trigger img {
+        transition: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-chrome-header">
+      <div class="site-chrome-inner">
+        <a class="site-chrome-brand" href="index.html" aria-label="Gupta Dental Clinic home">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span>Gupta Dental Clinic</span>
+        </a>
+        <button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation"
+          aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars"
+            aria-hidden="true"></i><span>Menu</span></button>
+        <nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation">
+          <a href="index.html" data-page="index.html">Home</a>
+          <a href="about.html" data-page="about.html">About</a>
+          <a href="services.html" data-page="services.html">Services &amp; Products</a>
+          <a href="contact-us.html" data-page="contact-us.html">Contact</a>
+          <a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a>
+        </nav>
+      </div>
+  </header>
+  <div class="frame">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-copy">
+          <div class="eyebrow">Aesthetic Smile &amp; Implant Centre</div>
+          <h1>Care that helps you<br><span>smile with confidence.</span></h1>
+          <p>Get to know Gupta Dental Clinic in New Barganda, Giridih, Jharkhand. Contact our team to discuss dental
+            care, treatment options and visit enquiries.</p>
+        </div>
+        <div class="about-hero-visual">
+          <img src="about-dental-3d.png" alt="3D dental illustration featuring a tooth, clear aligners and an implant"
+            width="1536" height="1024" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+    <main class="container content">
+      <div class="intro-grid">
+        <section class="panel">
+          <h2>About Gupta Dental Clinic</h2>
+          <p class="muted">Recognized by GDCH Mumbai for excellence in clinical dentistry, Gupta Dental Clinic –
+            Aesthetic Smile &amp; Implant Centre is Giridih’s premier destination for high-end Orthodontics, Smile
+            Designing, and advanced Implantology. Led by Dr. Pratikshit Anand, we combine elite institutional standards
+            with AI-enhanced technology to provide painless, precision-driven dental care. We specialize in discreet
+            Braces, Clear Aligners, and custom Digital Smile Makeovers that restore both function and confidence. Using
+            3D-guided technology for Dental Implants and Zirconia Crowns, we ensure world-class, aesthetic, and
+            long-lasting results. We are dedicated to providing a premium experience for every patient. Visit us at
+            NH114A, Professor Colony, New Barganda.</p>
+          <div class="feature-list">
+            <div class="feature"><i class="fa-solid fa-tooth"></i><strong>Dental care</strong><span>General and
+                preventive care enquiries</span></div>
+            <div class="feature"><i class="fa-solid fa-wand-magic-sparkles"></i><strong>Smile
+                aesthetics</strong><span>Cosmetic dentistry and whitening enquiries</span></div>
+            <div class="feature"><i class="fa-solid fa-teeth"></i><strong>Tooth replacement</strong><span>Implant,
+                denture and bridge enquiries</span></div>
+            <div class="feature"><i class="fa-solid fa-child"></i><strong>Family care</strong><span>Age-appropriate
+                dental visit enquiries</span></div>
+          </div>
+        </section>
+        <aside class="panel">
+          <h2>Clinic information</h2>
+          <div class="facts">
+            <div class="fact"><i class="fa-solid fa-location-dot"></i>
+              <div><strong>Address</strong>
+                <p>NH114A, Professor Colony, New Barganda, Giridih, Jharkhand – 815302</p>
+              </div>
+            </div>
+            <div class="fact"><i class="fa-solid fa-phone"></i>
+              <div><strong>Phone</strong>
+                <p><a href="tel:+917739957487">+91 77399 57487</a></p>
+              </div>
+            </div>
+            <div class="fact"><i class="fa-brands fa-whatsapp"></i>
+              <div><strong>WhatsApp</strong>
+                <p><a href="https://wa.me/917739957487" target="_blank" rel="noopener">Chat with the clinic</a></p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <section class="doctor-section" aria-labelledby="doctor-heading">
+        <div class="section-heading">
+          <span class="eyebrow">Meet your dentist</span>
+          <h2 id="doctor-heading">Care led by Dr. Pratikshit Anand</h2>
+          <p>A personal approach, precision-focused dentistry, and a commitment to helping every patient feel at ease.
+          </p>
+        </div>
+        <article class="doctor-card">
+          <div class="doctor-visual" aria-label="Dr. Pratikshit Anand with 3D dental illustrations">
+            <img class="doctor-portrait" src="dr-gupta.png" alt="Dr. Pratikshit Anand at Gupta Dental Clinic"
+              loading="lazy">
+            <span class="model-orbit tooth-model" aria-hidden="true"><i class="fa-solid fa-tooth"></i></span>
+            <span class="model-orbit implant-model" aria-hidden="true"><i class="fa-solid fa-teeth"></i></span>
+          </div>
+          <div class="doctor-copy">
+            <span class="eyebrow">Aesthetic Smile &amp; Implant Centre</span>
+            <h2>Dr. Pratikshit Anand</h2>
+            <span class="doctor-role">Lead Dentist</span>
+            <p>Dr. Anand leads Gupta Dental Clinic with a focus on careful diagnosis, precision-driven treatment, and
+              comfortable patient care. He works with patients to understand their goals and explore treatment options
+              for healthy, confident smiles.</p>
+            <p>From orthodontic care and digital smile makeovers to implant dentistry, every treatment begins with a
+              personal consultation and a plan tailored to the individual.</p>
+            <div class="recognition"><i class="fa-solid fa-award" aria-hidden="true"></i><span>Recognized by GDCH
+                Mumbai for excellence in clinical dentistry.</span></div>
+          </div>
+        </article>
+      </section>
+      <section class="gallery-section" aria-labelledby="gallery-heading">
+        <div class="section-heading">
+          <span class="eyebrow">Care, progress &amp; precision</span>
+          <h2 id="gallery-heading">Clinical Cases &amp; Treatment Gallery</h2>
+          <p>Explore selected dental treatment cases, diagnostic images and clinical progress showcasing different
+            aspects of modern dentistry at Gupta Dental Clinic.</p>
+        </div>
+        <div class="clinical-gallery-grid">
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge intraoral examination image">
+              <img
+                src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=82"
+                alt="Close-up of teeth during an intraoral examination with dental instruments" width="900" height="675"
+                loading="lazy" decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Intraoral examination</strong><span>Close-up of teeth
+                during an intraoral examination with dental instruments.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge clear aligner image">
+              <img
+                src="https://teethcarecentre.com/dentist-ahmedabad-india/wp-content/uploads/2023/02/invisalign-ahmedabad-best-orthodontist-braces-treatment-top-cental-clinic-dr-nirav-patel-aligner-clear-tray-economical-top-provider-flash-orthodontics-clear-correct-3.jpg"
+                alt="Clear removable aligner shown over the teeth" width="900" height="675" loading="lazy"
+                decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Clear aligner detail</strong><span>A clear removable
+                aligner is positioned over the teeth.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge diagnostic scan review image">
+              <img
+                src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=82"
+                alt="Clinician reviewing a 3D dental scan on a monitor" width="900" height="675" loading="lazy"
+                decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>3D diagnostic scan review</strong><span>A clinician
+                reviews a 3D dental scan on a monitor.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge orthodontic braces image">
+              <img src="gallery-orthodontic-braces.jpg" alt="Close-up of teeth fitted with fixed orthodontic braces"
+                width="960" height="570" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Fixed orthodontic braces</strong><span>Close view of
+                teeth fitted with brackets and archwires. Photo by Arsan Adel Albayati, public domain
+                (<a href="https://commons.wikimedia.org/wiki/File:006_fixed_orthodontic_appliance.JPG" target="_blank"
+                  rel="noopener noreferrer">source</a>).</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge panoramic imaging consultation">
+              <img
+                src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=82"
+                alt="Clinician discussing a panoramic dental X-ray displayed on a monitor" width="900" height="675"
+                loading="lazy" decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Panoramic imaging review</strong><span>A clinician
+                discusses a panoramic dental X-ray displayed on a monitor.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge root canal radiograph">
+              <img class="clinical-gallery-image--diagnostic" src="Root canal treatment (RCT).jpg"
+                alt="Dental radiograph showing root canal filling within a tooth" width="1280" height="853"
+                loading="lazy" decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Root canal radiograph</strong><span>Dental radiograph
+                showing root canal filling within a tooth.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge endodontic treatment radiograph">
+              <img class="clinical-gallery-image--diagnostic"
+                src="Single Sitting Root Canal Treatment RCT Root Canal Cos.jpg"
+                alt="Dental X-ray showing root canal filling in a molar" width="512" height="371" loading="lazy"
+                decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Endodontic treatment X-ray</strong><span>X-ray showing
+                root canal filling in a molar.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge dental implant system reference">
+              <img src="DIO Dental Implants in Giridih.png" alt="DIO dental implant components and product artwork"
+                width="341" height="512" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Implant system components</strong><span>DIO implant
+                components and system packaging shown in product information artwork.</span></figcaption>
+          </figure>
+          <figure class="clinical-gallery-card">
+            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge crown and bridge illustration">
+              <img class="clinical-gallery-image--diagnostic" src="gallery-bridge-illustration.png"
+                alt="Diagram comparing conventional and Maryland dental bridge designs" width="960" height="410"
+                loading="lazy" decoding="async">
+            </button>
+            <figcaption class="clinical-gallery-caption"><strong>Crowns &amp; bridges</strong><span>Diagram comparing
+                preparation for a conventional bridge and a Maryland bridge. Khalid Aletaibi,
+                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY
+                  4.0 license</a>
+                (<a
+                  href="https://commons.wikimedia.org/wiki/File:Bridge_for_a_missing_front_tooth_-_crown_preparation_vs_no-prep_Maryland_wing.svg"
+                  target="_blank" rel="noopener noreferrer">source</a>; thumbnail rendition, no substantive
+                changes).</span></figcaption>
+          </figure>
+        </div>
+      </section>
+      <dialog class="clinical-lightbox" id="clinicalLightbox" aria-label="Clinical gallery image viewer">
+        <button class="clinical-lightbox-close" type="button" id="clinicalLightboxClose"
+          aria-label="Close image viewer"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <button type="button" id="clinicalLightboxPrevious" aria-label="Previous image"><i
+            class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+        <figure>
+          <img class="clinical-lightbox-image" id="clinicalLightboxImage" alt="">
+          <figcaption class="clinical-lightbox-caption" id="clinicalLightboxCaption"></figcaption>
+        </figure>
+        <button type="button" id="clinicalLightboxNext" aria-label="Next image"><i class="fa-solid fa-chevron-right"
+            aria-hidden="true"></i></button>
+      </dialog>
+      <div class="callout">
+        <div>
+          <h2>Have a question about your visit?</h2>
+          <p>Contact the clinic to ask about services or submit an enquiry.</p>
+        </div><a href="contact-us.html#contact-form">Contact the Clinic <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </main>
+    <footer class="site-chrome-footer">
+      <div class="site-chrome-footer-inner">
+        <a class="site-chrome-footer-brand" href="index.html">
+          <img src="gupta-dental-clinic-logo.png" alt="">
+          <span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span>
+        </a>
+        <nav class="site-chrome-footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services &amp;
+            Products</a><a href="contact-us.html">Contact</a>
+        </nav>
+        <div class="site-chrome-footer-contact">
+          <a href="tel:+917739957487">+91 77399 57487</a>
+          <a href="https://wa.me/917739957487" target="_blank" rel="noopener noreferrer">WhatsApp the clinic</a>
+        </div>
+      </div>
+      <div class="site-chrome-footer-bottom">
+        <span>© <span data-current-year></span> Gupta Dental Clinic. All rights reserved.</span>
+        <span>NH114A, Professor Colony, Giridih, Jharkhand</span>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="site-chrome.js"></script>
+  <script>
+    const clinicalGalleryTriggers = Array.from(document.querySelectorAll('.clinical-gallery-trigger'));
+    const clinicalLightbox = document.getElementById('clinicalLightbox');
+    const clinicalLightboxImage = document.getElementById('clinicalLightboxImage');
+    const clinicalLightboxCaption = document.getElementById('clinicalLightboxCaption');
+    let activeClinicalImage = 0;
+
+    function showClinicalImage(index) {
+      activeClinicalImage = (index + clinicalGalleryTriggers.length) % clinicalGalleryTriggers.length;
+      const trigger = clinicalGalleryTriggers[activeClinicalImage];
+      const thumbnail = trigger.querySelector('img');
+      const caption = trigger.closest('figure').querySelector('.clinical-gallery-caption');
+      clinicalLightboxImage.src = thumbnail.currentSrc || thumbnail.src;
+      clinicalLightboxImage.alt = thumbnail.alt;
+      clinicalLightboxCaption.textContent = `${caption.querySelector('strong').textContent} — ${caption.querySelector('span').textContent}`;
+      if (!clinicalLightbox.open) clinicalLightbox.showModal();
+    }
+
+    clinicalGalleryTriggers.forEach((trigger, index) => {
+      trigger.addEventListener('click', () => showClinicalImage(index));
+    });
+
+    document.getElementById('clinicalLightboxPrevious').addEventListener('click', () => {
+      showClinicalImage(activeClinicalImage - 1);
+    });
+    document.getElementById('clinicalLightboxNext').addEventListener('click', () => {
+      showClinicalImage(activeClinicalImage + 1);
+    });
+    document.getElementById('clinicalLightboxClose').addEventListener('click', () => clinicalLightbox.close());
+    clinicalLightbox.addEventListener('click', (event) => {
+      if (event.target === clinicalLightbox) clinicalLightbox.close();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (!clinicalLightbox.open) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        clinicalLightbox.close();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showClinicalImage(activeClinicalImage - 1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        showClinicalImage(activeClinicalImage + 1);
+      }
+    });
+  </script>
+</body>
+
+</html>
