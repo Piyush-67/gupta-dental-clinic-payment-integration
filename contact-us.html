@@ -649,7 +649,7 @@
       <div class="contact-layout">
         <section class="contact-card" data-aos="fade-up" id="contact-form">
           <h2>Request an appointment</h2>
-          <p class="intro">Complete the form, then continue to WhatsApp to contact the clinic. Your details are not sent automatically.</p>
+          <p class="intro">Complete the form to securely submit your enquiry and pay the ₹5 processing fee. Payment does not confirm an appointment; the clinic will contact you separately to coordinate one.</p>
           <form id="contactForm">
             <div class="field"><label for="name">Full name <span aria-hidden="true">*</span></label><input
                 autocomplete="name" id="name" name="name" placeholder="Enter patient's full name" required
@@ -682,17 +682,16 @@
                 <option>Other</option>
               </select></div>
             <div class="field consent-field"><label class="consent-label"><input id="consent" name="consent"
-                  type="checkbox" required /> I understand this website does not send my form details. I can share them
-                with the clinic separately via WhatsApp if I choose. <span aria-hidden="true">*</span></label>
+                  type="checkbox" required /> I consent to Gupta Dental Clinic securely receiving and processing these
+                details to handle my enquiry. The ₹5 fee is for enquiry processing and does not confirm an appointment.
+                The clinic will contact me separately to coordinate one. <span aria-hidden="true">*</span></label>
               <p class="small-note">Please provide only information needed for this enquiry. This form does not submit
                 an appointment request or provide a diagnosis. A dentist will assess any dental concern during
                 consultation.</p>
             </div>
-            <button class="btn form-submit" id="submitEnquiry" type="submit">Submit Enquiry <i aria-hidden="true"
-                class="fa-solid fa-arrow-right"></i></button>
-            <p class="small-note" id="formStatus" role="status" aria-live="polite">This form does not save or send
-              your details. Continue to WhatsApp to contact the clinic; your form details will not be transferred
-              automatically.</p>
+            <button class="btn form-submit" id="submitEnquiry" type="submit">Proceed to Payment · ₹5 →</button>
+            <p class="small-note" id="formStatus" role="status" aria-live="polite">Your details are sent to the clinic
+              when you submit this form. Please provide only information needed for your enquiry.</p>
           </form>
         </section>
         <aside class="contact-card" data-aos="fade-up" data-aos-delay="120">
@@ -754,6 +753,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="site-chrome.js"></script>
   <script src="clinic-config.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="clinic.js"></script>
 </body>
 

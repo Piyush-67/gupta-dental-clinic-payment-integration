@@ -1,64 +1,60 @@
 <?php
 declare(strict_types=1);
 
-require_once dirname(__DIR__) . '/services/PaymentService.php';
-
-// Return JSON responses
-header('Content-Type: application/json; charset=utf-8');
-header('Cache-Control: no-store');
-
-// Allow POST requests only
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Method not allowed.'
-    ]);
-
-    exit;
-}
-
-// Read JSON request body
-$input = json_decode(
-    file_get_contents('php://input'),
-    true
-);
-
-if (!is_array($input)) {
-    http_response_code(400);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Invalid request.'
-    ]);
-
-    exit;
-}
+require_once __DIR__ . '/ApiResponse.php';
+ApiResponse::initialize();
 
 try {
-    // Create payment order using server-controlled amount
-    $paymentService = new PaymentService();
+    ApiResponse::requirePost();
+    $input = ApiResponse::readJsonBody();
+    $requestToken = $input['request_token'] ?? null;
 
-    $order = $paymentService->createOrder();
+    if (!is_string($requestToken)) {
+        throw new InvalidArgumentException('Invalid enquiry request token.');
+    }
 
-    http_response_code(201);
+    require_once dirname(__DIR__) . '/services/PatientEnquiryService.php';
+    require_once dirname(__DIR__) . '/services/PaymentService.php';
 
-    echo json_encode([
+    $enquiry = (new PatientEnquiryService())->createOrFind(
+        $input,
+        $requestToken
+    );
+    $order = (new PaymentService())->createOrder($enquiry['id']);
+    $hasOrder = $order['order_id'] !== null;
+    $orderReady = $hasOrder && $order['order_creation_status'] === 'created';
+    $status = $order['payment_status'] === 'captured'
+        ? 200
+        : ($orderReady ? 201 : 202);
+
+    ApiResponse::send($status, [
         'success' => true,
-        'message' => 'Payment order created successfully.',
-        'data' => $order
+        'message' => $status === 200
+            ? 'Payment was already confirmed.'
+            : ($orderReady
+                ? 'Payment order created successfully.'
+                : 'Payment order status is being checked. Do not submit a new enquiry.'),
+        'data' => $order,
     ]);
-
-} catch (Throwable $e) {
-
-    // Keep technical errors in server logs
-    error_log('Create order error: ' . $e->getMessage());
-
-    http_response_code(500);
-
-    echo json_encode([
+} catch (ApiException $e) {
+    ApiResponse::send($e->httpStatus, [
         'success' => false,
-        'message' => 'Unable to create payment order. Please try again.'
+        'message' => $e->getMessage(),
+    ]);
+} catch (InvalidArgumentException $e) {
+    ApiResponse::send(400, [
+        'success' => false,
+        'message' => $e->getMessage(),
+    ]);
+} catch (DomainException $e) {
+    ApiResponse::send(409, [
+        'success' => false,
+        'message' => $e->getMessage(),
+    ]);
+} catch (Throwable $e) {
+    error_log('Create enquiry order error: ' . $e->getMessage());
+    ApiResponse::send(502, [
+        'success' => false,
+        'message' => 'Unable to confirm a payment order. Retry with the same enquiry and do not submit new details.',
     ]);
 }
