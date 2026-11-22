@@ -71,8 +71,8 @@ ADMIN DASHBOARD
   migration has been reviewed and applied by an authorized database operator.
 - Apply database/migrations/20261122_zz_admin_dashboard.sql after the existing
   patient-enquiry migration. It creates admin_users, admin_login_attempts,
-  admin_audit_log, and enquiry_followups; it does not alter existing patient
-  or payment rows.
+  admin_audit_log, enquiry_followups, and
+  enquiry_followup_audit; it does not alter existing patient or payment rows.
   This implementation has not applied it to the clinic database; obtain
   separate owner approval before applying it there.
 - No default administrator is seeded. Usernames are normalized to lowercase
@@ -91,12 +91,20 @@ ADMIN DASHBOARD
 - Credential changes are written to admin_audit_log without recording
   passwords. Password resets and deactivation invalidate existing sessions;
   the last active administrator cannot be deactivated.
+- Every actual follow-up status transition is transactionally recorded in
+  enquiry_followup_audit with the previous/new status, administrator and
+  timestamp. Re-saving an unchanged status does not add a transition entry.
+- Login throttling combines per-username limits across IPs, per-IP attempt and
+  username-bucket limits, and a global distributed-attempt ceiling. Expired
+  attempts are not deleted during login; schedule the CLI cleanup daily:
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\cleanup-admin-attempts.php
 - Follow-up status is independent of payment lifecycle status. “Confirmed” in
   follow-up means the enquiry was marked for follow-up; it is not an
   appointment confirmation. Payments, payment attempts, and webhook events
   are read-only. The current webhook_events schema has no processing-error
   column, so the dashboard does not invent or display one.
 - Refresh Data is manual; the dashboard does not poll in the background.
+- Dashboard record timestamps are displayed in the Asia/Kolkata time zone.
 - Production administration must be served over HTTPS. Dashboard pages and
   APIs require an authenticated administrator session and CSRF token.
 

@@ -238,6 +238,43 @@ try {
         $captured['payment_status'] === 'captured',
         'Follow-up update changed payment lifecycle state.'
     );
+    $followUpAudit = $db->prepare(
+        'SELECT previous_status, new_status, admin_user_id
+         FROM enquiry_followup_audit
+         WHERE patient_enquiry_id = ?
+         ORDER BY id DESC
+         LIMIT 1'
+    );
+    $followUpAudit->execute([$capturedEnquiryId]);
+    $auditEntry = $followUpAudit->fetch();
+    expectResult(
+        $auditEntry['previous_status'] === 'New' &&
+        $auditEntry['new_status'] === 'Contacted' &&
+        (int) $auditEntry['admin_user_id'] === $adminId,
+        'Follow-up status audit did not record the administrator and transition.'
+    );
+    expectResult(
+        $captured['follow_up_history'][0]['previous_status'] === 'New' &&
+        $captured['follow_up_history'][0]['new_status'] === 'Contacted' &&
+        $captured['follow_up_history'][0]['changed_by'] === $username,
+        'Enquiry details did not return the follow-up audit history.'
+    );
+    expectResult(
+        count($captured['follow_up_history']) === 1 &&
+        $captured['follow_up_history'][0]['previous_status'] === 'New' &&
+        $captured['follow_up_history'][0]['new_status'] === 'Contacted' &&
+        $captured['follow_up_history'][0]['changed_by'] === $username &&
+        $captured['follow_up_history'][0]['changed_at'] !== null,
+        'Enquiry details did not return the full follow-up audit trail.'
+    );
+    $dashboard->updateFollowUpStatus($capturedEnquiryId, 'Contacted', $adminId);
+    expectResult(
+        (int) $db->query(
+            'SELECT COUNT(*) FROM enquiry_followup_audit WHERE patient_enquiry_id = ' .
+            (int) $capturedEnquiryId
+        )->fetchColumn() === 1,
+        'An unchanged follow-up status created a duplicate audit entry.'
+    );
     expectResult(
         $dashboard->getOverview()['new_enquiries'] === 2,
         'New enquiry count did not reflect the follow-up update.'
@@ -407,6 +444,91 @@ try {
         !AdminAuth::authenticate($db, $renamedUsername, $newPassword),
         'Login rate limit did not block repeated failures.'
     );
+
+    $db->exec('DELETE FROM admin_login_attempts');
+    $seedAttempt = $db->prepare(
+        'INSERT INTO admin_login_attempts (username_hash, client_ip)
+         VALUES (?, ?)'
+    );
+    for ($i = 0; $i < 30; $i++) {
+        $seedAttempt->execute([
+            hash('sha256', 'shared-ip-' . ($i % 7)),
+            '192.0.2.20',
+        ]);
+    }
+    $_SERVER['REMOTE_ADDR'] = '192.0.2.20';
+    expectResult(
+        !AdminAuth::authenticate($db, $backupUsername, $boundaryPassword),
+        'Shared-IP authentication throttling was bypassed.'
+    );
+
+    $db->exec('DELETE FROM admin_login_attempts');
+    for ($i = 0; $i < 5; $i++) {
+        $seedAttempt->execute([
+            hash('sha256', $renamedUsername),
+            '192.0.2.' . (30 + $i),
+        ]);
+    }
+    $_SERVER['REMOTE_ADDR'] = '192.0.2.40';
+    expectResult(
+        !AdminAuth::authenticate($db, $renamedUsername, $newPassword),
+        'Distributed attempts against one username bypassed throttling.'
+    );
+
+    $db->exec('DELETE FROM admin_login_attempts');
+    for ($i = 0; $i < 100; $i++) {
+        $seedAttempt->execute([
+            hash('sha256', 'distributed-user-' . $i),
+            '198.51.' . (intdiv($i, 254) + 1) . '.' . (($i % 254) + 1),
+        ]);
+    }
+    $_SERVER['REMOTE_ADDR'] = '203.0.113.250';
+    expectResult(
+        !AdminAuth::authenticate($db, $backupUsername, $boundaryPassword),
+        'Distributed attempts across usernames and IPs bypassed the global throttle.'
+    );
+
+    $db->exec('DELETE FROM admin_login_attempts');
+    for ($i = 0; $i < 8; $i++) {
+        $seedAttempt->execute([
+            hash('sha256', 'shared-ip-user-' . $i),
+            '192.0.2.60',
+        ]);
+    }
+    $_SERVER['REMOTE_ADDR'] = '192.0.2.60';
+    expectResult(
+        !AdminAuth::authenticate($db, $backupUsername, $boundaryPassword),
+        'Shared-IP username-bucket throttling was bypassed.'
+    );
+
+    $db->exec('DELETE FROM admin_login_attempts');
+    $expiredAttempt = $db->prepare(
+        'INSERT INTO admin_login_attempts
+            (username_hash, client_ip, attempted_at)
+         VALUES (?, ?, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 2 DAY))'
+    );
+    $expiredAttempt->execute([hash('sha256', 'expired-login'), '192.0.2.77']);
+    $_SERVER['REMOTE_ADDR'] = '192.0.2.77';
+    expectResult(
+        !AdminAuth::authenticate($db, 'cleanup-check', 'incorrect-password'),
+        'Unknown account unexpectedly authenticated.'
+    );
+    expectResult(
+        (int) $db->query(
+            'SELECT COUNT(*) FROM admin_login_attempts
+             WHERE attempted_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY)'
+        )->fetchColumn() === 1,
+        'Login authentication performed expired-attempt cleanup.'
+    );
+    expectResult(
+        AdminAuth::pruneExpiredLoginAttempts($db) === 1 &&
+        (int) $db->query(
+            'SELECT COUNT(*) FROM admin_login_attempts
+             WHERE attempted_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY)'
+        )->fetchColumn() === 0,
+        'Explicit login-attempt cleanup did not remove expired rows.'
+    );
+
     $auditCount = $db->prepare(
         'SELECT COUNT(*) FROM admin_audit_log WHERE target_admin_id = ?'
     );

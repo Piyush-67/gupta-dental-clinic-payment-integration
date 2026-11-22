@@ -222,6 +222,19 @@ final class AdminDashboardService
             $attempts->execute([(int) $enquiry['payment_record_id']]);
             $enquiry['attempts'] = $attempts->fetchAll();
         }
+        $history = $this->db->prepare(
+            'SELECT
+                h.previous_status,
+                h.new_status,
+                h.changed_at,
+                a.username AS changed_by
+             FROM enquiry_followup_audit h
+             LEFT JOIN admin_users a ON a.id = h.admin_user_id
+             WHERE h.patient_enquiry_id = ?
+             ORDER BY h.changed_at DESC, h.id DESC'
+        );
+        $history->execute([$id]);
+        $enquiry['follow_up_history'] = $history->fetchAll();
         return $enquiry;
     }
 
@@ -235,32 +248,83 @@ final class AdminDashboardService
         }
         self::assertFollowUpStatus($status);
 
-        $exists = $this->db->prepare(
-            'SELECT id FROM patient_enquiries WHERE id = ? LIMIT 1'
-        );
-        $exists->execute([$enquiryId]);
-        if (!$exists->fetchColumn()) {
-            return false;
+        $nested = $this->db->inTransaction();
+        $savepoint = 'admin_followup_update';
+        if ($nested) {
+            $this->db->exec('SAVEPOINT ' . $savepoint);
+        } else {
+            $this->db->beginTransaction();
         }
 
-        $stmt = $this->db->prepare(
-            'INSERT INTO enquiry_followups
-                (patient_enquiry_id, follow_up_status, updated_by_admin_id)
-             VALUES (?, ?, ?)
-             ON DUPLICATE KEY UPDATE
-                follow_up_status = ?,
-                updated_by_admin_id = ?,
-                updated_at = CURRENT_TIMESTAMP'
-        );
-        $stmt->execute([
-            $enquiryId,
-            $status,
-            $adminId,
-            $status,
-            $adminId,
-        ]);
+        try {
+            $exists = $this->db->prepare(
+                'SELECT id FROM patient_enquiries WHERE id = ? FOR UPDATE'
+            );
+            $exists->execute([$enquiryId]);
+            if (!$exists->fetchColumn()) {
+                if ($nested) {
+                    $this->db->exec('ROLLBACK TO SAVEPOINT ' . $savepoint);
+                    $this->db->exec('RELEASE SAVEPOINT ' . $savepoint);
+                } else {
+                    $this->db->rollBack();
+                }
+                return false;
+            }
 
-        return true;
+            $current = $this->db->prepare(
+                "SELECT follow_up_status
+                 FROM enquiry_followups
+                 WHERE patient_enquiry_id = ?
+                 FOR UPDATE"
+            );
+            $current->execute([$enquiryId]);
+            $previousStatus = $current->fetchColumn();
+            $previousStatus = $previousStatus === false
+                ? 'New'
+                : (string) $previousStatus;
+
+            if ($previousStatus === $status) {
+                if ($nested) {
+                    $this->db->exec('RELEASE SAVEPOINT ' . $savepoint);
+                } else {
+                    $this->db->commit();
+                }
+                return true;
+            }
+
+            $upsert = $this->db->prepare(
+                'INSERT INTO enquiry_followups
+                    (patient_enquiry_id, follow_up_status, updated_by_admin_id)
+                 VALUES (?, ?, ?)
+                 ON DUPLICATE KEY UPDATE
+                    follow_up_status = VALUES(follow_up_status),
+                    updated_by_admin_id = VALUES(updated_by_admin_id),
+                    updated_at = CURRENT_TIMESTAMP'
+            );
+            $upsert->execute([$enquiryId, $status, $adminId]);
+
+            $audit = $this->db->prepare(
+                'INSERT INTO enquiry_followup_audit
+                    (patient_enquiry_id, admin_user_id, previous_status, new_status)
+                 VALUES (?, ?, ?, ?)'
+            );
+            $audit->execute([$enquiryId, $adminId, $previousStatus, $status]);
+            if ($nested) {
+                $this->db->exec('RELEASE SAVEPOINT ' . $savepoint);
+            } else {
+                $this->db->commit();
+            }
+
+            return true;
+        } catch (Throwable $e) {
+            if ($nested && $this->db->inTransaction()) {
+                $this->db->exec('ROLLBACK TO SAVEPOINT ' . $savepoint);
+                $this->db->exec('RELEASE SAVEPOINT ' . $savepoint);
+            } elseif ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            throw $e;
+        }
     }
 
     public function getPayments(array $filters): array

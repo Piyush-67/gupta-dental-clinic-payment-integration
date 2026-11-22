@@ -26,6 +26,7 @@ try {
     }
 
     $db = Database::connect();
+    $db->exec("SET time_zone = '+05:30'");
     if (!AdminAuth::isAuthenticated($db)) {
         throw new ApiException('Authentication required.', 401);
     }

@@ -7,8 +7,9 @@ final class AdminAuth
 {
     private const SESSION_TIMEOUT_SECONDS = 1800;
     private const USERNAME_ATTEMPT_LIMIT = 5;
-    private const IP_ATTEMPT_LIMIT = 20;
-
+    private const IP_ATTEMPT_LIMIT = 30;
+    private const GLOBAL_ATTEMPT_LIMIT = 100;
+    private const MAX_USERNAME_BUCKETS_PER_IP = 8;
     private static ?string $dummyPasswordHash = null;
 
     public static function start(): void
@@ -164,24 +165,26 @@ final class AdminAuth
             $clientIp = 'unknown';
         }
 
-        $db->exec(
-            'DELETE FROM admin_login_attempts
-             WHERE attempted_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY)'
-        );
-
         $rateLimit = $db->prepare(
             'SELECT
                 COALESCE(SUM(username_hash = ?), 0) AS username_attempts,
-                COALESCE(SUM(client_ip = ?), 0) AS ip_attempts
+                COALESCE(SUM(client_ip = ?), 0) AS ip_attempts,
+                COUNT(*) AS global_attempts,
+                COUNT(DISTINCT CASE
+                    WHEN client_ip = ? THEN username_hash
+                    ELSE NULL
+                END) AS ip_username_buckets
              FROM admin_login_attempts
              WHERE attempted_at >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 15 MINUTE)'
         );
-        $rateLimit->execute([$usernameHash, $clientIp]);
+        $rateLimit->execute([$usernameHash, $clientIp, $clientIp]);
         $counts = $rateLimit->fetch();
 
         if (
             (int) $counts['username_attempts'] >= self::USERNAME_ATTEMPT_LIMIT ||
-            (int) $counts['ip_attempts'] >= self::IP_ATTEMPT_LIMIT
+            (int) $counts['ip_attempts'] >= self::IP_ATTEMPT_LIMIT ||
+            (int) $counts['global_attempts'] >= self::GLOBAL_ATTEMPT_LIMIT ||
+            (int) $counts['ip_username_buckets'] >= self::MAX_USERNAME_BUCKETS_PER_IP
         ) {
             password_verify($verificationCandidate, self::dummyPasswordHash());
             return false;
@@ -238,6 +241,19 @@ final class AdminAuth
         $clearAttempts->execute([$usernameHash]);
 
         return true;
+    }
+
+    public static function pruneExpiredLoginAttempts(PDO $db): int
+    {
+        $deleted = $db->exec(
+            'DELETE FROM admin_login_attempts
+             WHERE attempted_at < DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY)'
+        );
+        if ($deleted === false) {
+            throw new RuntimeException('Unable to prune expired login attempts.');
+        }
+
+        return $deleted;
     }
 
     public static function adminId(): int

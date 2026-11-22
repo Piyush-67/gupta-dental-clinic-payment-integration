@@ -671,6 +671,16 @@ td strong {
   font: 700 14px 'Plus Jakarta Sans', Inter, sans-serif;
 }
 
+.follow-up-history {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
 .detail-actions {
   display: flex;
   align-items: end;

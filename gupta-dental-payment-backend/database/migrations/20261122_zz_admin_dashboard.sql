@@ -75,3 +75,36 @@ CREATE TABLE enquiry_followups (
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE enquiry_followup_audit (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    patient_enquiry_id BIGINT UNSIGNED NOT NULL,
+    admin_user_id BIGINT UNSIGNED NOT NULL,
+    previous_status ENUM(
+        'New',
+        'Contacted',
+        'Confirmed',
+        'Completed',
+        'Cancelled'
+    ) NOT NULL,
+    new_status ENUM(
+        'New',
+        'Contacted',
+        'Confirmed',
+        'Completed',
+        'Cancelled'
+    ) NOT NULL,
+    changed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_followup_audit_enquiry_changed (
+        patient_enquiry_id,
+        changed_at
+    ),
+    KEY idx_followup_audit_admin_changed (admin_user_id, changed_at),
+    CONSTRAINT fk_followup_audit_patient
+        FOREIGN KEY (patient_enquiry_id) REFERENCES patient_enquiries (id),
+    CONSTRAINT fk_followup_audit_admin
+        FOREIGN KEY (admin_user_id) REFERENCES admin_users (id)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;

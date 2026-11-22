@@ -68,6 +68,16 @@
     webhooksPage: 1
   };
   const loadedViews = new Set();
+  const dateTimeFormatter = new Intl.DateTimeFormat('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'medium',
+    timeZone: 'Asia/Kolkata'
+  });
+  const refreshTimeFormatter = new Intl.DateTimeFormat('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'Asia/Kolkata'
+  });
   const detailDialog = document.getElementById('detailDialog');
   const detailContent = document.getElementById('detailContent');
   const refreshButton = document.getElementById('refreshData');
@@ -83,10 +93,7 @@
   }
 
   function markRefreshSuccess() {
-    lastRefresh.textContent = new Intl.DateTimeFormat(undefined, {
-      dateStyle: 'medium',
-      timeStyle: 'short'
-    }).format(new Date());
+    lastRefresh.textContent = refreshTimeFormatter.format(new Date());
     refreshMessage.textContent = '';
     refreshMessage.classList.remove('is-error');
   }
@@ -127,12 +134,14 @@
 
   function dateTime(value) {
     if (!value) return '—';
-    const date = new Date(String(value).replace(' ', 'T'));
+    const raw = String(value);
+    const date = new Date(
+      /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(raw)
+        ? `${raw.replace(' ', 'T')}+05:30`
+        : raw
+    );
     if (Number.isNaN(date.getTime())) return String(value);
-    return new Intl.DateTimeFormat(undefined, {
-      dateStyle: 'medium',
-      timeStyle: 'short'
-    }).format(date);
+    return dateTimeFormatter.format(date);
   }
 
   function money(amountPaise, currency = 'INR') {
@@ -318,6 +327,22 @@
     note.className = 'notice';
     note.textContent = 'This status tracks clinic follow-up only; “Confirmed” does not mean an appointment is booked and never changes payment status.';
     content.append(note);
+    appendSectionTitle(content, 'Follow-up status history');
+    if (detail.follow_up_history.length === 0) {
+      const emptyHistory = document.createElement('p');
+      emptyHistory.className = 'table-message';
+      emptyHistory.textContent = 'No follow-up status changes have been recorded.';
+      content.append(emptyHistory);
+    } else {
+      const history = document.createElement('ul');
+      history.className = 'follow-up-history';
+      detail.follow_up_history.forEach(change => {
+        const entry = document.createElement('li');
+        entry.textContent = `${change.previous_status} → ${change.new_status} · ${text(change.changed_by, 'Administrator unavailable')} · ${dateTime(change.changed_at)}`;
+        history.append(entry);
+      });
+      content.append(history);
+    }
 
     const actions = document.createElement('div');
     actions.className = 'detail-actions';
@@ -343,7 +368,7 @@
       try {
         await postData(updateEndpoint, { id, status: select.value });
         detail.follow_up_status = select.value;
-        detail.follow_up_updated_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        detail.follow_up_updated_at = new Date().toISOString();
         detail.follow_up_updated_by = document.querySelector('.admin-account span:last-child')?.textContent || '';
         setMessage('enquiriesMessage', 'Follow-up status updated.');
         if (loadedViews.has('enquiries')) await loadEnquiries(state.enquiriesPage);
