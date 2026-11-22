@@ -66,6 +66,74 @@ Production deployment must use HTTPS and protect the database and application
 logs. A ₹5 payment is an enquiry processing fee, not an appointment
 confirmation or a diagnosis.
 
+ADMIN DASHBOARD
+- The admin dashboard is available at /admin/login.php after its additive
+  migration has been reviewed and applied by an authorized database operator.
+- Apply database/migrations/20261122_zz_admin_dashboard.sql after the existing
+  patient-enquiry migration. It creates admin_users, admin_login_attempts,
+  admin_audit_log, and enquiry_followups; it does not alter existing patient
+  or payment rows.
+  This implementation has not applied it to the clinic database; obtain
+  separate owner approval before applying it there.
+- No default administrator is seeded. Usernames are normalized to lowercase
+  and must be 3-64 characters using letters, numbers, dots, underscores or
+  hyphens. Create the first authorized account from an interactive CLI:
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\create-admin.php
+- Passwords must be 12-72 bytes, are entered through a masked prompt, and are
+  stored as PHP password hashes. The setup utility is CLI-only and refuses to
+  create a second initial account.
+- Manage credentials from an interactive CLI (replace placeholders with the
+  account's normalized username):
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\manage-admin.php rename old-user new-user
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\manage-admin.php reset-password user-name
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\manage-admin.php activate user-name
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\manage-admin.php deactivate user-name
+- Credential changes are written to admin_audit_log without recording
+  passwords. Password resets and deactivation invalidate existing sessions;
+  the last active administrator cannot be deactivated.
+- Follow-up status is independent of payment lifecycle status. “Confirmed” in
+  follow-up means the enquiry was marked for follow-up; it is not an
+  appointment confirmation. Payments, payment attempts, and webhook events
+  are read-only. The current webhook_events schema has no processing-error
+  column, so the dashboard does not invent or display one.
+- Refresh Data is manual; the dashboard does not poll in the background.
+- Production administration must be served over HTTPS. Dashboard pages and
+  APIs require an authenticated administrator session and CSRF token.
+
+SAFE ADMIN TESTS
+- Run the disposable-database integration suite with:
+  C:\xampp\php\php.exe C:\xampp\htdocs\gupta-dental-clinic\gupta-dental-payment-backend\scripts\run-admin-tests.php
+- The runner creates a uniquely named gdc_admin_dash_test_* database, imports
+  the fresh-install schema and admin migration, runs the test suite, and drops
+  only that generated database. It never uses DB_NAME and has no fallback to
+  gupta_dental_payments. The configured database account must have permission
+  to create and drop databases; otherwise the runner fails without running the
+  tests. Never change the test database prefix or point tests at clinic data.
+
+HOSTINGER DEPLOYMENT
+- The public site and PHP backend use relative, same-origin API paths. Deploy
+  them under the same HTTPS origin and preserve the
+  gupta-dental-payment-backend/api/ path, or implement a separately reviewed
+  origin/CSRF configuration before splitting the hosts. Do not enable wildcard
+  CORS.
+- Use PHP 8.2, install the locked Composer dependencies, keep .env outside
+  version control, set APP_ENV=production and APP_DEBUG=false, and supply
+  production Razorpay and database values through the hosting environment.
+  Never place production credentials in HTML, JavaScript, or this repository.
+- Back up the production database, verify its schema and migrations, obtain
+  separate owner approval for the admin migration, and apply it once. Then run
+  the CLI account-creation command over a trusted SSH terminal. No web-based
+  credential setup is provided.
+- Configure Razorpay's HTTPS webhook callback to the existing
+  gupta-dental-payment-backend/api/webhook.php endpoint and set
+  RAZORPAY_WEBHOOK_SECRET in the protected backend environment. Do not change
+  webhook processing code as part of dashboard deployment.
+- Disable PHP display_errors, enable protected server-side error logging,
+  restrict the database account to the required application database, and
+  verify Apache access rules are active. If the host ignores .htaccess, move
+  non-public backend configuration, migrations, tests, and CLI utilities
+  outside the document root before deployment.
+
 WEBSITE PAGES
 - index.html: Homepage
 - about.html: Clinic information
