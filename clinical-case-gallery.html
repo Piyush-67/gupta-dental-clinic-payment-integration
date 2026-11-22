@@ -10,19 +10,41 @@
   <link rel="stylesheet" href="site-chrome.css"><link rel="stylesheet" href="phase-pages.css">
 </head>
 <body>
-  <header class="site-chrome-header"><div class="site-chrome-inner"><a class="site-chrome-brand" href="index.html"><img src="gupta-dental-clinic-logo.jpg" alt=""><span>Gupta Dental Clinic</span></a><button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation" aria-expanded="false"><i class="fa-solid fa-bars"></i><span>Menu</span></button><nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation"><a href="index.html">Home</a><div class="site-chrome-about"><a href="about.html">About</a><div class="site-chrome-about-menu"><a href="dr-pratikshit-anand.html">Dr. Pratikshit Anand</a><a href="about.html">Gupta Dental Clinic</a></div></div><a href="services.html">Dental Treatments</a><a href="technology-infrastructure.html">Technology</a><a href="clinical-case-gallery.html" aria-current="page">Cases</a><a href="patient-reviews.html">Reviews</a><a href="dental-health-blog.html">Blog</a><a href="contact-us.html">Contact</a><a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a></nav></div></header>
+  <header class="site-chrome-header"><div class="site-chrome-inner"><a class="site-chrome-brand" href="index.html"><img src="gupta-dental-clinic-logo.jpg" alt=""><span>Gupta Dental Clinic</span></a><button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation" aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button><nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation"><a href="index.html" data-page="index.html">Home</a><div class="site-chrome-dropdown"><button class="site-chrome-dropdown-toggle" type="button" aria-expanded="false" aria-controls="siteAboutMenu">About <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><div class="site-chrome-dropdown-menu" id="siteAboutMenu"><a href="dr-pratikshit-anand.html" data-page="dr-pratikshit-anand.html">About Dr. Pratikshit Anand</a><a href="about.html" data-page="about.html">About Gupta Dental Clinic</a></div></div><a href="services.html" data-page="services.html">Dental Treatments</a><a href="technology-infrastructure.html" data-page="technology-infrastructure.html">Technology</a><a href="clinical-case-gallery.html" data-page="clinical-case-gallery.html" aria-current="page">Cases</a><a href="patient-reviews.html" data-page="patient-reviews.html">Reviews</a><a href="dental-health-blog.html" data-page="dental-health-blog.html">Blog</a><a href="contact-us.html" data-page="contact-us.html">Contact</a><a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a></nav></div></header>
   <main class="phase-frame">
-    <section class="phase-hero"><div class="phase-container phase-hero-grid"><div><div class="phase-eyebrow">Clinical case gallery</div><h1>Dental care, diagnostics and treatment references</h1><p>Images are presented for educational and treatment-information purposes. Patient privacy and consent are respected.</p></div><div class="phase-hero-image"><img src="gallery-orthodontic-braces.jpg" alt="Orthodontic clinical reference"></div></div></section>
-    <section class="phase-section"><div class="phase-container"><div class="phase-section-heading"><div class="phase-eyebrow">Genuine clinic assets</div><h2>Case categories</h2><p>Only verified local clinical or product images are used. Additional patient before-and-after cases will be added after authorized consent and review.</p></div><div class="phase-gallery">
-      <figure><img src="gallery-orthodontic-braces.jpg" alt="Fixed orthodontic braces"><figcaption><strong>Orthodontics</strong><br>Fixed orthodontic braces clinical reference.</figcaption></figure>
-      <figure><img src="Root canal treatment (RCT).jpg" alt="Root canal diagnostic radiograph"><figcaption><strong>Root canal treatment</strong><br>Root canal radiograph reference.</figcaption></figure>
-      <figure><img src="Single Sitting Root Canal Treatment RCT Root Canal Cos.jpg" alt="Endodontic treatment radiograph"><figcaption><strong>Endodontics</strong><br>Endodontic treatment X-ray reference.</figcaption></figure>
-      <figure><img src="DIO Dental Implants in Giridih.png" alt="Dental implant system components"><figcaption><strong>Implants</strong><br>Verified implant system artwork.</figcaption></figure>
-      <figure><img src="Simple Tooth Extraction in Giridih.jpg" alt="Tooth extraction reference"><figcaption><strong>Tooth extraction</strong><br>Extraction information reference.</figcaption></figure>
-      <figure><img src="Impacted Wisdom Tooth Removal in Giridih.png" alt="Impacted tooth removal reference"><figcaption><strong>Wisdom tooth care</strong><br>Impacted tooth removal information reference.</figcaption></figure>
-    </div></div></section>
+    <section class="phase-hero"><div class="phase-container phase-hero-grid"><div><div class="phase-eyebrow">Clinical case gallery</div><h1>Patient cases, shared with care</h1><p>No case collection with verified clinic source and documented patient consent is available in the local project files yet. Images without that information are not presented as patient results.</p></div><div class="phase-hero-image"><div class="phase-card"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i><h3>Privacy before publication</h3><p>Clinical photos and radiographs will be added only after the clinic confirms their source, sequence and patient consent.</p></div></div></div></section>
+    <section class="phase-section"><div class="phase-container">
+      <div class="phase-section-heading"><div class="phase-eyebrow">Case gallery structure</div><h2>Case records awaiting clinic-approved images</h2><p>The available local files include dental imagery but do not document its patient source or consent. Those images are intentionally excluded here rather than shown as clinic cases.</p></div>
+      <div class="phase-grid">
+        <article class="phase-card">
+          <div class="phase-eyebrow">Radiographic records</div><h3>Diagnostic imaging sequence</h3>
+          <div class="case-media-grid">
+            <div class="case-media-slot"><i class="fa-solid fa-x-ray" aria-hidden="true"></i><strong>Panoramic OPG</strong><span>Clinic-approved image needed</span></div>
+            <div class="case-media-slot"><i class="fa-solid fa-x-ray" aria-hidden="true"></i><strong>Intraoral X-rays</strong><span>Clinic-approved images needed</span></div>
+          </div>
+          <p>Provide related radiographs with identifying details removed and consent confirmed.</p>
+        </article>
+        <article class="phase-card">
+          <div class="phase-eyebrow">Orthodontic records</div><h3>Intraoral views and progression</h3>
+          <div class="case-media-grid">
+            <div class="case-media-slot"><i class="fa-solid fa-camera" aria-hidden="true"></i><strong>Upper and lower arches</strong><span>Consented clinical photos needed</span></div>
+            <div class="case-media-slot"><i class="fa-solid fa-images" aria-hidden="true"></i><strong>Treatment stages</strong><span>Ordered progression images needed</span></div>
+          </div>
+          <p>Supply matching arch views, verified progression order and clinic-reviewed annotations where available.</p>
+        </article>
+        <article class="phase-card">
+          <div class="phase-eyebrow">Treatment outcomes</div><h3>Matched comparison set</h3>
+          <div class="case-media-grid">
+            <div class="case-media-slot"><i class="fa-solid fa-image" aria-hidden="true"></i><strong>Before treatment</strong><span>Verified source and consent needed</span></div>
+            <div class="case-media-slot"><i class="fa-solid fa-image" aria-hidden="true"></i><strong>After treatment</strong><span>Genuine matching photo needed</span></div>
+          </div>
+          <p>Before-and-after comparisons will be shown only when images genuinely match and publication consent is documented.</p>
+        </article>
+      </div>
+      <p class="phase-source-note" role="note">No patient names, treatment claims, outcomes or clinical explanations are inferred from the current assets. Please provide source-confirmed, consent-cleared, anonymized images and any verified case descriptions before publication.</p>
+    </div></section>
   </main>
-  <footer class="site-chrome-footer"><div class="site-chrome-footer-inner"><a class="site-chrome-footer-brand" href="index.html"><img src="gupta-dental-clinic-logo.jpg" alt=""><span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span></a><nav class="site-chrome-footer-links"><a href="index.html">Home</a><a href="dr-pratikshit-anand.html">Doctor</a><a href="about.html">Clinic</a><a href="services.html">Treatments</a><a href="contact-us.html">Contact</a></nav><div class="site-chrome-footer-contact"><a href="tel:+917739957487">+91 77399 57487</a><a href="https://wa.me/917739957487" target="_blank">WhatsApp</a></div></div></footer>
+  <footer class="site-chrome-footer"><div class="site-chrome-footer-inner"><a class="site-chrome-footer-brand" href="index.html"><img src="gupta-dental-clinic-logo.jpg" alt=""><span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span></a><nav class="site-chrome-footer-links" aria-label="Footer navigation"><a href="index.html">Home</a><a href="dr-pratikshit-anand.html">About Dr. Pratikshit Anand</a><a href="about.html">About Gupta Dental Clinic</a><a href="services.html">Dental Treatments</a><a href="technology-infrastructure.html">Technology</a><a href="clinical-case-gallery.html">Cases</a><a href="patient-reviews.html">Reviews</a><a href="dental-health-blog.html">Blog</a><a href="contact-us.html">Contact</a><a href="contact-us.html#contact-form">Book an Appointment</a></nav><div class="site-chrome-footer-contact"><a href="tel:+917739957487">+91 77399 57487</a><a href="https://wa.me/917739957487" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></div></footer>
   <script src="site-chrome.js"></script>
 </body>
 </html>
