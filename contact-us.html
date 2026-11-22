@@ -775,15 +775,25 @@
   <header class="site-chrome-header">
       <div class="site-chrome-inner">
         <a class="site-chrome-brand" href="index.html" aria-label="Gupta Dental Clinic home">
-          <img src="gupta-dental-clinic-logo.jpg" alt="Gupta Dental Clinic" style="width: 140px; height: 70px; border-radius: 10px;">
+          <img src="gupta-dental-clinic-logo.jpg" alt="">
           <span>Gupta Dental Clinic</span>
         </a>
         <button class="site-chrome-menu" id="siteMenuToggle" type="button" aria-controls="siteNavigation"
           aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button>
         <nav class="site-chrome-nav" id="siteNavigation" aria-label="Main navigation">
           <a href="index.html" data-page="index.html">Home</a>
-          <a href="about.html" data-page="about.html">About</a>
-          <a href="services.html" data-page="services.html">Services &amp; Products</a>
+          <div class="site-chrome-dropdown">
+            <button class="site-chrome-dropdown-toggle" type="button" aria-expanded="false" aria-controls="siteAboutMenu">About <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+            <div class="site-chrome-dropdown-menu" id="siteAboutMenu">
+              <a href="dr-pratikshit-anand.html" data-page="dr-pratikshit-anand.html">About Dr. Pratikshit Anand</a>
+              <a href="about.html" data-page="about.html">About Gupta Dental Clinic</a>
+            </div>
+          </div>
+          <a href="services.html" data-page="services.html">Dental Treatments</a>
+          <a href="technology-infrastructure.html" data-page="technology-infrastructure.html">Technology</a>
+          <a href="clinical-case-gallery.html" data-page="clinical-case-gallery.html">Cases</a>
+          <a href="patient-reviews.html" data-page="patient-reviews.html">Reviews</a>
+          <a href="dental-health-blog.html" data-page="dental-health-blog.html">Blog</a>
           <a href="contact-us.html" data-page="contact-us.html">Contact</a>
           <a class="site-chrome-cta" href="contact-us.html#contact-form">Book an Appointment</a>
         </nav>
@@ -949,7 +959,7 @@
           <span><strong>Gupta Dental Clinic</strong><span>Thoughtful dental care in Giridih.</span></span>
         </a>
         <nav class="site-chrome-footer-links" aria-label="Footer navigation">
-          <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services &amp; Products</a><a href="contact-us.html">Contact</a>
+          <a href="index.html">Home</a><a href="dr-pratikshit-anand.html">About Dr. Pratikshit Anand</a><a href="about.html">About Gupta Dental Clinic</a><a href="services.html">Dental Treatments</a><a href="technology-infrastructure.html">Technology</a><a href="clinical-case-gallery.html">Cases</a><a href="patient-reviews.html">Reviews</a><a href="dental-health-blog.html">Blog</a><a href="contact-us.html">Contact</a><a href="contact-us.html#contact-form">Book an Appointment</a>
         </nav>
         <div class="site-chrome-footer-contact">
           <a href="tel:+917739957487">+91 77399 57487</a>
