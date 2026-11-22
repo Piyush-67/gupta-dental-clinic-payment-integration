@@ -338,6 +338,103 @@
       font: 700 13px/1.5 var(--head)
     }
 
+    .clinic-location-section {
+      padding-top: 68px
+    }
+
+    .clinic-location-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+      align-items: stretch;
+      gap: 22px
+    }
+
+    .clinic-location-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      min-width: 0;
+      padding: 26px;
+      border: 1px solid var(--gdc-line);
+      border-radius: 20px;
+      background: var(--gdc-cool-white)
+    }
+
+    .clinic-location-details h3 {
+      margin: 0;
+      color: var(--gdc-navy);
+      font: 800 20px/1.35 var(--gdc-heading-font)
+    }
+
+    .clinic-location-address {
+      margin: 0;
+      color: var(--gdc-muted);
+      font-size: 14px
+    }
+
+    .clinic-location-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 8px
+    }
+
+    .clinic-location-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 11px 16px;
+      border: 1px solid var(--gdc-navy);
+      border-radius: 12px;
+      background: var(--gdc-navy);
+      color: #fff;
+      font: 800 12px/1.3 var(--gdc-heading-font);
+      transition: background-color .18s ease, border-color .18s ease
+    }
+
+    .clinic-location-button:hover {
+      border-color: var(--gdc-deep-blue);
+      background: var(--gdc-deep-blue)
+    }
+
+    .clinic-location-button.secondary {
+      border-color: var(--gdc-teal);
+      background: var(--gdc-teal);
+      color: var(--gdc-navy)
+    }
+
+    .clinic-location-button.secondary:hover {
+      border-color: var(--gdc-deep-blue);
+      background: var(--gdc-soft-aqua)
+    }
+
+    .clinic-location-button:focus-visible {
+      outline: 3px solid var(--gdc-teal);
+      outline-offset: 3px
+    }
+
+    .clinic-location-map {
+      min-width: 0;
+      min-height: 360px;
+      overflow: hidden;
+      border: 1px solid var(--gdc-line);
+      border-radius: 20px;
+      background: var(--gdc-soft-aqua);
+      box-shadow: var(--gdc-shadow)
+    }
+
+    .clinic-location-map iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      border: 0
+    }
+
     .doctor-card {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -630,6 +727,23 @@
         border-radius: 0
       }
 
+      .clinic-location-section {
+        padding-top: 54px
+      }
+
+      .clinic-location-grid {
+        grid-template-columns: 1fr
+      }
+
+      .clinic-location-details {
+        padding: 22px
+      }
+
+      .clinic-location-map,
+      .clinic-location-map iframe {
+        min-height: 320px
+      }
+
       .nav {
         align-items: flex-start;
         flex-direction: column
@@ -887,7 +1001,7 @@
       <section class="clinic-exterior-section" aria-labelledby="clinic-exterior-heading">
         <div class="section-heading">
           <span class="eyebrow">Visit the clinic</span>
-          <h2 id="clinic-exterior-heading">Gupta Dental Clinic exterior</h2>
+          <h2 id="clinic-exterior-heading">Gupta Dental Clinic</h2>
           <p>Find the clinic entrance and street-facing frontage in New Barganda, Giridih.</p>
         </div>
         <div class="clinic-exterior-grid">
@@ -903,6 +1017,31 @@
               width="1360" height="1020" loading="lazy" decoding="async">
             <figcaption>Street-facing clinic frontage</figcaption>
           </figure>
+        </div>
+      </section>
+      <section class="clinic-location-section" aria-labelledby="clinic-location-heading">
+        <div class="section-heading">
+          <span class="eyebrow">Our location</span>
+          <h2 id="clinic-location-heading">Visit Gupta Dental Clinic</h2>
+          <p>We look forward to welcoming you. Find us in New Barganda, Giridih, or get directions before your visit.</p>
+        </div>
+        <div class="clinic-location-grid">
+          <div class="clinic-location-details">
+            <h3>Gupta Dental Clinic – Aesthetic Smile &amp; Implant Centre</h3>
+            <p class="clinic-location-address">NH114A, Professor Colony, New Barganda, Giridih, Jharkhand 815302, India.</p>
+            <div class="clinic-location-actions">
+              <a class="clinic-location-button"
+                href="https://www.google.com/maps/dir/?api=1&amp;destination=24.1941656%2C86.3075841"
+                target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> Get Directions</a>
+              <a class="clinic-location-button secondary" href="tel:+917739957487"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Clinic</a>
+            </div>
+          </div>
+          <div class="clinic-location-map">
+            <iframe
+              src="https://www.google.com/maps?q=24.1941656%2C86.3075841&amp;z=17&amp;output=embed"
+              title="Google Map showing Gupta Dental Clinic at NH114A, Professor Colony, New Barganda, Giridih"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
       <section class="doctor-section" aria-labelledby="doctor-heading">
