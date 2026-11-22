@@ -305,6 +305,39 @@
       padding-top: 78px
     }
 
+    .clinic-exterior-section {
+      padding-top: 68px
+    }
+
+    .clinic-exterior-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px
+    }
+
+    .clinic-exterior-card {
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(8, 43, 82, .08)
+    }
+
+    .clinic-exterior-card img {
+      display: block;
+      width: 100%;
+      height: clamp(220px, 30vw, 360px);
+      object-fit: cover
+    }
+
+    .clinic-exterior-card figcaption {
+      padding: 14px 17px;
+      color: var(--navy);
+      font: 700 13px/1.5 var(--head)
+    }
+
     .doctor-card {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -643,6 +676,19 @@
         padding-top: 58px
       }
 
+      .clinic-exterior-section {
+        padding-top: 50px
+      }
+
+      .clinic-exterior-grid {
+        grid-template-columns: 1fr;
+        gap: 14px
+      }
+
+      .clinic-exterior-card {
+        border-radius: 14px
+      }
+
       .doctor-card {
         grid-template-columns: 1fr;
         gap: 26px;
@@ -838,6 +884,27 @@
           </div>
         </aside>
       </div>
+      <section class="clinic-exterior-section" aria-labelledby="clinic-exterior-heading">
+        <div class="section-heading">
+          <span class="eyebrow">Visit the clinic</span>
+          <h2 id="clinic-exterior-heading">Gupta Dental Clinic exterior</h2>
+          <p>Find the clinic entrance and street-facing frontage in New Barganda, Giridih.</p>
+        </div>
+        <div class="clinic-exterior-grid">
+          <figure class="clinic-exterior-card">
+            <img src="exterior-of-gdc.webp"
+              alt="Gupta Dental Clinic entrance at night, showing its glass storefront and clinic signage"
+              width="1020" height="1020" loading="lazy" decoding="async">
+            <figcaption>Clinic entrance</figcaption>
+          </figure>
+          <figure class="clinic-exterior-card">
+            <img src="exterior-of-gdc(1).webp"
+              alt="Street-facing exterior of Gupta Dental Clinic with the clinic sign above the entrance"
+              width="1360" height="1020" loading="lazy" decoding="async">
+            <figcaption>Street-facing clinic frontage</figcaption>
+          </figure>
+        </div>
+      </section>
       <section class="doctor-section" aria-labelledby="doctor-heading">
         <div class="section-heading">
           <span class="eyebrow">Meet your dentist</span>
@@ -894,29 +961,11 @@
             <figcaption class="clinical-gallery-caption"><strong>Clear aligner reference</strong><span>Illustrative aligner image; not a patient result.</span></figcaption>
           </figure>
           <figure class="clinical-gallery-card">
-            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge dental care illustration">
-              <img
-                src="about-dental-3d.png"
-                alt="Illustrative 3D dental graphic with tooth replacement and aligner imagery" width="900" height="675" loading="lazy"
-                decoding="async">
-            </button>
-            <figcaption class="clinical-gallery-caption"><strong>Dental care illustration</strong><span>Generic dental illustration; not a photograph of clinic equipment or a patient case.</span></figcaption>
-          </figure>
-          <figure class="clinical-gallery-card">
             <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge orthodontic braces image">
               <img src="gallery-orthodontic-braces.jpg" alt="Close-up of teeth fitted with fixed orthodontic braces"
                 width="960" height="570" loading="lazy" decoding="async">
             </button>
             <figcaption class="clinical-gallery-caption"><strong>Orthodontic braces reference</strong><span>Illustrative braces image; not a patient case.</span></figcaption>
-          </figure>
-          <figure class="clinical-gallery-card">
-            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge panoramic imaging consultation">
-              <img
-                src="https://lh3.googleusercontent.com/9XZTQZdWF4jR82t9iKh87KGgBE9O0UMqnIedoL6L50VGv7fK7o58fZQdAcuMOKBq77KKoWr8f-HUBpqurw=s0"
-                alt="Clinician discussing a panoramic dental X-ray displayed on a monitor" width="900" height="675"
-                loading="lazy" decoding="async">
-            </button>
-            <figcaption class="clinical-gallery-caption"><strong>Panoramic imaging illustration</strong><span>Illustrative imaging discussion; no equipment availability is implied.</span></figcaption>
           </figure>
           <figure class="clinical-gallery-card">
             <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge root canal radiograph">
@@ -941,15 +990,6 @@
                 width="341" height="512" loading="lazy" decoding="async">
             </button>
             <figcaption class="clinical-gallery-caption"><strong>Implant product artwork</strong><span>Product information image; not a clinical case or treatment result.</span></figcaption>
-          </figure>
-          <figure class="clinical-gallery-card">
-            <button class="clinical-gallery-trigger" type="button" aria-label="Enlarge crown and bridge illustration">
-              <img class="clinical-gallery-image--diagnostic"
-                src="gallery-bridge-illustration.png"
-                alt="Educational diagram comparing conventional and Maryland dental bridge designs" width="960" height="410"
-                loading="lazy" decoding="async">
-            </button>
-            <figcaption class="clinical-gallery-caption"><strong>Dental bridge design diagram</strong><span>Illustration comparing bridge designs; not a before-and-after result.</span></figcaption>
           </figure>
         </div>
       </section>
