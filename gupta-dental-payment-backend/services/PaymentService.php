@@ -154,6 +154,43 @@ class PaymentService
         return $this->formatOrderResponse($record);
     }
 
+    public function getCapturedConfirmationForOrder(string $orderId): ?array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT e.full_name, e.primary_phone, e.reason_for_visit,
+                    p.enquiry_reference, p.razorpay_payment_id,
+                    p.amount_paise, p.currency, p.verified_at
+             FROM payment_records p
+             INNER JOIN patient_enquiries e ON e.id = p.patient_enquiry_id
+             WHERE p.razorpay_order_id = ?
+               AND p.payment_status = ?
+               AND p.enquiry_reference IS NOT NULL
+               AND p.razorpay_payment_id IS NOT NULL
+               AND e.enquiry_status = ?
+             LIMIT 1'
+        );
+        $stmt->execute([$orderId, 'captured', 'payment_confirmed']);
+        $confirmation = $stmt->fetch();
+
+        if (!$confirmation) {
+            return null;
+        }
+
+        return [
+            'full_name' => (string) $confirmation['full_name'],
+            'primary_phone' => (string) $confirmation['primary_phone'],
+            'reason_for_visit' => (string) $confirmation['reason_for_visit'],
+            'reference' => (string) $confirmation['enquiry_reference'],
+            'payment_id' => (string) $confirmation['razorpay_payment_id'],
+            'amount_paise' => (int) $confirmation['amount_paise'],
+            'currency' => (string) $confirmation['currency'],
+            'payment_status' => 'captured',
+            'verified_at' => $confirmation['verified_at'] === null
+                ? null
+                : (string) $confirmation['verified_at'],
+        ];
+    }
+
     public function verifyPayment(
         string $orderId,
         string $paymentId,

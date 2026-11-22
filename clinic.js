@@ -23,11 +23,16 @@
 
   const status = document.getElementById('formStatus');
   const submit = document.getElementById('submitEnquiry');
+  const confirmation = document.getElementById('paymentConfirmation');
+  const confirmationHeading = document.getElementById('contactFormHeading');
+  const confirmationIntro = document.getElementById('contactFormIntro');
+  const whatsappLink = document.getElementById('sendEnquiryWhatsapp');
   const apiBase = new URL(
     'gupta-dental-payment-backend/api/',
     document.baseURI
   );
   const requestTokenKey = 'gdc.enquiry.request-token';
+  const whatsappNumber = '917739957487';
   const defaultButtonText = 'Proceed to Payment · ₹5 →';
 
   let requestToken = null;
@@ -122,25 +127,80 @@
     };
   }
 
-  function showSuccess(reference) {
-    if (typeof reference !== 'string' || !/^GDC-[0-9]{6,}$/.test(reference)) {
-      throw new Error('The server did not return a valid enquiry reference.');
+  function showSuccess(receipt) {
+    if (
+      !receipt ||
+      receipt.payment_status !== 'captured' ||
+      receipt.currency !== 'INR' ||
+      receipt.amount_paise !== 500 ||
+      typeof receipt.full_name !== 'string' ||
+      receipt.full_name.trim() === '' ||
+      typeof receipt.primary_phone !== 'string' ||
+      receipt.primary_phone.trim() === '' ||
+      typeof receipt.reason_for_visit !== 'string' ||
+      receipt.reason_for_visit.trim() === '' ||
+      typeof receipt.reference !== 'string' ||
+      !/^GDC-[0-9]{6,}$/.test(receipt.reference) ||
+      typeof receipt.payment_id !== 'string' ||
+      !/^pay_[A-Za-z0-9]+$/.test(receipt.payment_id) ||
+      !/^91[6-9][0-9]{9}$/.test(whatsappNumber)
+    ) {
+      throw new Error('Verified payment details are not available yet.');
     }
+
+    const message = [
+      'Hello Gupta Dental Clinic,',
+      '',
+      'I have successfully submitted my online enquiry and completed the ₹5.00 enquiry processing payment.',
+      '',
+      'PATIENT DETAILS',
+      `Name: ${receipt.full_name}`,
+      `Mobile: ${receipt.primary_phone}`,
+      `Enquiry Reference: ${receipt.reference}`,
+      '',
+      'ENQUIRY DETAILS',
+      `Reason for Visit: ${receipt.reason_for_visit}`,
+      '',
+      'PAYMENT DETAILS',
+      `Amount: ₹${(receipt.amount_paise / 100).toFixed(2)}`,
+      'Payment Status: Successful',
+      `Payment ID: ${receipt.payment_id}`,
+      '',
+      'Please review my enquiry and contact me regarding the next steps.',
+      '',
+      'Thank you.',
+      receipt.full_name
+    ].join('\n');
 
     paymentCompleted = true;
     paymentVerificationPending = false;
     currentOrder = null;
     setFieldsDisabled(true);
-    setStatus(
-      `Payment successful. Your enquiry has been submitted. Reference: ${reference}. The clinic will contact you to coordinate an appointment.`,
-      'success'
-    );
+    form.hidden = true;
+    confirmationHeading.hidden = true;
+    confirmationIntro.hidden = true;
+    document.getElementById('confirmationPatient').textContent = receipt.full_name;
+    document.getElementById('confirmationPhone').textContent = receipt.primary_phone;
+    document.getElementById('confirmationReference').textContent = receipt.reference;
+    document.getElementById('confirmationAmount').textContent =
+      `₹${(receipt.amount_paise / 100).toFixed(2)}`;
+    document.getElementById('confirmationStatus').textContent = 'Captured';
+    document.getElementById('confirmationPaymentId').textContent = receipt.payment_id;
+    document.getElementById('confirmationReason').textContent = receipt.reason_for_visit;
+
+    const dateRow = document.getElementById('confirmationDateRow');
+    const dateValue = document.getElementById('confirmationDate');
+    dateRow.hidden = typeof receipt.verified_at !== 'string' || receipt.verified_at === '';
+    dateValue.textContent = dateRow.hidden ? '' : receipt.verified_at;
+    whatsappLink.href =
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    confirmation.hidden = false;
     setButton(true, 'Payment Successful');
   }
 
   function applyPaymentState(data) {
     if (data.payment_status === 'captured') {
-      showSuccess(data.reference);
+      showSuccess(data.confirmation);
       return;
     }
 
@@ -208,6 +268,7 @@
       }
 
       paymentVerificationPending = true;
+      setFieldsDisabled(true);
       setStatus(
         'Payment status could not be confirmed. Please do not submit another enquiry or pay again; retry the status check shortly.',
         'warning'
@@ -257,7 +318,7 @@
           const result = await postJson('verify-payment.php', response);
 
           if (result.payment_status === 'captured') {
-            showSuccess(result.reference);
+            showSuccess(result.confirmation);
             return;
           }
 
@@ -362,7 +423,7 @@
       );
 
       if (order.payment_status === 'captured') {
-        showSuccess(order.reference);
+        showSuccess(order.confirmation);
         return;
       }
 

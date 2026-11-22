@@ -20,7 +20,14 @@ try {
         $input,
         $requestToken
     );
-    $order = (new PaymentService())->createOrder($enquiry['id']);
+    $paymentService = new PaymentService();
+    $order = $paymentService->createOrder($enquiry['id']);
+    if ($order['payment_status'] === 'captured' && $order['order_id'] !== null) {
+        $order['confirmation'] = $paymentService->getCapturedConfirmationForOrder(
+            $order['order_id']
+        );
+    }
+
     $hasOrder = $order['order_id'] !== null;
     $orderReady = $hasOrder && $order['order_creation_status'] === 'created';
     $status = $order['payment_status'] === 'captured'

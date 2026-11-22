@@ -22,7 +22,8 @@ try {
         throw new ApiException('Enquiry was not found.', 404);
     }
 
-    $payment = (new PaymentService())->getPaymentStateForEnquiry($enquiry['id']);
+    $paymentService = new PaymentService();
+    $payment = $paymentService->getPaymentStateForEnquiry($enquiry['id']);
     $isCaptured = $payment['payment_status'] === 'captured';
 
     ApiResponse::send(200, [
@@ -32,6 +33,11 @@ try {
             'payment_status' => $payment['payment_status'],
             'order_creation_status' => $payment['order_creation_status'],
             'reference' => $payment['reference'],
+            'confirmation' => $isCaptured && $payment['order_id'] !== null
+                ? $paymentService->getCapturedConfirmationForOrder(
+                    $payment['order_id']
+                )
+                : null,
             'order' => $isCaptured || $payment['order_id'] === null ? null : [
                 'order_id' => $payment['order_id'],
                 'amount' => $payment['amount'],

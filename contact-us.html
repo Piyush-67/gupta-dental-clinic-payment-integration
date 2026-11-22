@@ -366,6 +366,149 @@
       margin-top: 12px
     }
 
+    .payment-confirmation[hidden],
+    .confirmation-date[hidden] {
+      display: none
+    }
+
+    .payment-confirmation {
+      padding: 28px;
+      border: 1px solid rgba(8, 43, 82, .1);
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fff, #f8fbff);
+      box-shadow: 0 12px 32px rgba(8, 43, 82, .08)
+    }
+
+    .confirmation-heading {
+      text-align: center;
+      padding-bottom: 22px
+    }
+
+    .confirmation-icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 13px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #087443;
+      background: #e8f7ef;
+      font-size: 28px
+    }
+
+    .confirmation-brand {
+      color: var(--muted);
+      font: 700 11px var(--head);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 5px
+    }
+
+    .confirmation-heading h2 {
+      margin-bottom: 7px;
+      font-size: 26px
+    }
+
+    .confirmation-heading p:last-child {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .confirmation-details {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff
+    }
+
+    .confirmation-detail {
+      min-width: 0;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .confirmation-detail:nth-child(odd) {
+      border-right: 1px solid var(--line)
+    }
+
+    .confirmation-detail dt {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      margin-bottom: 3px
+    }
+
+    .confirmation-detail dd {
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+      overflow-wrap: anywhere
+    }
+
+    .confirmation-reference dd {
+      color: var(--blue);
+      font: 800 15px var(--head);
+      letter-spacing: .03em
+    }
+
+    .confirmation-support,
+    .appointment-disclaimer {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 18px
+    }
+
+    .appointment-disclaimer {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f0f8ff;
+      color: #244e78
+    }
+
+    .confirmation-whatsapp {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 12px;
+      background: #16834b;
+      color: #fff;
+      font: 700 13px var(--head);
+      text-align: center;
+      transition: background .2s, transform .2s
+    }
+
+    .confirmation-whatsapp:hover {
+      background: #116d3e;
+      transform: translateY(-1px)
+    }
+
+    .confirmation-whatsapp:focus-visible,
+    .confirmation-fallback a:focus-visible {
+      outline: 3px solid rgba(8, 102, 245, .35);
+      outline-offset: 3px
+    }
+
+    .confirmation-fallback {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 11px;
+      text-align: center
+    }
+
+    .confirmation-fallback a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px
+    }
+
     .info-list {
       display: grid;
       gap: 14px;
@@ -536,6 +679,23 @@
         font-size: 22px
       }
 
+      .payment-confirmation {
+        padding: 20px 16px;
+        border-radius: 16px
+      }
+
+      .confirmation-heading h2 {
+        font-size: 23px
+      }
+
+      .confirmation-detail {
+        padding: 11px 10px
+      }
+
+      .confirmation-detail dd {
+        font-size: 11px
+      }
+
       .footer-inner {
         flex-direction: column;
         text-align: center
@@ -648,8 +808,8 @@
     <main class="container">
       <div class="contact-layout">
         <section class="contact-card" data-aos="fade-up" id="contact-form">
-          <h2>Request an appointment</h2>
-          <p class="intro">Complete the form to securely submit your enquiry and pay the ₹5 processing fee. Payment does not confirm an appointment; the clinic will contact you separately to coordinate one.</p>
+          <h2 id="contactFormHeading">Request an appointment</h2>
+          <p class="intro" id="contactFormIntro">Complete the form to securely submit your enquiry and pay the ₹5 processing fee. Payment does not confirm an appointment; the clinic will contact you separately to coordinate one.</p>
           <form id="contactForm">
             <div class="field"><label for="name">Full name <span aria-hidden="true">*</span></label><input
                 autocomplete="name" id="name" name="name" placeholder="Enter patient's full name" required
@@ -693,6 +853,63 @@
             <p class="small-note" id="formStatus" role="status" aria-live="polite">Your details are sent to the clinic
               when you submit this form. Please provide only information needed for your enquiry.</p>
           </form>
+          <section class="payment-confirmation" id="paymentConfirmation" aria-labelledby="confirmationTitle"
+            aria-live="polite" hidden>
+            <header class="confirmation-heading">
+              <span class="confirmation-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+              <p class="confirmation-brand">Gupta Dental Clinic</p>
+              <h2 id="confirmationTitle">Payment Successful!</h2>
+              <p>Your enquiry has been successfully registered.</p>
+            </header>
+            <dl class="confirmation-details">
+              <div class="confirmation-detail">
+                <dt>Patient name</dt>
+                <dd id="confirmationPatient"></dd>
+              </div>
+              <div class="confirmation-detail">
+                <dt>Registered mobile</dt>
+                <dd id="confirmationPhone"></dd>
+              </div>
+              <div class="confirmation-detail confirmation-reference">
+                <dt>Enquiry reference</dt>
+                <dd id="confirmationReference"></dd>
+              </div>
+              <div class="confirmation-detail">
+                <dt>Amount paid</dt>
+                <dd id="confirmationAmount"></dd>
+              </div>
+              <div class="confirmation-detail">
+                <dt>Payment status</dt>
+                <dd id="confirmationStatus">Captured</dd>
+              </div>
+              <div class="confirmation-detail">
+                <dt>Razorpay payment ID</dt>
+                <dd id="confirmationPaymentId"></dd>
+              </div>
+              <div class="confirmation-detail confirmation-date" id="confirmationDateRow" hidden>
+                <dt>Transaction date/time</dt>
+                <dd id="confirmationDate"></dd>
+              </div>
+              <div class="confirmation-detail">
+                <dt>Reason for visit</dt>
+                <dd id="confirmationReason"></dd>
+              </div>
+            </dl>
+            <p class="confirmation-support">Your payment has been verified and your enquiry has been registered.
+              Please send your enquiry to our clinic through WhatsApp so our team can review it and contact you
+              regarding the next steps.</p>
+            <a class="confirmation-whatsapp" id="sendEnquiryWhatsapp" target="_blank"
+              rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              <span>Send Enquiry via WhatsApp</span>
+            </a>
+            <p class="confirmation-fallback">WhatsApp opens with an editable message; opening it does not confirm
+              delivery. If it does not open, message <a href="https://wa.me/917739957487" target="_blank"
+                rel="noopener noreferrer">+91 77399 57487 on WhatsApp</a> or
+              <a href="tel:+917739957487">call the clinic</a>.</p>
+            <p class="appointment-disclaimer">Payment confirmation does not mean that your appointment has been
+              confirmed. Our clinic will contact you separately.</p>
+          </section>
         </section>
         <aside class="contact-card" data-aos="fade-up" data-aos-delay="120">
           <h2>Get in touch</h2>

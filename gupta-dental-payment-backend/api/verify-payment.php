@@ -26,11 +26,18 @@ try {
     }
 
     require_once dirname(__DIR__) . '/services/PaymentService.php';
-    $result = (new PaymentService())->verifyPayment(
+    $paymentService = new PaymentService();
+    $result = $paymentService->verifyPayment(
         $input['razorpay_order_id'],
         $input['razorpay_payment_id'],
         $input['razorpay_signature']
     );
+
+    if ($result['payment_status'] === 'captured') {
+        $result['confirmation'] = $paymentService->getCapturedConfirmationForOrder(
+            $input['razorpay_order_id']
+        );
+    }
 
     if ($result['payment_status'] !== 'captured') {
         ApiResponse::send(202, [

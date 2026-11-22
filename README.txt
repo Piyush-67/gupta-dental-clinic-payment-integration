@@ -38,6 +38,9 @@ PAYMENT AND ENQUIRY FLOW
 - Payment is successful only after server-side verification confirms capture.
 - A unique GDC reference is assigned only after capture. Failed, cancelled,
   authorized-but-uncaptured, or unverified payments do not receive a reference.
+- After capture, the contact page shows a confirmation card using enquiry and
+  payment details returned by the backend. The patient can open an editable
+  WhatsApp message to the clinic; opening WhatsApp does not confirm delivery.
 - The contact page can resume an existing order and recover a confirmed
   payment after a refresh without storing patient details in browser storage.
 
